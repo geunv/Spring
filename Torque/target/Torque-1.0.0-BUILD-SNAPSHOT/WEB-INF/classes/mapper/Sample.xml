@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.ISampleMapper">
+	
+	<parameterMap type="com.spring.model.sample.ParamSample" id="ParamSample"></parameterMap>
+	<resultMap type="com.spring.model.sample.ResultSample" id="ResultSample"></resultMap>
+	
+	
+	<insert id="insertSample" parameterMap="ParamSample">
+		<selectKey keyProperty="num" keyColumn="id" resultType="Integer" order="BEFORE">
+			select SEQ_SAMPLE.NEXTVAL as id from dual
+		</selectKey>
+		insert into SAMPLE (num, title, content,insert_dt) values (#{num}, #{title}, #{content}, sysdate)
+	</insert>
+	
+	<select id="getSample" parameterType="int" resultMap="ResultSample">
+		select num, title, content, insert_dt from SAMPLE where num = #{num}
+	</select>
+	
+	<update id="updateSample" parameterMap="ParamSample">
+		update SAMPLE set title = #{title}, content = #{content} where num = #{num}
+	</update>
+	
+	<delete id="deleteSample" parameterType="int">
+		delete from SAMPLE where num = #{num}
+	</delete>
+
+
+
+</mapper>
