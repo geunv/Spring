@@ -17,6 +17,7 @@
 <jsp:include page="menu.jsp" flush="false" />
 <div class="container">
 	<div id="M_Body">
+		<!-- LEFT -->
 		<div style="float:left;width:59%;height:400px;">
 			<h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_lblToolConnection">Tool  Connection</span></h4>
 			<div class="main_panel">
@@ -55,13 +56,85 @@
            	</div>
            	</div>		
 		</div>
+		<!-- &nbsp -->
+		<div style="float:left;width:2%;">&nbsp;</div>
+		<!-- RIGHT -->
+		<div style="float:left;width:39%;">
+	        <h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_lblRepairConnection">Repair Connection</span></h4>
+	        <div class="main_panel">
+	            <div style="float:right;padding-right:20px;height:30px;padding-top:10px;">
+	                <img src="./images/conn_ok.png">
+	                <span id="ctl00_ContentPlaceHolder1_lblConnected" style="vertical-align:middle;">Connected</span> &nbsp;
+	                <img src="./images/conn_ng.png">
+	                <span id="ctl00_ContentPlaceHolder1_lblDisconnected" style="vertical-align:middle;">Disconnected</span>
+	            </div>
+	            <div style="width:100%;height:350px;text-align:center;padding-left:15px;padding-right:15px;padding-bottom:10px;">
+	                <table width="100%" style="border:1px solid steelblue;">
+	                    <tbody><tr>
+	                        <td width="40%" height="30" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
+	                            <span id="ctl00_ContentPlaceHolder1_lblLine">Line</span>
+	                        </td>
+	                        <td width="30%" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
+	                            <span id="ctl00_ContentPlaceHolder1_lblProgram">Program</span>
+	                        </td>
+	                        <td width="30%" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
+	                            <span id="ctl00_ContentPlaceHolder1_lblTool">Tool</span>
+	                        </td>
+	                    </tr>
+	                </tbody></table>
+	                <div style="width:100%;height:280px;overflow:auto" id="repairList">
+	                	
+	                   <!--  <table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">
+	                        <tbody><tr>
+	                            <td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">T119 KEEPER T1-1                                  </td>
+	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+	                        </tr>
+	                    </tbody></table>
+	                    
+	                    <table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">
+	                        <tbody><tr>
+	                            <td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">T137 KEEPER T1-2                                  </td>
+	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+	                        </tr>
+	                    </tbody></table> -->
+	                    
+	                    
+	                    
+	                </div>
+	            </div>
+					        
+	        </div>
+	    </div>
+		<!-- bottom graph  -->	
+		<div style="float:left;width:100%;height:400px;">
+	        <h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_Label1">Tightening Result</span></h4>
+	        <div class="main_panel">
+	            <div style="padding-top:20px;padding-bottom:20px;height:400px;">
+	            	<div style="float:left;width:49%;/* border:1px solid red; */">
+	            		<div id="barchart1"></div>
+					</div>
+	            	<div style="float:left;width:2%;">&nbsp;</div>
+	            	<div style="float:left;width:49%;">
+	            		<div id="barchart2"></div>
+	            	</div>
+	                <!-- <map id="ctl00$ContentPlaceHolder1$Chart1Map" name="ctl00$ContentPlaceHolder1$Chart1Map">
+						<area shape="rect" coords="983,86,1082,214" onmousedown="SFX_SetRightClickMenu(event,'ctl00$ContentPlaceHolder1$Chart1','29539','D,30')" oncontextmenu="return false;">
+						<area shape="rect" coords="0,0,1100,300" onmousedown="SFX_SetRightClickMenu(event,'ctl00$ContentPlaceHolder1$Chart1','29474','')" oncontextmenu="return false;">
+					</map>
+					<img id="ctl00$ContentPlaceHolder1$Chart1" src="/chartfx70/temp/CFV1120_1102563DDDD.png" width="1100" height="300" usemap="#ctl00$ContentPlaceHolder1$Chart1Map" border="0" oncontextmenu="return SFX_OnChartContextMenu();"> -->
+	            </div>
+	        </div>
+	    </div>
 	</div>
 </div>
+<jsp:include page="bottom.jsp" flush="false" />
+
 <script>
  
 var okCnt = ['Connection'];
 var ngCnt = ['Disconnection'];
-
 
 $(document).ready(function(){
 
@@ -94,9 +167,11 @@ $(document).ready(function(){
 		  	    ngCnt
 			]
 		});
-	},0);
+	},100);
 
+	getRepairToolConnStatus()
 	
+	barchart()
 });
 
 /* function loadChart1(){
@@ -120,13 +195,8 @@ function getDisconnectedToolList(){
 		$('#status_total').text(data.statuslist.total_TOOL_CNT);
 		$('#conn_ng').text(data.statuslist.conn_NG);		
 		
-		
-		
 		okCnt.push(data.statuslist.conn_OK);
 		ngCnt.push(data.statuslist.conn_NG);
-		//okCnt.push(1);
-		//ngCnt.push(9);
-		
 		
 		data.list.forEach(function(item){
 			//console.log(item);
@@ -137,18 +207,165 @@ function getDisconnectedToolList(){
 					+'</tr>'
 			);
 		});
+	});
+}
+
+function getRepairToolConnStatus(){
+	$.get('/api/getrepairtoolconnstatus', function(data){
+		$('#repairList').empty();
 		
-		
+		/* 
+		<table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">
+        <tbody><tr>
+            <td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">T119 KEEPER T1-1                                  </td>
+            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
+        </tr>
+    	</tbody>
+    	</table> 
+    	*/
+    	
+    	data.list.forEach(function(item){
+    		var imgok = '<img src="/images/conn_ok.png">';
+    		var imgng = '<img src="/images/conn_ng.png">';
+    		
+    		if (item.pgm_STATUS == '1')
+    			item.pgm_STATUS = imgok;
+    		else (item.pgm_STATUS == '0')
+    			item.pgm_STATUS = imgng;
+    		
+    		if (item.tool_STATUS == 'Y')
+    			item.tool_STATUS = imgok;
+    		else if (item.tool_STATUS == 'N')
+    			item.tool_STATUS = imgng;
+    			
+    		$('#repairList').append(
+    				'<table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">'
+    				+ '<td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">'+item.device_NM+'</td>'
+    				
+    				+ '<td width="30%" style="text-align:center;background-color:#F6F7F9;">'+ item.pgm_STATUS +'</td>'
+    	            + '<td width="30%" style="text-align:center;background-color:#F6F7F9;">'+ item.tool_STATUS +'</td>'
+    				)
+    	});
+	});
+}
+
+function barchart(){
+	
+	$.get('/api/getThighteningResult', function(data){
+		if(data.result == 200){
+			
+			var barchart1 = c3.generate({
+				bindto: '#barchart1',
+			    data: {
+			        x : 'x',
+			        columns: [
+			            ['x', 'yesterday'],
+			            ['OK', data.list[0].ok],
+			            ['NG', data.list[0].ng],
+			            ['NOSCAN', data.list[0].noscan],
+			            ['REPAIR', data.list[0].repair],
+			            ['INTERLOCK', data.list[0].interlock],
+			        ],
+			        type: 'bar',
+			        labels: true,
+			        order: null
+			    },
+				onrendered: function() {
+			    	setTimeout(function() {
+			        	[0].forEach(function(e) {
+			        		barchart1.tooltip.show({
+			              		x: e
+			            	})
+			            	var tooltip = $(".c3-tooltip-container").clone(true).removeClass("c3-tooltip-container").addClass("c3-tooltip-tmp");
+			            	var tooltip = $(".c3-tooltip-container").clone(true).removeClass("c3-tooltip-container");
+			            	tooltip.appendTo("#barchart1")
+			          	})
+						$(".c3-tooltip-tmp").show()
+					}, 0);
+				},
+				onmouseover: function() {
+					setTimeout(function() {
+						barchart1.tooltip.hide();
+					},0);
+				},
+			    axis: {
+			        x: {
+			            type: 'category' // this needed to load string x value
+			        }
+			    },
+			    color: {
+			        pattern: ['#1f77b4', '#d62728', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+			    },
+			     grid:{
+			        focus:{
+			        show:false
+			      }
+			    }
+			    
+			});
+			
+			/* t_day = data.list[1].day
+			t_TotalCnt = data.list[1].total
+			t_OkCnt = data.list[1].ok
+			t_NgCnt = data.list[1].ng
+			t_NoScanCnt = data.list[1].noscan
+			t_RepairCnt = data.list[1].repair
+			t_InterlockCnt = data.list[1].interlock */
+			
+			
+			var barchart2 = c3.generate({
+				bindto: '#barchart2',
+				data: {
+			        x : 'x',
+			        columns: [
+			            ['x', 'today'],
+			            ['OK', data.list[1].ok],
+			            ['NG', data.list[1].ng],
+			            ['NOSCAN', data.list[1].noscan],
+			            ['REPAIR', data.list[1].repair],
+			            ['INTERLOCK', data.list[1].interlock],
+			        ],
+			        type: 'bar',
+			        labels: true,
+			        order: null
+			    },
+				onrendered: function() {
+			    	setTimeout(function() {
+			        	[0].forEach(function(e) {
+			        		barchart2.tooltip.show({
+			              		x: e
+			            	})
+			            	var tooltip = $(".c3-tooltip-container").clone(true).removeClass("c3-tooltip-container").addClass("c3-tooltip-tmp");
+			            	var tooltip = $(".c3-tooltip-container").clone(true).removeClass("c3-tooltip-container");
+			            	tooltip.appendTo("#barchart2")
+			          	})
+						$(".c3-tooltip-tmp").show()
+					}, 0);
+				},
+			    axis: {
+			        x: {
+			            type: 'category' // this needed to load string x value
+			        }
+			    },
+			    color: {
+			        pattern: ['#1f77b4', '#d62728', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+			    },
+			    grid:{
+			        focus:{
+			        show:false
+			      }
+			    }
+			    
+			});
+			
+		}
 	});
 	
-
-	/* chart.load({
-		columns: [
-	  		okCnt,
-	  	    ngCnt
-		]
-	}); */
+	
 }
+
+
 </script>
 </body>
 </html>
