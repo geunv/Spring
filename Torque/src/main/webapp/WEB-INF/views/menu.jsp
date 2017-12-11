@@ -4,6 +4,7 @@
 <%
 	HttpSession my_session = request.getSession();
 	String user_id = (String)my_session.getAttribute("USER_ID");
+	String user_nm = (String)my_session.getAttribute("USER_NM");
 %>
 <script>
 if('null' == '<%=user_id%>'){
@@ -23,6 +24,15 @@ if('null' == '<%=user_id%>'){
         <li><a href="/index"><spring:message code="menu.Main" /></a></li>
       
       </ul>
+      <ul class="nav navbar-nav" style="float:right;">
+      	 <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=user_nm%><span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="">Change Password</a></li>
+	      		<li><a href="/view/logout">Log out</a></li>
+			</ul>
+		</li>
+	 </ul>
      </div>
   </div>
 </nav>
