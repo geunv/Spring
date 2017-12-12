@@ -24,3 +24,8 @@
 <script src="/js/excel/jquery-3.1.0.min.js"/></script>
 <script src="/js/excel/jquery-ui.min.js"/></script>
 <!-- <script src="/js/excel/jquery.fileDownload.js"/></script> -->
+<!-- -->
+
+<link rel="stylesheet" type="text/css" href="/js/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/js/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/datepicker/bootstrap-datepicker.kr.js"></script>

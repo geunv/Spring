@@ -11,9 +11,21 @@
 
 <script src="/js/c3.min.js"></script>
 <script src="/js/d3.min.js"></script>
+<script src="/js/jquery.base64.js" type="text/javascript"></script>
+<script src="/js/Commons.js" type="text/javascript"></script> 
 <link rel="stylesheet" href="/css/c3.min.css">
 <link rel="stylesheet" href="/css/default.css">
-<link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
-<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" >
+<link rel="stylesheet" href="/css/jquery-ui.css" type="text/css" />
 
+<!-- excel 추가 -->
+<link rel="stylesheet" href="/js/excel/jquery-ui.min.css"/>
+<script src="/js/excel/jquery-3.1.0.min.js"/></script>
+<script src="/js/excel/jquery-ui.min.js"/></script>
+<!-- <script src="/js/excel/jquery.fileDownload.js"/></script> -->
+<!-- -->
 
+<link rel="stylesheet" type="text/css" href="/js/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/js/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/datepicker/bootstrap-datepicker.kr.js"></script>

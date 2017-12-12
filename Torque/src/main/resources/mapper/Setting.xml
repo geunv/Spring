@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.setting.ISettingMapper">
+
+	<parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap>
+	<parameterMap type="com.spring.model.setting.ToolInfoModel" id="ToolInsert"></parameterMap>
+	<resultMap type="com.spring.model.setting.ToolListModel" id="ToolListModel"></resultMap>
+	<resultMap type="com.spring.model.setting.ToolInfoModel" id="ToolSelect"></resultMap>
+	<resultMap type="com.spring.model.setting.ToolInfoModel" id="JobNoSelect"></resultMap>
+	
+	
+	<resultMap type="com.spring.model.setting.JobNoListModel" id="JobNoList"></resultMap>
+	<resultMap type="com.spring.model.setting.JobNoInfo" id="JobNoInfo"></resultMap>
+	
+	<select id="selectToolList" parameterMap="ToolListParam" resultMap="ToolListModel" >
+	SELECT * 
+	FROM ( 
+		SELECT ROWNUM RNUM, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'STN_TYPE' AND CODE = A.STN_GUB) STN_GUB, 
+			DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_STATE' AND CODE = A.DEVICE_STATUS) DEVICE_STATUS, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'LINE_CD' AND CODE = A.LINE_CD) LINE_CD, 
+			SERIAL_PARALLEL_FLG, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_TYPE' AND CODE = A.DEVICE_TYPE) DEVICE_TYPE, 
+			DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
+			TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
+			WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
+			REG_DT || REG_TM REGDT, REG_USER_ID  
+		FROM (
+			SELECT PLANT_CD, STN_GUB, DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
+				DEVICE_STATUS, LINE_CD, SERIAL_PARALLEL_FLG, DEVICE_TYPE, DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
+				TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
+				WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
+				REG_DT, REG_TM, REG_USER_ID,  
+				CASE LINE_CD 
+					WHEN 'T1' THEN 1 
+					WHEN 'T2' THEN 2 
+					WHEN 'C1' THEN 3 
+					WHEN 'CM' THEN 4 
+					WHEN 'C2' THEN 5 
+					WHEN 'F1' THEN 6 
+					WHEN 'F2' THEN 7 
+					WHEN 'F3' THEN 8 
+					WHEN 'OK' THEN 9 
+					END AS LINE_ORDER  
+			FROM TIGHTENING_DEVICE_MA 
+			WHERE TRIM(PLANT_CD) = #{plant_cd}  
+				<if test="stn_type != '-1'">
+					AND TRIM(STN_GUB) = #{stn_type}
+				</if>
+				<if test="device_grp_cd != '-1'">
+					AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
+				</if>
+				<if test="device_id != '-1'">
+					AND TRIM(DEVICE_ID) = #{device_id} AND TRIM(DEVICE_SERIAL) = #{device_serial}
+				</if>
+				<if test="device_type != '-1'">
+					AND TRIM(DEVICE_TYPE) = #{device_type}
+				</if>
+				<if test="device_status != '-1'">
+					AND TRIM(DEVICE_STATUS) = #{device_status} 
+				</if>
+			ORDER BY LINE_ORDER, DEVICE_NM 
+			) A 
+		)
+		<if test="!isexcel">
+		WHERE RNUM &gt; #{startno} AND RNUM &lt; #{endno}
+		<!-- WHERE RNUM > #{startno} AND RNUM &lt; #{endno} -->
+		</if>
+	</select> 
+	
+	<select id="selectToolListCount" parameterMap="ToolListParam" resultType="int" >
+		SELECT COUNT(1)
+    	FROM TIGHTENING_DEVICE_MA 
+			WHERE TRIM(PLANT_CD) = #{plant_cd} 
+			<if test="stn_type != '-1'">
+				AND TRIM(STN_GUB) = #{stn_type}
+			</if>
+			<if test="device_grp_cd != '-1'">
+				AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
+			</if>
+			<if test="device_id != '-1'">
+				AND TRIM(DEVICE_ID) = #{device_id} AND TRIM(DEVICE_SERIAL) = #{device_serial}
+			</if>
+			<if test="device_type != '-1'">
+				AND TRIM(DEVICE_TYPE) = #{device_type}
+			</if>
+			<if test="device_status != '-1'">
+				AND TRIM(DEVICE_STATUS) = #{device_status} 
+			</if>
+	</select> 
+	
+	<select id="selectToolInfo" resultMap="ToolSelect" parameterType="hashmap">
+	SELECT PLANT_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_GRP_CD, STN_GUB, LINE_CD,
+    	DEVICE_NM, DEVICE_ALIAS, SERIAL_PARALLEL_FLG, DEVICE_TYPE, DEVICE_IP, DEVICE_PORT,
+    	COMPLETED_DEVICE_FLG, WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG,
+    	TORQUE_LOW, TORQUE_OK, TORQUE_HIGH,
+    	ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, SHOW_VALUE_TYPE
+    FROM TIGHTENING_DEVICE_MA
+    WHERE trim(DEVICE_ID) = #{device_id}
+    AND trim(DEVICE_SERIAL) = #{device_serial}
+	</select>
+	
+	<insert id="insertToolId" parameterMap="ToolInsert" >
+	INSERT INTO TIGHTENING_DEVICE_MA 
+		(PLANT_CD,  DEVICE_ID,  DEVICE_SERIAL,  DEVICE_GRP_CD,  
+		STN_GUB,  LINE_CD,  DEVICE_NM,  DEVICE_ALIAS,  SERIAL_PARALLEL_FLG,  
+		DEVICE_TYPE,  DEVICE_IP,  DEVICE_PORT,  COMPLETED_DEVICE_FLG,  
+		TORQUE_LOW,  TORQUE_OK,  TORQUE_HIGH,  
+		ANGLE_LOW,  ANGLE_OK,  ANGLE_HIGH,  
+		WEB_DISPLAY_FLG,  JOBNO_SEND_FLG,  SCAN_JOBRESET_FLG,  
+		REG_USER_ID,  SHOW_VALUE_TYPE ) 
+	VALUES 
+		(#{plant_cd},  #{device_id},  #{device_serial},  #{device_grp_cd},  
+		#{stn_gub},  #{line_cd},  #{device_nm},  #{device_alias},  #{serial_parallel_flg},  
+		#{device_type},  #{device_ip},  #{device_port},  #{completed_device_flg},  
+		#{torque_low},  #{torque_ok},  #{torque_high},  
+		#{angle_low},  #{angle_ok},  #{angle_high},  
+		#{web_display_flg},  #{jobno_send_flg},  #{scan_jobreset_flg},  
+		#{reg_user_id},  #{show_value_type} )
+	</insert>
+	
+	<update id="updateToolId"  parameterMap="ToolInsert">
+		UPDATE TIGHTENING_DEVICE_MA SET 
+			DEVICE_GRP_CD = #{device_grp_cd}, STN_GUB = #{stn_gub},  LINE_CD = #{line_cd}, 
+			DEVICE_NM = #{device_nm}, DEVICE_ALIAS = #{device_alias}, 
+			SERIAL_PARALLEL_FLG = #{serial_parallel_flg}, 
+			DEVICE_TYPE = #{device_type}, DEVICE_IP = #{device_ip}, DEVICE_PORT = #{device_port}, 
+			COMPLETED_DEVICE_FLG = #{completed_device_flg}, 
+			TORQUE_LOW = #{torque_low}, TORQUE_OK = #{torque_ok}, TORQUE_HIGH = #{torque_high}, 
+			ANGLE_LOW = #{angle_low}, ANGLE_OK = #{angle_ok}, ANGLE_HIGH = #{angle_high}, 
+			WEB_DISPLAY_FLG = #{web_display_flg}, JOBNO_SEND_FLG = #{jobno_send_flg}, SCAN_JOBRESET_FLG = #{scan_jobreset_flg},  
+			REG_DT = TO_CHAR(SYSDATE,'YYYYMMDD'), 
+			REG_TM = TO_CHAR(SYSDATE,'HH24MISS'), 
+			REG_USER_ID = #{reg_user_id},  
+			SHOW_VALUE_TYPE = #{show_value_type} 
+	    WHERE TRIM(PLANT_CD) = #{plant_cd} 
+		AND TRIM(DEVICE_ID) = #{device_id} 
+		AND TRIM(DEVICE_SERIAL) = #{device_serial}
+	</update>
+	
+	<delete id="deleteToolId" parameterType="hashmap">
+		DELETE FROM TIGHTENING_DEVICE_MA
+		WHERE TRIM(PLANT_CD) = #{plant_cd} 
+		AND TRIM(DEVICE_ID) = #{device_id} 
+		AND TRIM(DEVICE_SERIAL) = #{device_serial} 
+	</delete>
+	
+	<select id="selectJobNoList" parameterType="hashmap" resultMap="JobNoList">
+	SELECT RNUM, CAR_TYPE_GRP, DEVICE, JOB_NUM, REPAIR_JOB_NUM, 
+	       TOT_BATCH_NUM, COND_GRP_NUM, COND_SEQ, COND_GUB, SPEC219_NUM, 
+	       EQUAL_OPERATOR_FLG, SPEC219_VALUE, TORQUE_LOW,  TORQUE_OK, TORQUE_HIGH, 
+	       ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, REGDT, REG_USER_ID, 
+	       DEVICE_ID, DEVICE_SERIAL 
+	FROM   ( SELECT ROW_NUMBER() OVER (ORDER BY C.CAR_TYPE_GRP, D.CODE_VALUE, M.DEVICE_NM, M.DEVICE_ID, M.DEVICE_SERIAL, C.JOB_NUM, C.COND_SEQ) AS RNUM, 
+	                M.DEVICE_ID, M.DEVICE_SERIAL, 
+	                '[' || RTRIM(M.DEVICE_ID) || '-' || RTRIM(M.DEVICE_SERIAL) || '] ' || RTRIM(M.DEVICE_NM) || '-' || RTRIM(M.DEVICE_ALIAS) AS  DEVICE, 
+	                C.CAR_TYPE_GRP, C.JOB_NUM, C.COND_GRP_NUM, C.COND_USE_FLG, C.REPAIR_JOB_NUM, 
+	                C.TOT_BATCH_NUM, C.TORQUE_LOW, C.TORQUE_OK, C.TORQUE_HIGH, C.ANGLE_LOW, 
+	                C.ANGLE_OK, C.ANGLE_HIGH, C.COND_SEQ, C.COND_GUB, C.SPEC219_NUM, 
+	                C.EQUAL_OPERATOR_FLG, C.SPEC219_VALUE, C.REG_DT || C.REG_TM REGDT, C.REG_USER_ID 
+	         FROM   TIGHTENING_DEVICE_MA M 
+	                INNER JOIN ( SELECT A.PLANT_CD, A.CAR_TYPE_GRP, A.DEVICE_ID, A.DEVICE_SERIAL, A.JOB_NUM, 
+	                                    A. COND_GRP_NUM,  A.COND_USE_FLG, A.REPAIR_JOB_NUM, A.TOT_BATCH_NUM, A.TORQUE_LOW, 
+	                                    A.TORQUE_OK, A.TORQUE_HIGH, A.ANGLE_LOW, A.ANGLE_OK, A.ANGLE_HIGH, 
+	                                    A.REG_DT, A.REG_TM, A.REG_USER_ID, 
+	                                    B.COND_SEQ, B.COND_GUB, B.SPEC219_NUM, B.EQUAL_OPERATOR_FLG, B.SPEC219_VALUE 
+	                             FROM   DEVICE_JOBNO_MA A 
+	                                    LEFT OUTER JOIN DEVICE_JOBNO_COND_HI B ON B.PLANT_CD = A.PLANT_CD AND B.CAR_TYPE_GRP = A.CAR_TYPE_GRP AND B.DEVICE_ID = A.DEVICE_ID AND 
+	                                                                              B.DEVICE_SERIAL = A.DEVICE_SERIAL AND B.JOB_NUM = A.JOB_NUM AND B.COND_GRP_NUM = A.COND_GRP_NUM 
+	                             WHERE  TRIM(A.PLANT_CD) = #{plant_cd} 
+	                             AND    ( #{car_type} = '-1' OR TRIM(A.CAR_TYPE_GRP) = #{car_type} ) 
+	                             AND    ( #{device_id} = '-1' OR TRIM(A.DEVICE_ID) = #{device_id} ) 
+	                             AND    ( #{device_serial} = '-1' OR TRIM(A.DEVICE_SERIAL) = #{device_serial} ) 
+	                            ) C ON C.PLANT_CD = M.PLANT_CD AND C.DEVICE_ID = M.DEVICE_ID AND C.DEVICE_SERIAL = M.DEVICE_SERIAL 
+	                LEFT OUTER JOIN C_COMM_CD D ON D.PLANT_CD = M.PLANT_CD AND D.CD_GRP = 'LINE_CD' AND D.CODE = M.LINE_CD 
+	         WHERE  TRIM(M.PLANT_CD) = #{plant_cd} 
+	         AND    ( #{device_id} = '-1' OR TRIM(M.DEVICE_ID) = #{device_id}) 
+	         AND    ( #{device_serial} = '-1' OR TRIM(M.DEVICE_SERIAL) = #{device_serial}) 
+	         ORDER BY C.CAR_TYPE_GRP, D.CODE_VALUE, M.DEVICE_NM, M.DEVICE_ID, M.DEVICE_SERIAL, C.JOB_NUM, C.COND_SEQ ) 
+	WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+	AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo})
+	</select>
+		
+	<select id="selectJobNoListCount" parameterType="hashmap" resultType="int" >
+	SELECT COUNT(1)
+	         FROM   TIGHTENING_DEVICE_MA M 
+	                INNER JOIN ( SELECT A.PLANT_CD, A.CAR_TYPE_GRP, A.DEVICE_ID, A.DEVICE_SERIAL, A.JOB_NUM, 
+	                                    A. COND_GRP_NUM,  A.COND_USE_FLG, A.REPAIR_JOB_NUM, A.TOT_BATCH_NUM, A.TORQUE_LOW, 
+	                                    A.TORQUE_OK, A.TORQUE_HIGH, A.ANGLE_LOW, A.ANGLE_OK, A.ANGLE_HIGH, 
+	                                    A.REG_DT, A.REG_TM, A.REG_USER_ID, 
+	                                    B.COND_SEQ, B.COND_GUB, B.SPEC219_NUM, B.EQUAL_OPERATOR_FLG, B.SPEC219_VALUE 
+	                             FROM   DEVICE_JOBNO_MA A 
+	                                    LEFT OUTER JOIN DEVICE_JOBNO_COND_HI B ON B.PLANT_CD = A.PLANT_CD AND B.CAR_TYPE_GRP = A.CAR_TYPE_GRP AND B.DEVICE_ID = A.DEVICE_ID AND 
+	                                                                              B.DEVICE_SERIAL = A.DEVICE_SERIAL AND B.JOB_NUM = A.JOB_NUM AND B.COND_GRP_NUM = A.COND_GRP_NUM 
+	                             WHERE  TRIM(A.PLANT_CD) = #{plant_cd} 
+	                             AND    ( #{car_type} = '-1' OR TRIM(A.CAR_TYPE_GRP) = #{car_type} ) 
+	                             AND    ( #{device_id} = '-1' OR TRIM(A.DEVICE_ID) = #{device_id} ) 
+	                             AND    ( #{device_serial} = '-1' OR TRIM(A.DEVICE_SERIAL) = #{device_serial} ) 
+	                            ) C ON C.PLANT_CD = M.PLANT_CD AND C.DEVICE_ID = M.DEVICE_ID AND C.DEVICE_SERIAL = M.DEVICE_SERIAL 
+	                LEFT OUTER JOIN C_COMM_CD D ON D.PLANT_CD = M.PLANT_CD AND D.CD_GRP = 'LINE_CD' AND D.CODE = M.LINE_CD 
+	         WHERE  TRIM(M.PLANT_CD) = #{plant_cd} 
+	         AND    ( #{device_id} = '-1' OR TRIM(M.DEVICE_ID) = #{device_id}) 
+	         AND    ( #{device_serial} = '-1' OR TRIM(M.DEVICE_SERIAL) = #{device_serial}) 
+	         ORDER BY C.CAR_TYPE_GRP, D.CODE_VALUE, M.DEVICE_NM, M.DEVICE_ID, M.DEVICE_SERIAL, C.JOB_NUM, C.COND_SEQ
+	</select>
+	
+	<select id="selectJobInfo" resultMap="JobNoInfo" parameterType="hashmap">
+	SELECT PLANT_CD, COND_USE_FLG, REPAIR_JOB_NUM, TOT_BATCH_NUM,
+    TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, REPAIR_BATCH_NUM
+    FROM DEVICE_JOBNO_MA
+    WHERE TRIM(CAR_TYPE_GRP) = #{car_type} 
+    AND TRIM(DEVICE_ID) = #{device_id}
+    AND TRIM(DEVICE_SERIAL) = #{device_serial}
+    AND TRIM(JOB_NUM) = #{job_no}
+	</select>
+</mapper>

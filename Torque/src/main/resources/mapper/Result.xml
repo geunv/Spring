@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.result.IResultMapper">
+
+	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
+	
+	<!-- <resultMap type="com.spring.model.result.SummaryListModel" id="SummaryList"></resultMap> -->
+	
+	<!-- <select id="selectResultSummary" parameterMap="SummaryList" parameterType="hashmap" >
+	SELECT * FROM ( 
+		SELECT ROWNUM RNUM, 
+		       RTRIM(DEVICE_NM) || '-' || RTRIM(DEVICE_ALIAS) ||' [' || TRIM(DEVICE_ID) || ']' AS DEVICE, LINE_CD,
+		       TOTAL, (OK - REPAIR) AS OK, NG, NOSCAN, PASS, REPAIR, 
+		       OK AS TOT_OK, TOT_NG, DECODE(TOTAL-PASS, 0, 0, TRUNC((OK) / (TOTAL - PASS) * 100, 2)) AS PASS_RATIO 
+		FROM   ( 
+		         SELECT T.PLANT_CD, T.DEVICE_ID, T.DEVICE_SERIAL, T.DEVICE_NM, T.DEVICE_ALIAS, 
+		                B.CODE_NM AS LINE_CD, 
+		                NVL(A.TOTAL_CNT, 0) AS TOTAL, NVL(A.OK_CNT, 0) AS OK, NVL(A.NG_CNT, 0) AS NG,  
+		                NVL(A.PASS_CNT, 0) AS PASS, NVL(A.REPAIR_CNT, 0) AS REPAIR, NVL(A. NOSCAN_CNT, 0) AS NOSCAN, 
+		                NVL((A.NG_CNT + A.NOSCAN_CNT), 0) AS TOT_NG 
+		         FROM   TIGHTENING_DEVICE_MA T 
+		                INNER JOIN C_COMM_CD B ON B.PLANT_CD = T.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = T.LINE_CD 
+		                LEFT OUTER JOIN ( 
+		                                  SELECT  PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT, 
+		                                          SUM(NVL(TOTAL_CNT, 0)) AS TOTAL_CNT, SUM(NVL(OK_CNT, 0)) AS OK_CNT, SUM(NVL(NG_CNT, 0)) AS NG_CNT, 
+		                                          SUM(NVL(PASS_CNT, 0)) AS PASS_CNT, SUM(NVL(REPAIR_CNT, 0)) AS REPAIR_CNT, SUM(NVL(NOSCAN_CNT, 0)) AS NOSCAN_CNT 
+		                                  FROM    TIGHTENING_SUM_HI 
+		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
+		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
+		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = :WorkingDate 
+		        WHERE TRIM(T.PLANT_CD) = :Plant 
+		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = #{device_id}) 
+		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
+		        AND   T.STN_GUB = 'N' 
+		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 
+		        ORDER BY T.PLANT_CD, 
+		                 CASE T.LINE_CD WHEN 'T1' THEN 1 
+		                                WHEN 'T2' THEN 2 
+		                                WHEN 'CM' THEN 3 
+		                                WHEN 'C1' THEN 4 
+		                                WHEN 'C2' THEN 5 
+		                                WHEN 'F1' THEN 6 
+		                                WHEN 'F2' THEN 7 
+		                                WHEN 'F3' THEN 8 
+		                                WHEN 'OK' THEN 9 
+		                                ELSE 10 END, 
+		                      T.DEVICE_NM, 
+		                 CASE T.DEVICE_ALIAS WHEN 'LH' THEN 1 
+		                                     WHEN 'RH' THEN 2 
+		                                     ELSE 3 END 
+		     ))  
+		WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) 
+		AND   (#{pageEndNo} = '-1' OR RNUM &gt; #{pageEndNo}) 
+	</select>  
+ -->
+	<select id="selectResultSummaryCount" parameterType="int" >
+	SELECT Count(1) FROM ( 
+		SELECT ROWNUM RNUM, 
+		       RTRIM(DEVICE_NM) || '-' || RTRIM(DEVICE_ALIAS) ||' [' || TRIM(DEVICE_ID) || ']' AS DEVICE, LINE_CD,
+		       TOTAL, (OK - REPAIR) AS OK, NG, NOSCAN, PASS, REPAIR, 
+		       OK AS TOT_OK, TOT_NG, DECODE(TOTAL-PASS, 0, 0, TRUNC((OK) / (TOTAL - PASS) * 100, 2)) AS PASS_RATIO 
+		FROM   ( 
+		         SELECT T.PLANT_CD, T.DEVICE_ID, T.DEVICE_SERIAL, T.DEVICE_NM, T.DEVICE_ALIAS, 
+		                B.CODE_NM AS LINE_CD, 
+		                NVL(A.TOTAL_CNT, 0) AS TOTAL, NVL(A.OK_CNT, 0) AS OK, NVL(A.NG_CNT, 0) AS NG,  
+		                NVL(A.PASS_CNT, 0) AS PASS, NVL(A.REPAIR_CNT, 0) AS REPAIR, NVL(A. NOSCAN_CNT, 0) AS NOSCAN, 
+		                NVL((A.NG_CNT + A.NOSCAN_CNT), 0) AS TOT_NG 
+		         FROM   TIGHTENING_DEVICE_MA T 
+		                INNER JOIN C_COMM_CD B ON B.PLANT_CD = T.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = T.LINE_CD 
+		                LEFT OUTER JOIN ( 
+		                                  SELECT  PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT, 
+		                                          SUM(NVL(TOTAL_CNT, 0)) AS TOTAL_CNT, SUM(NVL(OK_CNT, 0)) AS OK_CNT, SUM(NVL(NG_CNT, 0)) AS NG_CNT, 
+		                                          SUM(NVL(PASS_CNT, 0)) AS PASS_CNT, SUM(NVL(REPAIR_CNT, 0)) AS REPAIR_CNT, SUM(NVL(NOSCAN_CNT, 0)) AS NOSCAN_CNT 
+		                                  FROM    TIGHTENING_SUM_HI 
+		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
+		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
+		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = :WorkingDate 
+		        WHERE TRIM(T.PLANT_CD) = :Plant 
+		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = #{device_id}) 
+		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
+		        AND   T.STN_GUB = 'N' 
+		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 
+		        ORDER BY T.PLANT_CD, 
+		                 CASE T.LINE_CD WHEN 'T1' THEN 1 
+		                                WHEN 'T2' THEN 2 
+		                                WHEN 'CM' THEN 3 
+		                                WHEN 'C1' THEN 4 
+		                                WHEN 'C2' THEN 5 
+		                                WHEN 'F1' THEN 6 
+		                                WHEN 'F2' THEN 7 
+		                                WHEN 'F3' THEN 8 
+		                                WHEN 'OK' THEN 9 
+		                                ELSE 10 END, 
+		                      T.DEVICE_NM, 
+		                 CASE T.DEVICE_ALIAS WHEN 'LH' THEN 1 
+		                                     WHEN 'RH' THEN 2 
+		                                     ELSE 3 END 
+		     ))  
+	</select>  
+</mapper>

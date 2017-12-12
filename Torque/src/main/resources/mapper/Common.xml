@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.ICommonMapper">
+
+	<!-- <parameterMap type="com.spring.model.common.ToolIDParam" id="ToolIDParam"></parameterMap> -->
+	
+	<resultMap type="com.spring.model.common.CommonDDLReturn" id="CommonDDL"></resultMap>
+	<resultMap type="com.spring.model.common.ToolGroupModel" id="ToolGroup"></resultMap>
+	<resultMap type="com.spring.model.common.ToolIDModel" id="ToolIDModel"></resultMap>
+	
+	<select id="selectPlant" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+		FROM C_COMM_CD
+		WHERE CD_GRP = 'PLANT_CD'
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectCarType" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+		FROM C_COMM_CD
+		WHERE CD_GRP = 'CARTYPE'
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectLine" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+		FROM C_COMM_CD
+		WHERE CD_GRP = 'LINE_CD'
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectStn" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+		FROM C_COMM_CD
+		WHERE CD_GRP = 'STN_TYPE'
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectShift" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+		FROM C_COMM_CD
+		WHERE CD_GRP = 'SHIFT'
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectToolGroup" parameterType="String" resultMap="ToolGroup">
+		SELECT DEVICE_GRP_CD DEVICE_GRP_CD,  DEVICE_GRP_CD DEVICE_GRP_NM 
+		FROM ( 
+		    SELECT DISTINCT TRIM(DEVICE_GRP_CD) DEVICE_GRP_CD 
+		    FROM TIGHTENING_DEVICE_MA 
+		    WHERE trim(PLANT_CD) = #{plant_cd}
+		    ) 
+		ORDER BY DEVICE_GRP_CD
+	</select>
+
+	<!-- <select id="selectToolID"  parameterMap="ToolIDParam" resultMap="ToolIDModel" >
+	SELECT TRIM(DEVICE_ID) || '-' || DEVICE_SERIAL DEVICE_ID, '['|| TRIM(DEVICE_ID) ||'] '|| TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) DEVICE_NM 
+	FROM (SELECT  DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS FROM TIGHTENING_DEVICE_MA 
+		WHERE TRIM(PLANT_CD) = #{plant_cd} 
+		<if test="device_grp_cd != '-1'">
+			AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
+		</if>
+		<if test="stn_gub != '-1'">
+			AND TRIM(STN_GUB) = #{stn_gub}
+		</if>
+		<if test="line_cd != '-1'">
+			AND TRIM(LINE_CD) = #{line_cd}
+		</if>
+		<if test="web_display_flg == 'W'.toString() "> 
+			AND TRIM(WEB_DISPLAY_FLG) = 'Y'
+		</if> 
+		ORDER BY PLANT_CD, 
+		CASE LINE_CD WHEN 'T1' THEN 1 WHEN 'T2' THEN 2 WHEN 'C1' THEN 3 WHEN 'CM' THEN 4 WHEN 'C2' THEN 5 
+		WHEN 'F1' THEN 6 WHEN 'F2' THEN 7 WHEN 'F3' THEN 8 WHEN 'OK' THEN 9 ELSE 10 END, 
+		DEVICE_NM )  
+	</select> -->
+	
+	<select id="selectJobNoTool" parameterType="hashmap" resultMap="ToolIDModel" >
+	SELECT RTRIM(M.DEVICE_ID) || '-' || RTRIM(M.DEVICE_SERIAL) AS DEVICE_ID,
+	       '['|| RTRIM(M.DEVICE_ID) || '-' || RTRIM(M.DEVICE_SERIAL) || '] ' || RTRIM(M.DEVICE_NM) || '-' || RTRIM(M.DEVICE_ALIAS) AS DEVICE_NM
+	FROM   TIGHTENING_DEVICE_MA M
+	        INNER JOIN (
+	                    SELECT DISTINCT A.PLANT_CD, A.DEVICE_ID, A.DEVICE_SERIAL
+	                    FROM   DEVICE_JOBNO_MA A
+	                    WHERE  TRIM(A.PLANT_CD) = #{plant_cd}
+	                    AND    (#{car_type} = '-1' OR A.CAR_TYPE_GRP = #{car_type})
+	                  )  A ON A.PLANT_CD = M.PLANT_CD AND A.DEVICE_ID = M.DEVICE_ID AND A.DEVICE_SERIAL = M.DEVICE_SERIAL
+	       LEFT OUTER JOIN C_COMM_CD B ON B.PLANT_CD = M.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = M.LINE_CD
+	WHERE  TRIM(M.PLANT_CD) = #{plant_cd}
+	ORDER BY B.CODE_VALUE, M.DEVICE_NM, M.DEVICE_SERIAL
+	</select> 
+	
+	<select id="selectToolType" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM 
+		FROM C_COMM_CD 
+		WHERE CD_GRP = 'DEVICE_TYPE' 
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectToolState" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM 
+		FROM C_COMM_CD 
+		WHERE CD_GRP = 'DEVICE_STATE' 
+		ORDER BY CODE
+	</select>
+	
+	<select id="selectUseFlage" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM 
+		FROM C_COMM_CD 
+		WHERE CD_GRP = 'USE_FLAG' 
+		ORDER BY CODE
+	</select>
+	
+</mapper>

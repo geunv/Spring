@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.system.ISystemMapper">
+
+	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
+	
+	<!-- <resultMap type="com.spring.model.setting.JobNoListModel" id="JobNoList"></resultMap> -->
+	
+	<!-- <select id="selectToolList" parameterMap="ToolListParam" resultMap="ToolListModel" >
+	SELECT * 
+	FROM ( 
+		SELECT ROWNUM RNUM, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'STN_TYPE' AND CODE = A.STN_GUB) STN_GUB, 
+			DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_STATE' AND CODE = A.DEVICE_STATUS) DEVICE_STATUS, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'LINE_CD' AND CODE = A.LINE_CD) LINE_CD, 
+			SERIAL_PARALLEL_FLG, 
+			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_TYPE' AND CODE = A.DEVICE_TYPE) DEVICE_TYPE, 
+			DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
+			TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
+			WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
+			REG_DT || REG_TM REGDT, REG_USER_ID  
+		FROM (
+			SELECT PLANT_CD, STN_GUB, DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
+				DEVICE_STATUS, LINE_CD, SERIAL_PARALLEL_FLG, DEVICE_TYPE, DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
+				TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
+				WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
+				REG_DT, REG_TM, REG_USER_ID,  
+				CASE LINE_CD 
+					WHEN 'T1' THEN 1 
+					WHEN 'T2' THEN 2 
+					WHEN 'C1' THEN 3 
+					WHEN 'CM' THEN 4 
+					WHEN 'C2' THEN 5 
+					WHEN 'F1' THEN 6 
+					WHEN 'F2' THEN 7 
+					WHEN 'F3' THEN 8 
+					WHEN 'OK' THEN 9 
+					END AS LINE_ORDER  
+			FROM TIGHTENING_DEVICE_MA 
+			WHERE TRIM(PLANT_CD) = #{plant_cd}  
+				<if test="stn_type != '-1'">
+					AND TRIM(STN_GUB) = #{stn_type}
+				</if>
+				<if test="device_grp_cd != '-1'">
+					AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
+				</if>
+				<if test="device_id != '-1'">
+					AND TRIM(DEVICE_ID) = #{device_id} AND TRIM(DEVICE_SERIAL) = #{device_serial}
+				</if>
+				<if test="device_type != '-1'">
+					AND TRIM(DEVICE_TYPE) = #{device_type}
+				</if>
+				<if test="device_status != '-1'">
+					AND TRIM(DEVICE_STATUS) = #{device_status} 
+				</if>
+			ORDER BY LINE_ORDER, DEVICE_NM 
+			) A 
+		)
+		<if test="!isexcel">
+		WHERE RNUM &gt; #{startno} AND RNUM &lt; #{endno}
+		WHERE RNUM > #{startno} AND RNUM &lt; #{endno}
+		</if>
+	</select>  -->
+
+</mapper>
