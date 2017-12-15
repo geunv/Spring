@@ -11,6 +11,7 @@ import com.spring.dao.result.IResultMapper;
 import com.spring.dao.setting.ISettingMapper;
 import com.spring.model.BaseResponse;
 import com.spring.model.result.SummaryListModel;
+import com.spring.model.result.SummaryListReturn;
 import com.spring.model.setting.JobNoListModel;
 
 @Service
@@ -35,7 +36,7 @@ public class ResultService implements IResultService {
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		map.put("plant_cd", plant_cd);
-		map.put("work_dt", work_dt);
+		map.put("work_dt", work_dt.replace("-", ""));
 		map.put("line_cd", line_cd);
 		map.put("shift", shift);
 		map.put("device_id",device_id);
@@ -52,12 +53,15 @@ public class ResultService implements IResultService {
 			map.put("pageEndNo", (page*show_count) +1);
 		}
 		
-		List<SummaryListModel> list = mapper.selectSummaryList(map);
-		int total = mapper.selectSummaryListCount(map);
+		List<SummaryListModel> list = mapper.selectResultSummaryList(map);
 		
-		BaseResponse res = new BaseResponse();
+		int total = mapper.selectResultSummaryCount(map);
 		
-		return res;
+		SummaryListReturn response = new SummaryListReturn();
+		response.setList(list);
+		response.setTotal_count(total);
+		
+		return response;
 		
 	}
 	

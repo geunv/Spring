@@ -27,4 +27,6 @@ public interface ICommonService {
 	public BaseResponse getToolState();
 	
 	public BaseResponse getUseFlage();
+	
+	public String getShiftTime(String code);
 }

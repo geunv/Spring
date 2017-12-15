@@ -1,5 +1,7 @@
 package com.spring.controller.result;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class ResultController {
 //	"&page="+now_page+
 //	"&show_count="+show_count;
 	
-	@RequestMapping(value="/api/result/getresultsummary")
+	@RequestMapping(value="/api/result/getresultsummary", method=GET)
 	public BaseResponse getResultSummary(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
 			@RequestParam(value="show_count", required=false, defaultValue="10") int show_count,

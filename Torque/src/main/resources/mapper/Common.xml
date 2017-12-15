@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.dao.ICommonMapper">
 
-	<!-- <parameterMap type="com.spring.model.common.ToolIDParam" id="ToolIDParam"></parameterMap> -->
+	<parameterMap type="com.spring.model.common.ToolIDParam" id="ToolIDParam"></parameterMap>
 	
 	<resultMap type="com.spring.model.common.CommonDDLReturn" id="CommonDDL"></resultMap>
 	<resultMap type="com.spring.model.common.ToolGroupModel" id="ToolGroup"></resultMap>
@@ -53,7 +53,7 @@
 		ORDER BY DEVICE_GRP_CD
 	</select>
 
-	<!-- <select id="selectToolID"  parameterMap="ToolIDParam" resultMap="ToolIDModel" >
+	<select id="selectToolID"  parameterMap="ToolIDParam" resultMap="ToolIDModel" >
 	SELECT TRIM(DEVICE_ID) || '-' || DEVICE_SERIAL DEVICE_ID, '['|| TRIM(DEVICE_ID) ||'] '|| TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) DEVICE_NM 
 	FROM (SELECT  DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS FROM TIGHTENING_DEVICE_MA 
 		WHERE TRIM(PLANT_CD) = #{plant_cd} 
@@ -73,7 +73,7 @@
 		CASE LINE_CD WHEN 'T1' THEN 1 WHEN 'T2' THEN 2 WHEN 'C1' THEN 3 WHEN 'CM' THEN 4 WHEN 'C2' THEN 5 
 		WHEN 'F1' THEN 6 WHEN 'F2' THEN 7 WHEN 'F3' THEN 8 WHEN 'OK' THEN 9 ELSE 10 END, 
 		DEVICE_NM )  
-	</select> -->
+	</select>
 	
 	<select id="selectJobNoTool" parameterType="hashmap" resultMap="ToolIDModel" >
 	SELECT RTRIM(M.DEVICE_ID) || '-' || RTRIM(M.DEVICE_SERIAL) AS DEVICE_ID,
@@ -109,6 +109,12 @@
 		FROM C_COMM_CD 
 		WHERE CD_GRP = 'USE_FLAG' 
 		ORDER BY CODE
+	</select>
+	
+	<select id="selectShiftTime" resultType="String" parameterType="String">
+		SELECT CODE_VALUE 
+		FROM C_COMM_CD A
+		WHERE CD_GRP = 'SHIFT' AND TRIM(CODE) = #{code}
 	</select>
 	
 </mapper>

@@ -31,4 +31,6 @@ public interface ICommonMapper {
 	public List<CommonDDLReturn> selectToolState();
 	
 	public List<CommonDDLReturn> selectUseFlage();
+	
+	public String selectShiftTime(String code);
 }

@@ -154,4 +154,11 @@ public class CommonService implements ICommonService {
 		
 		return response;
 	}
+	
+	public String getShiftTime(String code){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		String startTime = mapper.selectShiftTime(code);
+		
+		return startTime ;
+	}
 }

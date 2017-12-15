@@ -86,6 +86,5 @@ public class SummaryListModel {
 	public void setPass_ratio(String pass_ratio) {
 		this.pass_ratio = pass_ratio;
 	}
-	
-	
+
 }

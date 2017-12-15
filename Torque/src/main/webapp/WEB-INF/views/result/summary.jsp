@@ -8,77 +8,24 @@
 	<meta charset="UTF-8"> 
 	<title>index</title>
 	<jsp:include page="../head.jsp" flush="false" />
-
-	<style type="text/css">
-	
-
-	table.type08 {
-		font-size:12px;
-		font-weight: bold;
-	    border-collapse: collapse;
-	    text-align: left;
-	    line-height: 1.5;
-	    border-left: 1px solid #ccc;
-	    margin: 20px 10px;
-	}
-	
-	table.type08 thead th {
-	    padding: 10px;
-	    font-weight: bold;
-	    border-top: 1px solid #ccc;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 2px solid #c00;
-	    background: #dcdcd1;
-	}
-	table.type08 tbody th {
-	    padding: 10px;
-	    font-weight: bold;
-	    vertical-align: top;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 1px solid #ccc;
-	    background: #ececec;
-	}
-	table.type08 td {
-	    padding: 10px;
-	    vertical-align: top;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 1px solid #ccc;
-	}
-	
-	
-	/* Define the hover highlight color for the table row */
-    .type08 tr:hover {
-          /* background-color: #ffff99; */
-          background-color: #E0E0E0;
-    }
-    
-	</style>
 </head>
 <body>
 <jsp:include page="../menu.jsp" flush="false" />
-<!-- // jQuery UI CSS파일 --> 
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> -->  
-<!-- // jQuery 기본 js파일 -->
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>   -->
-<!-- // jQuery UI 라이브러리 js파일 -->
-<!-- <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>    -->
 
 <script type="text/javascript">
     $(document).ready(function() {
         $("#btnSearch").button();
         $("#btnExcel").button();
-        $("#btnReg").button();
+        //$("#btnReg").button();
 
         /* $('#dateRangePicker').datepicker({
         	
         }); */
-       
-        $('#txtDate').datepicker({
-        	 autoclose : true,
-        	 todayHighlight : true,
-        	 format: "yyyy-mm-dd",
-        	 language: "kr"
-        	 });
+
+        $("#txtDate").datepicker({
+            changeMonth: true,
+            dateFormat: 'yy-mm-dd',
+        });
         
         $.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
     	
@@ -87,13 +34,13 @@
     	getShift('A');
     	ddlTool();
     	
-    	$("#txtDate").val(fn_today());
+    	$("#txtDate").val(fn_getday());
 		$.ajaxSetup({async:true});	//비동기 켜기
 		
-		//getList();
+		getList();
 		
 		$("#btnSearch").on('click', function(e){
-			//getList();
+			getList();
 		});
 		
 		$('#ddlLine').on('change', function(){
@@ -108,6 +55,15 @@
 		$('#ddlTool').on('change', function(){
 			$('#btnSearch').click()
     	});
+		
+		$('#btnExcel').on('click', function(){
+
+	        var postfix = fn_Excelpostfix() //"-"+year + month + day + "_" + hour + mins;
+	        var fileName = $('#content-title').text().trim()+ postfix + ".xls";
+	        getExcelData();
+	        fn_ExcelReport('list_excel', fileName);
+			
+		});
 		
 		
 		$('#select_page_count').on('change', function(){
@@ -142,12 +98,7 @@
     var show_count = 10;
 
     function getList(){
-          
-    	getPlant();
-    	getLine('A');
-    	getShift('A');
-    	ddlTool();
-    	
+        
     	var vplant_cd = $('#ddlPlant').val()
     	var vwork_dt = $('#txtDate').val();
     	var vline = $('#ddlLine').val();
@@ -162,7 +113,7 @@
     				 "&page="+now_page+
     				 "&show_count="+show_count;
     	
-    	$.get('/api/setting/getresultsummary'+params,function(data){
+    	$.get('/api/result/getresultsummary'+params,function(data){
     		if(data.result == 200){
     			
     			$('#select_page_count').empty();
@@ -195,35 +146,18 @@
     			
     				$('#list_data').append(
     					  '<tr>' 
-    					+ '	<td>' + item.rnum +'</td>'
-    					+ '	<td>' + item.stn_gub +'</td>'
-    					+ '	<td>' + item.device_grp_cd +'</td>'
-    					+ '	<td><a href=\'#\' onClick="OpenRegistration(\'' + item.device_id.trim() +'\',\''+item.device_serial+ '\');">' + item.device_id +'</a></td>'
-    					+ '	<td>' + item.device_serial +'</td>'
-    					+ '	<td>' + item.device_nm +'</td>'
-    					+ '	<td>' + item.device_alias +'</td>'
-    					+ '	<td>' + item.device_status +'</td>'
-    					+ '	<td>' + item.line_cd +'</td>'
-    					+ '	<td>' + item.serial_parallel_flg +'</td>'
-    					+ '	<td>' + item.device_type +'</td>'
-    					+ '	<td>' + item.device_ip +'</td>'
-    					+ '	<td>' + item.device_port  +'</td>'
-    					+ '	<td>' + item.completed_device_flg  +'</td>'
-    					+ '	<td>' + item.torque_low +'</td>'
-    					+ '	<td>' + item.torque_ok  +'</td>'
-    					+ '	<td>' + item.torque_high  +'</td>'
-    					+ '	<td>' + item.angle_low +'</td>'
-    					+ '	<td>' + item.angle_ok  +'</td>'
-    					+ '	<td>' + item.angle_high  +'</td>'
-    					+ '	<td>' + item.web_display_flg  +'</td>'
-    					+ '	<td>' + item.jobno_send_flg  +'</td>'
-    					+ '	<td>' + item.scan_jobreset_flg  +'</td>'
-    					+ '	<td>' + item.curr_body_no +'</td>'
-    					+ '	<td>' + item.last_body_no  +'</td>'
-    					+ '	<td>' + ChangeDateFormat(item.last_work_dt)  +'</td>'
-    					+ '	<td>' + ChangeDateFormat(item.device_status_dt)  +'</td>'
-    					+ '	<td>' + ChangeDateFormat(item.regdt) +'</td>'
-    					+ '	<td>' + item.reg_user_id +'</td>'
+							+ ' <td>' + item.rnum +'</td>'
+							+ ' <td>' + item.device +'</td>'
+							+ ' <td>' + item.line_cd +'</td>'
+							+ ' <td>' + item.total +'</td>'
+							+ ' <td>' + item.ok +'</td>'
+							+ ' <td>' + item.ng +'</td>'
+							+ ' <td>' + item.noscan +'</td>'
+							+ ' <td>' + item.pass +'</td>'
+							+ ' <td>' + item.repair +'</td>'
+							+ ' <td>' + item.tot_ok +'</td>'
+							+ ' <td>' + item.tot_ng +'</td>'
+							+ ' <td>' + item.pass_ratio +'</td>'
     					+ '</tr>'
     				);
     			});
@@ -231,16 +165,87 @@
     		}
     	});
     }
-    
+
+    function getExcelData(){
+    	//$.get('/api/setting/gettoollist?'+params,function(data){
+
+    	var vplant_cd = $('#ddlPlant').val()
+    	var vwork_dt = $('#txtDate').val();
+    	var vline = $('#ddlLine').val();
+    	var vshift = $('#ddlShift').val();
+    	var vtool = $('#ddlTool').val();
+    	
+    	var params = "?plant_cd="+vplant_cd.trim()+
+    				 "&work_dt="+vwork_dt.trim()+
+    				 "&line="+vline.trim() +
+    				 "&shift="+vshift.trim() +
+    				 "&tool="+vtool.trim() +
+    				 "&page="+now_page+
+    				 "&show_count="+show_count+
+    				 "&excel_down=Y";
+    	
+    	$.ajax({
+    			url:'/api/result/getresultsummary'+params,
+    			type:'GET',
+    			async:false,
+    			success: function(data) {
+    				if(data.result == 200){
+    					$("#list_excel").empty();
+    					$("#list_excel").append("<thead>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Num'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Tool'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Line'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Total'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.OK'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.NG'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.NoScan'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Pass'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.Repair'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.TotalOK'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.TotalNG'/></th>");
+    					$("#list_excel").append("<th><spring:message code='COMMON.PassRatio'/></th>");
+    					$("#list_excel").append("</thead>");
+    					
+    					$("#list_excel").append("<tbody>");
+    					
+    					data.list.forEach(function(item){
+    						
+    						$('#list_excel').append(
+    							  '<tr>' 
+	    							+ ' <td>' + item.rnum +'</td>'
+									+ ' <td>' + item.device +'</td>'
+									+ ' <td>' + item.line_cd +'</td>'
+									+ ' <td>' + item.total +'</td>'
+									+ ' <td>' + item.ok +'</td>'
+									+ ' <td>' + item.ng +'</td>'
+									+ ' <td>' + item.noscan +'</td>'
+									+ ' <td>' + item.pass +'</td>'
+									+ ' <td>' + item.repair +'</td>'
+									+ ' <td>' + item.tot_ok +'</td>'
+									+ ' <td>' + item.tot_ng +'</td>'
+									+ ' <td>' + item.pass_ratio +'</td>'
+    							+ '</tr>'
+    						);
+    					});
+    					
+    					$("#list_excel").append("</tbody>");
+    				}	
+    			},
+    			error:function(e){  
+    				alert(e.responseText);
+    	        }  
+    			
+    		});
+    }
 </script>
 <div class="container">
 	<div id="C_Body">       
         <div id="C_Title">
             <div id="content-title">
-                <i class="fa fa-list-ul"></i> <span id="ctl00_ContentPlaceHolder1_lblTitle">Tool Result Summary</span>
+                <i class="fa fa-list-ul"></i> <spring:message code="SCREEN.RS01" />
             </div>
             <div id="content-title-nav">
-                <i class="fa fa-angle-double-right"></i> <span id="ctl00_ContentPlaceHolder1_lblMenuSystem">RESULT</span>
+                <i class="fa fa-angle-double-right"></i> <spring:message code="MENU.RESULT" />
             </div>
             <div id="content-title-bar">
             </div>  
@@ -253,13 +258,13 @@
                             <tbody><tr>
                                 <td width="1%"></td>
                                 <td width="6%" height="30" class="left_5">
-                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <span id="ctl00_ContentPlaceHolder1_lblPlant">Plant</span>
+                                    <i class="fa fa-chevron-circle-right"></i>&nbsp;  <spring:message code="COMMON.Plant" />
                                 </td>
                                 <td width="15%" class="left_5">
                                     <select id="ddlPlant"></select>
                                 </td>
                                 <td width="7%" class="left_5">
-                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <span id="ctl00_ContentPlaceHolder1_lblDate">Date</span>
+                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <spring:message code="COMMON.Date" />
                                     <div class="input-group input-append date" id="dateRangePicker"> </div>
                                 </td>
                                 <td width="20%" class="left_5">
@@ -267,21 +272,21 @@
                                     <input type="hidden" name="hdDate" id="hdDate">
                                 </td>
                                 <td width="5%" class="left_5">
-                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <span id="ctl00_ContentPlaceHolder1_lblLine">Line</span>
+                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <spring:message code="COMMON.Line" />
                                 </td>
                                 <td width="13%" class="left_5">
                                 	<select id="ddlLine"></select>
                                     
                                 </td>
                                 <td rowspan="2" class="content-button">
-                                    <input type="submit" name="ctl00$ContentPlaceHolder1$btnSearch" value="Search" id="ctl00_ContentPlaceHolder1_btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
-                                    <input type="submit" name="ctl00$ContentPlaceHolder1$btnExcel" value="Excel" id="ctl00_ContentPlaceHolder1_btnExcel" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+                                    <input type="submit" value="Search" id="btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+                                    <input type="submit" value="Excel" id="btnExcel" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td class="left_5">
-                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <span id="ctl00_ContentPlaceHolder1_lblShift">Shift</span>
+                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <spring:message code="COMMON.Shift" />
                                 </td>
                                 <td class="left_5">
                                 	<select id="ddlShift"></select>
@@ -289,10 +294,10 @@
 									</select> -->
                                  </td>
                                 <td class="left_5">
-                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <span id="ctl00_ContentPlaceHolder1_lblTool">Tool</span>
+                                    <i class="fa fa-chevron-circle-right"></i>&nbsp; <spring:message code="COMMON.Tool" />
                                 </td>
                                 <td class="left_5" colspan="3">
-                                    <select id="ddlTool"></select>
+                                    <select id="ddlTool" style="width:320px;"></select>
                                  </td>
                             </tr>
                         </tbody></table>
@@ -304,9 +309,9 @@
            <div class="total_count">
                 [ <spring:message code="COMMON.TotalCont" /> : <div style='display:inline;' id="list_total"></div> ]
             </div>
-	        <div style="position: relative;width:500;overflow:auto;background-color:#F5F5F5" >
-	            <table class="type08" style="width:auto;" id="list_table">
-					<thead>
+	        <div >
+	        	<table class="gridview" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;" id="list_table">
+	            	<thead>
 						<tr>
 							<th><spring:message code="COMMON.Num"/></th>
 							<th><spring:message code="COMMON.Tool"/></th>
@@ -327,7 +332,7 @@
 				</table>
             </div>
             
-            <div class="well">
+            <!-- <div class="well">
 				<div class="row">
 				  <div class="col-md-6">
 				  	<div class="pull-left">
@@ -348,8 +353,26 @@
 				  	</div>
 				  </div>
 				</div>
-			</div>
+			</div> -->
         	
+        	<div style="margin-top:5px;border:double 1px #A6A6A6;height:35px;border-radius:5px;background-color:#EEEEEE;">
+			    <div style="float:left;text-align:left;padding-left:5px;padding-top:5px;">
+			        <span>Show Page&nbsp;</span>
+			        <select id="select_page_count"></select>
+			        <span>&nbsp;of</span>
+			        <div style='display:inline;' id="page_total"></div> pages
+			    </div>
+			    <div style="text-align:right;padding-right:5px;padding-top:5px;">
+			        <span>Display&nbsp;</span>
+			        <select id="select_show_count">
+				  			<option value="10" selected>10</option>
+				  			<option value="20">20</option>
+				  			<option value="30">30</option>
+				  	</select>
+			        <span>&nbsp;Records per Page</span>
+			    </div>
+			</div>
+
         	<div id="wrapper" style="visibility:hidden">
 	            <table class="type08" border="1" id="list_excel"></table>
             </div>

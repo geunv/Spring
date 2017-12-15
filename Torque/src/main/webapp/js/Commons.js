@@ -407,11 +407,17 @@ function ChangeDateFormat(DB_Date){
     return datetime;
 }
 
-function fn_today(){
-	var date = new Date(); 
-	var year = date.getFullYear(); 
-	var month = new String(date.getMonth()+1); 
-	var day = new String(date.getDate()); 
+function fn_getday(str){
+	
+	var d;
+	if ( str == '' || str == undefined)
+		d = new Date(); 
+	else
+		d = new Date(str);
+	
+	var year = d.getFullYear(); 
+	var month = new String(d.getMonth()+1); 
+	var day = new String(d.getDate()); 
 
 	// 한자리수일 경우 0을 채워준다. 
 	if(month.length == 1){ 
@@ -423,6 +429,29 @@ function fn_today(){
 
 	return year + "-" + month + "-" + day;
 	
+}
+
+function fn_time(){
+	var date = new Date;
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	
+	/*if(hour.length == 1)
+		hour = "0" + hour;
+	
+	if(min.length == 1)
+		min = "0" + min
+	
+	if( sec.length == 1)
+		sec = "0" + sec
+		*/
+	return pad(hour,2) + ":" + pad(min,2) + ":" + pad(sec,2);
+}
+
+function pad (str, max) {
+	  str = str.toString();
+	  return str.length < max ? pad("0" + str, max) : str;
 }
 
 /* */
@@ -439,6 +468,8 @@ function getQuerystring(paramName){
 		} 
 	} 
 }
+
+
 	
 	
 function getPlant(){
@@ -613,7 +644,7 @@ function getToolId(str,vplant_cd,vdevice_grp_cd,vstn_gub,vline_cd,vweb_display_f
 			
 			if ( str == 'S')
 				$('#ddlTool').append('<option value="">Select</option>');
-			else
+			else if ( str == 'A')
 				$('#ddlTool').append('<option value="-1">ALL</option>');
 			
 			data.list.forEach(function(item){

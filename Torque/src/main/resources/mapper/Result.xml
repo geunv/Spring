@@ -4,10 +4,11 @@
 
 	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
 	
-	<!-- <resultMap type="com.spring.model.result.SummaryListModel" id="SummaryList"></resultMap> -->
+	<resultMap type="com.spring.model.result.SummaryListModel" id="SummaryList"></resultMap>
 	
-	<!-- <select id="selectResultSummary" parameterMap="SummaryList" parameterType="hashmap" >
-	SELECT * FROM ( 
+	<select id="selectResultSummaryList" parameterType="hashmap" resultMap="SummaryList" >
+	SELECT * 
+	FROM ( 
 		SELECT ROWNUM RNUM, 
 		       RTRIM(DEVICE_NM) || '-' || RTRIM(DEVICE_ALIAS) ||' [' || TRIM(DEVICE_ID) || ']' AS DEVICE, LINE_CD,
 		       TOTAL, (OK - REPAIR) AS OK, NG, NOSCAN, PASS, REPAIR, 
@@ -27,9 +28,9 @@
 		                                  FROM    TIGHTENING_SUM_HI 
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
-		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = :WorkingDate 
-		        WHERE TRIM(T.PLANT_CD) = :Plant 
-		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = #{device_id}) 
+		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
+		        WHERE TRIM(T.PLANT_CD) = #{plant_cd}
+		        AND   (#{device_id} = '-1' OR TRIM(T.DEVICE_ID) = #{device_id}) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
 		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 
@@ -48,13 +49,14 @@
 		                 CASE T.DEVICE_ALIAS WHEN 'LH' THEN 1 
 		                                     WHEN 'RH' THEN 2 
 		                                     ELSE 3 END 
-		     ))  
-		WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) 
-		AND   (#{pageEndNo} = '-1' OR RNUM &gt; #{pageEndNo}) 
-	</select>  
- -->
-	<select id="selectResultSummaryCount" parameterType="int" >
-	SELECT Count(1) FROM ( 
+		     ))
+		WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+		AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo}) 
+	</select>
+	
+	<select id="selectResultSummaryCount" parameterType="hashmap" resultType="int" >
+	SELECT Count(1) 
+	FROM ( 
 		SELECT ROWNUM RNUM, 
 		       RTRIM(DEVICE_NM) || '-' || RTRIM(DEVICE_ALIAS) ||' [' || TRIM(DEVICE_ID) || ']' AS DEVICE, LINE_CD,
 		       TOTAL, (OK - REPAIR) AS OK, NG, NOSCAN, PASS, REPAIR, 
@@ -74,9 +76,9 @@
 		                                  FROM    TIGHTENING_SUM_HI 
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
-		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = :WorkingDate 
-		        WHERE TRIM(T.PLANT_CD) = :Plant 
-		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = #{device_id}) 
+		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
+		        WHERE TRIM(T.PLANT_CD) = #{plant_cd}
+		        AND   (#{device_id} = '-1' OR TRIM(T.DEVICE_ID) = #{device_id}) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
 		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 
@@ -95,6 +97,6 @@
 		                 CASE T.DEVICE_ALIAS WHEN 'LH' THEN 1 
 		                                     WHEN 'RH' THEN 2 
 		                                     ELSE 3 END 
-		     ))  
-	</select>  
+		     ))
+	</select>
 </mapper>

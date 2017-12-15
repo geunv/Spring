@@ -1,10 +1,13 @@
+com\spring\model\result\SummaryListReturn.class
 com\spring\dao\setting\ISettingMapper.class
+com\spring\model\chart\LineChartModel.class
 com\spring\model\login\LoginResult.class
 com\spring\model\common\CommonDDLReturn.class
 com\spring\config\SwaggerConfiguration.class
 com\spring\dao\ILoginMapper.class
 com\spring\model\sample\ResultSample.class
 com\spring\model\common\ToolIDParam.class
+com\spring\service\chart\IChartService.class
 com\spring\controller\LoginController.class
 com\spring\controller\setting\SettingController.class
 com\spring\model\setting\ToolListParam.class
@@ -13,8 +16,11 @@ com\spring\dao\IMenuMapper.class
 com\spring\dao\main\IMainMapper.class
 com\spring\model\setting\JobNoListReturn.class
 com\spring\model\setting\JobNoInfo.class
+com\spring\controller\chart\ChartController.class
 com\spring\dao\chart\IChartMapper.class
+com\spring\model\chart\LineChartReturn.class
 com\spring\model\login\LoginRequest.class
+com\spring\service\chart\ChartService.class
 com\spring\model\sample\ParamSample.class
 com\spring\model\setting\ToolListModel.class
 com\spring\model\setting\JobNoListModel.class

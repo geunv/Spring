@@ -95,5 +95,13 @@ public class CommonController {
 	public BaseResponse getUseFlag(){
 		return  commonService.getUseFlage();
 	}
+	
+	@RequestMapping(value="/api/common/getshifttime", method=GET)
+	public String getShiftTime(
+			@RequestParam(value="code", required=false, defaultValue="1") String code
+			){
+		return  commonService.getShiftTime(code);
+	}
+	
 
 }
