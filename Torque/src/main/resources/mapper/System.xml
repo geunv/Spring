@@ -3,64 +3,188 @@
 <mapper namespace="com.spring.dao.system.ISystemMapper">
 
 	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
+	<parameterMap type="com.spring.model.system.ProgramProcessParamModel" id="inputParam"></parameterMap>
 	
-	<!-- <resultMap type="com.spring.model.setting.JobNoListModel" id="JobNoList"></resultMap> -->
+	<resultMap type="com.spring.model.system.ProgramProcessInfoModel" id="info"></resultMap>
+	<resultMap type="com.spring.model.system.ProgramProcessListModel" id="ProgramProcessList"></resultMap>
 	
-	<!-- <select id="selectToolList" parameterMap="ToolListParam" resultMap="ToolListModel" >
-	SELECT * 
-	FROM ( 
-		SELECT ROWNUM RNUM, 
-			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'STN_TYPE' AND CODE = A.STN_GUB) STN_GUB, 
-			DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
-			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_STATE' AND CODE = A.DEVICE_STATUS) DEVICE_STATUS, 
-			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'LINE_CD' AND CODE = A.LINE_CD) LINE_CD, 
-			SERIAL_PARALLEL_FLG, 
-			(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'DEVICE_TYPE' AND CODE = A.DEVICE_TYPE) DEVICE_TYPE, 
-			DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
-			TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
-			WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
-			REG_DT || REG_TM REGDT, REG_USER_ID  
-		FROM (
-			SELECT PLANT_CD, STN_GUB, DEVICE_GRP_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS, 
-				DEVICE_STATUS, LINE_CD, SERIAL_PARALLEL_FLG, DEVICE_TYPE, DEVICE_IP, DEVICE_PORT, COMPLETED_DEVICE_FLG, 
-				TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, 
-				WEB_DISPLAY_FLG, JOBNO_SEND_FLG, SCAN_JOBRESET_FLG, CURR_BODY_NO, LAST_BODY_NO, LAST_WORK_DT, DEVICE_STATUS_DT, 
-				REG_DT, REG_TM, REG_USER_ID,  
-				CASE LINE_CD 
-					WHEN 'T1' THEN 1 
-					WHEN 'T2' THEN 2 
-					WHEN 'C1' THEN 3 
-					WHEN 'CM' THEN 4 
-					WHEN 'C2' THEN 5 
-					WHEN 'F1' THEN 6 
-					WHEN 'F2' THEN 7 
-					WHEN 'F3' THEN 8 
-					WHEN 'OK' THEN 9 
-					END AS LINE_ORDER  
-			FROM TIGHTENING_DEVICE_MA 
-			WHERE TRIM(PLANT_CD) = #{plant_cd}  
-				<if test="stn_type != '-1'">
-					AND TRIM(STN_GUB) = #{stn_type}
-				</if>
-				<if test="device_grp_cd != '-1'">
-					AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
-				</if>
-				<if test="device_id != '-1'">
-					AND TRIM(DEVICE_ID) = #{device_id} AND TRIM(DEVICE_SERIAL) = #{device_serial}
-				</if>
-				<if test="device_type != '-1'">
-					AND TRIM(DEVICE_TYPE) = #{device_type}
-				</if>
-				<if test="device_status != '-1'">
-					AND TRIM(DEVICE_STATUS) = #{device_status} 
-				</if>
-			ORDER BY LINE_ORDER, DEVICE_NM 
-			) A 
-		)
-		<if test="!isexcel">
-		WHERE RNUM &gt; #{startno} AND RNUM &lt; #{endno}
-		WHERE RNUM > #{startno} AND RNUM &lt; #{endno}
-		</if>
-	</select>  -->
+	<select id="selectProgramProcessList" parameterType="hashmap" resultMap="ProgramProcessList" >
+	SELECT * FROM ( 
+	    SELECT ROWNUM RNUM, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'STN_TYPE' AND CODE = A.STN_GUB) STN_GUB, 
+	    PGM_ID, PGM_NM, PROC_ID, PROC_NM, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PROC_STATE' AND CODE = A.TIGHTENING_PROC_STATUS) TIGHTENING_PROC_STATUS,  
+	    (SELECT '['|| TRIM(DEVICE_ID) || '-' || DEVICE_SERIAL ||'] ' || TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) FROM TIGHTENING_DEVICE_MA WHERE PLANT_CD = A.PLANT_CD AND DEVICE_ID = A.DEVICE_ID AND DEVICE_SERIAL = A.DEVICE_SERIAL) DEVICE_ID, 
+	    RECONNECT_WAITING_SEC, 
+	    TRK_STN_CNT, TRK_STN_NM, 
+	    LOGICAL_TRK_FLG, INTERLOCK_USE_FLG, 
+	    INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PLC_TYPE' AND CODE = A.TRK_PLC_TYPE) TRK_PLC_TYPE, 
+	    TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PLC_TYPE' AND CODE = A.INTERLOCK_PLC_TYPE) INTERLOCK_PLC_TYPE, 
+	    INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+	    MES_STN_CD, TRK_POINT, 
+	    NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, NG_TRK_ALARM_POINT, 
+	    SCANNING_USE_FLG, CYCLE_TEST_TIME, 
+	    TIGHTENING_PROC_DT, REG_DT || REG_TM REGDT, REG_USER_ID 
+	    FROM (
+	        SELECT ROWNUM RNUM, PLANT_CD, STN_GUB, PGM_ID, PGM_NM, PROC_ID, PROC_NM, TIGHTENING_PROC_STATUS,  
+	        DEVICE_ID, DEVICE_SERIAL, RECONNECT_WAITING_SEC, 
+	        TRK_STN_CNT, TRK_STN_NM, 
+	        LOGICAL_TRK_FLG, INTERLOCK_USE_FLG, 
+	        INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+	        TRK_PLC_TYPE, TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+	        INTERLOCK_PLC_TYPE, INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+	        MES_STN_CD, TRK_POINT, 
+	        NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, NG_TRK_ALARM_POINT, 
+	        SCANNING_USE_FLG, CYCLE_TEST_TIME, 
+	        TIGHTENING_PROC_DT, REG_DT, REG_TM, REG_USER_ID 
+	        FROM TIGHTENING_PGM_MA 
+	        WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	        <if test="stn_gub != '-1'">
+	            AND STN_GUB = #{stn_gub}
+	        </if>
+	        <if test="pgm_id != '-1'">
+	            AND PGM_ID = RPAD(#{pgm_id},10)
+	        </if>
+	        <if test="proc_id != '-1'">
+	            AND PROC_ID = RPAD(#{proc_id},10)
+	        </if>
+	        <if test="proc_state != '-1'">
+	            AND TIGHTENING_PROC_STATUS = #{proc_state}
+	        </if>
+	        ORDER BY PGM_ID, PROC_ID 
+	        ) A 
+	    ) 
+	    WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+		AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo}) 
+	</select>
 
+	<select id="selectProgramProcessListCount" parameterType="hashmap" resultType="int" >
+		SELECT count(1) FROM ( 
+	    SELECT ROWNUM RNUM, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'STN_TYPE' AND CODE = A.STN_GUB) STN_GUB, 
+	    PGM_ID, PGM_NM, PROC_ID, PROC_NM, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PROC_STATE' AND CODE = A.TIGHTENING_PROC_STATUS) TIGHTENING_PROC_STATUS,  
+	    (SELECT '['|| TRIM(DEVICE_ID) || '-' || DEVICE_SERIAL ||'] ' || TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) FROM TIGHTENING_DEVICE_MA WHERE PLANT_CD = A.PLANT_CD AND DEVICE_ID = A.DEVICE_ID AND DEVICE_SERIAL = A.DEVICE_SERIAL) DEVICE_ID, 
+	    RECONNECT_WAITING_SEC, 
+	    TRK_STN_CNT, TRK_STN_NM, 
+	    LOGICAL_TRK_FLG, INTERLOCK_USE_FLG, 
+	    INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PLC_TYPE' AND CODE = A.TRK_PLC_TYPE) TRK_PLC_TYPE, 
+	    TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+	    (SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP = 'PLC_TYPE' AND CODE = A.INTERLOCK_PLC_TYPE) INTERLOCK_PLC_TYPE, 
+	    INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+	    MES_STN_CD, TRK_POINT, 
+	    NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, NG_TRK_ALARM_POINT, 
+	    SCANNING_USE_FLG, CYCLE_TEST_TIME, 
+	    TIGHTENING_PROC_DT, REG_DT || REG_TM REGDT, REG_USER_ID 
+	    FROM (
+	        SELECT ROWNUM RNUM, PLANT_CD, STN_GUB, PGM_ID, PGM_NM, PROC_ID, PROC_NM, TIGHTENING_PROC_STATUS,  
+	        DEVICE_ID, DEVICE_SERIAL, RECONNECT_WAITING_SEC, 
+	        TRK_STN_CNT, TRK_STN_NM, 
+	        LOGICAL_TRK_FLG, INTERLOCK_USE_FLG, 
+	        INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+	        TRK_PLC_TYPE, TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+	        INTERLOCK_PLC_TYPE, INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+	        MES_STN_CD, TRK_POINT, 
+	        NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, NG_TRK_ALARM_POINT, 
+	        SCANNING_USE_FLG, CYCLE_TEST_TIME, 
+	        TIGHTENING_PROC_DT, REG_DT, REG_TM, REG_USER_ID 
+	        FROM TIGHTENING_PGM_MA 
+	        WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	        <if test="stn_gub != '-1'">
+	            AND STN_GUB = #{stn_gub}
+	        </if>
+	        <if test="pgm_id != '-1'">
+	            AND PGM_ID = RPAD(#{pgm_id},10)
+	        </if>
+	        <if test="proc_id != '-1'">
+	            AND PROC_ID = RPAD(#{proc_id},10)
+	        </if>
+	        <if test="proc_state != '-1'">
+	            AND TIGHTENING_PROC_STATUS = #{proc_state}
+	        </if>
+	        ORDER BY PGM_ID, PROC_ID 
+	        ) A 
+	    ) 
+	</select>
+	
+	<select id="CheckDuplicateProgram" resultType="int" parameterType="hashmap">
+		SELECT COUNT(1)
+	    FROM TIGHTENING_PGM_MA
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+	    AND PGM_ID = RPAD(#{pgm_id},10)
+	    AND PROC_ID = RPAD(#{proc_id},10)
+	</select>
+	
+	<insert id="InsertProgram"  parameterMap="inputParam" >
+	INSERT INTO TIGHTENING_PGM_MA (
+		PLANT_CD, PGM_ID, PROC_ID, PGM_NM, PROC_NM, STN_GUB, 
+		DEVICE_ID, DEVICE_SERIAL, RECONNECT_WAITING_SEC, 
+		INTERLOCK_USE_FLG, 
+		INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+		INTERLOCK_PLC_TYPE, INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+		TRK_PLC_TYPE, TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+		LOGICAL_TRK_FLG, MES_STN_CD, TRK_POINT, 
+		TRK_STN_CNT, TRK_STN_NM, 
+		NG_TRK_ALARM_POINT, NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, 
+		SCANNING_USE_FLG, CYCLE_TEST_TIME, REG_USER_ID 
+	) VALUES (
+		RPAD(#{plant_cd},4), #{pgm_id}, #{proc_id}, #{pgm_nm}, #{proc_nm}, #{stn_gub}, 
+		#{device_id}, #{device_serial}, #{reconnect_waiting_sec}, 
+		#{interlock_use_flg}, 
+		#{interlock_ng_point}, #{interlock_ng_cnt}, #{interlock_noscan_point}, #{interlock_noscan_cnt}, 
+		#{interlock_plc_type}, #{interlock_plc_ip}, #{interlock_plc_port}, #{interlock_plc_start_add}, 
+		#{trk_plc_type}, #{trk_plc_ip}, #{trk_plc_port}, #{trk_plc_start_add}, 
+		#{logical_trk_flg}, #{mes_stn_cd}, #{trk_point}, 
+		#{trk_stn_cnt}, #{trk_stn_nm}, 
+		#{ng_trk_alarm_point}, #{ng_mes_stn_cd}, #{ng_trk_point}, #{ng_trk_view_cnt}, 
+		#{scanning_use_flg}, #{cycle_test_time}, #{reg_user_id} 
+		) 
+	</insert>
+	
+	<select id="selectProgramInfo" parameterType="hashmap" resultMap="info">
+	SELECT PLANT_CD, STN_GUB, PGM_ID, PGM_NM, PROC_ID, PROC_NM, TIGHTENING_PROC_STATUS,  
+	    DEVICE_ID, DEVICE_SERIAL, RECONNECT_WAITING_SEC, 
+	    LOGICAL_TRK_FLG, INTERLOCK_USE_FLG, 
+	    INTERLOCK_NG_POINT, INTERLOCK_NG_CNT, INTERLOCK_NOSCAN_POINT, INTERLOCK_NOSCAN_CNT, 
+	    TRK_PLC_TYPE, TRK_PLC_IP, TRK_PLC_PORT, TRK_PLC_START_ADD, 
+	    INTERLOCK_PLC_TYPE, INTERLOCK_PLC_IP, INTERLOCK_PLC_PORT, INTERLOCK_PLC_START_ADD, 
+	    MES_STN_CD, TRK_POINT, 
+	    TRK_STN_CNT, TRK_STN_NM, 
+	    NG_MES_STN_CD, NG_TRK_POINT, NG_TRK_VIEW_CNT, NG_TRK_ALARM_POINT, 
+	    SCANNING_USE_FLG, CYCLE_TEST_TIME 
+	FROM TIGHTENING_PGM_MA 
+	WHERE PGM_ID = RPAD(#{pgm_id},10) AND PROC_ID = RPAD(#{proc_id},10) 
+	</select>
+	
+	<update id="updateProgram" parameterMap="inputParam">
+	UPDATE TIGHTENING_PGM_MA 
+	SET 
+		STN_GUB = #{stn_gub}, PGM_NM = #{pgm_nm}, PROC_NM = #{proc_nm}, 
+		DEVICE_ID = #{device_id}, DEVICE_SERIAL = #{device_serial}, RECONNECT_WAITING_SEC = #{reconnect_waiting_sec}, 
+		INTERLOCK_USE_FLG = #{interlock_use_flg}, 
+		INTERLOCK_NG_POINT = #{interlock_ng_point}, INTERLOCK_NG_CNT = #{interlock_ng_cnt}, 
+		INTERLOCK_NOSCAN_POINT = #{interlock_noscan_point}, INTERLOCK_NOSCAN_CNT = #{interlock_noscan_cnt}, 
+		INTERLOCK_PLC_TYPE = #{interlock_plc_type}, INTERLOCK_PLC_IP =  #{interlock_plc_ip}, INTERLOCK_PLC_PORT = #{interlock_plc_port}, INTERLOCK_PLC_START_ADD = #{interlock_plc_start_add}, 
+		TRK_PLC_TYPE = #{trk_plc_type}, TRK_PLC_IP = #{trk_plc_ip}, TRK_PLC_PORT = #{trk_plc_port}, TRK_PLC_START_ADD = #{trk_plc_start_add}, 
+		LOGICAL_TRK_FLG = #{logical_trk_flg}, MES_STN_CD = #{mes_stn_cd}, TRK_POINT = #{trk_point}, 
+		TRK_STN_CNT = #{trk_stn_cnt}, TRK_STN_NM = #{trk_stn_nm}, 
+		NG_TRK_ALARM_POINT = #{ng_trk_alarm_point}, NG_MES_STN_CD = #{ng_mes_stn_cd}, NG_TRK_POINT = #{ng_trk_point}, NG_TRK_VIEW_CNT = #{ng_trk_view_cnt}, 
+		SCANNING_USE_FLG = #{scanning_use_flg}, CYCLE_TEST_TIME = #{cycle_test_time}, 
+		REG_DT = TO_CHAR(SYSDATE,'YYYYMMDD'), 
+		REG_TM = TO_CHAR(SYSDATE,'HH24MISS'), 
+		REG_USER_ID = #{reg_user_id} 
+	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+	AND PGM_ID = RPAD(#{pgm_id},10) 
+	AND PROC_ID = RPAD(#{proc_id},10)
+	</update>
+	
+	<delete id="deleteProgram" parameterType="hashmap">
+		DELETE FROM TIGHTENING_PGM_MA
+		WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+		AND PGM_ID = RPAD(#{pgm_id},10) 
+		AND PROC_ID = RPAD(#{proc_id},10)
+	</delete>
 </mapper>

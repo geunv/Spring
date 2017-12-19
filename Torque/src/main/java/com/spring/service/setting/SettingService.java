@@ -138,9 +138,6 @@ public class SettingService implements ISettingService {
 			mapper.updateToolId(updateParam);
 		}catch(Exception e){
 			res.setResult(300);
-			e.printStackTrace();
-			/*transactionManager.rollback(status);*/
-			//throw e;
 		}
 		
 		return res;

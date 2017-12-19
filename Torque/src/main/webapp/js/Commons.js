@@ -632,6 +632,9 @@ function getJobNoToolP01(str){
 
 function getToolId(str,vplant_cd,vdevice_grp_cd,vstn_gub,vline_cd,vweb_display_flg){
 	
+	if ( vstn_gub == "")
+		vstn_gub = '-1';
+	
 	var params = "?plant_cd="+vplant_cd+
 				 "&device_grp_cd=" + vdevice_grp_cd + 
 				 "&stn_gub=" + vstn_gub + 
@@ -688,6 +691,64 @@ function getToolState(str){
 				$('#ddlToolState').append('<option value="'+item.code+ '" >' + item.code_nm+'</option>');
 			});
 		}
+	});
+}
+
+function getProcState(str){
+	$.get('/api/common/getprocstate',function(data){
+		if(data.result == 200){
+			
+			$('#ddlProcState').empty();
+			if(str == 'S')
+				$('#ddlProcState').append('<option value="">Select</option>');
+			else
+				$('#ddlProcState').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlProcState').append('<option value="'+item.code+ '" >' + item.code_nm+'</option>');
+			});
+		}
+	});
+}
+
+function getPgmList(str){
+	var params = "?plant_cd="+$('#ddlPlant').val()+
+	 "&stn_gub=" + $('#ddlStnType').val(); 
+
+	$.get('/api/common/getpgmlist' + params,function(data){
+		//if(data.result == 200){
+			$('#ddlProgram').empty();
+			
+			if ( str == 'S')
+				$('#ddlProgram').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlProgram').append('<option value="-1">ALL</option>');
+			
+			data.forEach(function(item){
+				$('#ddlProgram').append('<option value="'+item.pgm_id+ '">' + item.pgm_nm+'</option>');
+			});
+		//}
+	});
+}
+
+function getProcList(str){
+	var params = "?plant_cd="+$('#ddlPlant').val()+
+	 "&stn_gub=" + $('#ddlStnType').val()+
+	 "&pgm_id="+$('#ddlProgram').val();
+	
+	$.get('/api/common/getproclist' + params,function(data){
+		//if(data.result == 200){
+			$('#ddlProcess').empty();
+			
+			if ( str == 'S')
+				$('#ddlProcess').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlProcess').append('<option value="-1">ALL</option>');
+			
+			data.forEach(function(item){
+				$('#ddlProcess').append('<option value="'+item.proc_id+ '">' + item.proc_nm+'</option>');
+			});
+		//}
 	});
 }
 

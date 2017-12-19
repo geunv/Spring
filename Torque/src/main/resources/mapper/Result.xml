@@ -29,8 +29,8 @@
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
 		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
-		        WHERE TRIM(T.PLANT_CD) = #{plant_cd}
-		        AND   (#{device_id} = '-1' OR TRIM(T.DEVICE_ID) = #{device_id}) 
+		        WHERE T.PLANT_CD = RPAD(#{plant_cd},4)
+		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = RPAD(#{device_id},10)) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
 		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 
@@ -77,8 +77,8 @@
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
 		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
-		        WHERE TRIM(T.PLANT_CD) = #{plant_cd}
-		        AND   (#{device_id} = '-1' OR TRIM(T.DEVICE_ID) = #{device_id}) 
+		        WHERE T.PLANT_CD = RPAD(#{plant_cd},4)
+		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = RPAD(#{device_id},10)) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
 		        AND   (#{line_cd} = '-1' OR T.LINE_CD = #{line_cd}) 

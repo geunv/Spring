@@ -8,6 +8,9 @@
 	<resultMap type="com.spring.model.common.ToolGroupModel" id="ToolGroup"></resultMap>
 	<resultMap type="com.spring.model.common.ToolIDModel" id="ToolIDModel"></resultMap>
 	
+	<resultMap type="com.spring.model.common.ProgramDDLReturn" id="Program"></resultMap>
+	<resultMap type="com.spring.model.common.ProcessDDLReturn" id="Process"></resultMap>
+
 	<select id="selectPlant" resultMap="CommonDDL">
 		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
 		FROM C_COMM_CD
@@ -104,11 +107,45 @@
 		ORDER BY CODE
 	</select>
 	
+	<select id="selectProcState" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM 
+		FROM C_COMM_CD 
+		WHERE CD_GRP = 'PROC_STATE' 
+		ORDER BY CODE
+	</select>
+	
 	<select id="selectUseFlage" resultMap="CommonDDL">
 		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM 
 		FROM C_COMM_CD 
 		WHERE CD_GRP = 'USE_FLAG' 
 		ORDER BY CODE
+	</select>
+	
+	<select id="selectPgmList" resultMap="Program">
+		SELECT PGM_ID, PGM_NM
+    	FROM (
+    		SELECT DISTINCT TRIM(PGM_ID) PGM_ID, TRIM(PGM_NM) PGM_NM
+    		FROM TIGHTENING_PGM_MA
+    		WHERE PLANT_CD = RPAD(#{plant_cd},4)
+    		<if test="stn_gub != '-1'">
+      			AND STN_GUB = #{stn_gub}
+      		</if>
+    		) ORDER BY PGM_ID
+	</select>
+	
+	<select id="selectProcList" resultMap="Process">
+	SELECT PROC_ID, PROC_NM
+	FROM (
+	    SELECT DISTINCT TRIM(PROC_ID) PROC_ID, TRIM(PROC_NM) PROC_NM
+	    FROM TIGHTENING_PGM_MA
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+		<if test="stn_gub != '-1'">
+	    	AND STN_GUB = #{stn_gub}
+	    </if>
+		<if test="pgm_id != '-1'">
+	    	AND PGM_ID = RPAD(#{pgm_id},10)
+	    </if>
+	) ORDER BY PROC_ID
 	</select>
 	
 	<select id="selectShiftTime" resultType="String" parameterType="String">

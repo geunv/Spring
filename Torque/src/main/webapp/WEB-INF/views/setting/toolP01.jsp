@@ -289,7 +289,7 @@ function LoadInfo(toolid,toolserial){
 		*/
 	
 	$.get('/api/setting/gettoolinfo?'+params,function(data){
-		console.log(data);
+		//console.log(data);
 		if(data.length > 0){
 			$('#ddlPlant').val(data[0].plant_cd.trim());
 			$('#ddlStnType').val(data[0].stn_gub.trim());	

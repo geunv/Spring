@@ -1,8 +1,11 @@
 package com.spring.service.common;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.spring.model.BaseResponse;
+import com.spring.model.common.ProcessDDLReturn;
+import com.spring.model.common.ProgramDDLReturn;
 
 public interface ICommonService {
 
@@ -25,6 +28,12 @@ public interface ICommonService {
 	public BaseResponse getToolType();
 	
 	public BaseResponse getToolState();
+	
+	public BaseResponse getProcState();
+	
+	public List<ProgramDDLReturn> getPgmList(String plant_cd, String stn_gub);
+	
+	public List<ProcessDDLReturn> getProcList(String plant_cd, String stn_gub, String pgm_id);
 	
 	public BaseResponse getUseFlage();
 	

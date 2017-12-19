@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.spring.model.common.CommonDDLReturn;
+import com.spring.model.common.ProcessDDLReturn;
+import com.spring.model.common.ProgramDDLReturn;
 import com.spring.model.common.ToolGroupModel;
 import com.spring.model.common.ToolIDModel;
 import com.spring.model.common.ToolIDParam;
@@ -30,7 +32,13 @@ public interface ICommonMapper {
 	
 	public List<CommonDDLReturn> selectToolState();
 	
+	public List<CommonDDLReturn> selectProcState();
+	
 	public List<CommonDDLReturn> selectUseFlage();
+	
+	public List<ProgramDDLReturn> selectPgmList(HashMap<String,Object> map);
+	
+	public List<ProcessDDLReturn> selectProcList(HashMap<String, Object> map);
 	
 	public String selectShiftTime(String code);
 }

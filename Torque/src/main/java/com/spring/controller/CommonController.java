@@ -2,12 +2,16 @@ package com.spring.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.model.BaseResponse;
+import com.spring.model.common.ProcessDDLReturn;
+import com.spring.model.common.ProgramDDLReturn;
 import com.spring.service.common.ICommonService;
 
 @RestController
@@ -90,6 +94,33 @@ public class CommonController {
 		
 		return  commonService.getToolState();
 	}
+	
+	@RequestMapping(value="/api/common/getprocstate", method=GET)
+	public BaseResponse getProcState(){
+		
+		return  commonService.getProcState();
+	}
+	
+	@RequestMapping(value="/api/common/getpgmlist", method=GET)
+	public List<ProgramDDLReturn> getPgmList(
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="stn_gub", required=false, defaultValue="-1") String stn_gub
+			){
+
+		return  commonService.getPgmList(plant_cd,stn_gub);
+	}
+
+	@RequestMapping(value="/api/common/getproclist", method=GET)
+	public List<ProcessDDLReturn> getProcList(
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="stn_gub", required=false, defaultValue="-1") String stn_gub,
+			@RequestParam(value="pgm_id", required=false, defaultValue="-1") String pgm_id
+			){
+
+		return  commonService.getProcList(plant_cd,stn_gub,pgm_id);
+	}
+	
+	
 	
 	@RequestMapping(value="/api/common/getuseflag", method=GET)
 	public BaseResponse getUseFlag(){

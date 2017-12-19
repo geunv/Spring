@@ -11,6 +11,8 @@ import com.spring.dao.ICommonMapper;
 import com.spring.model.BaseResponse;
 import com.spring.model.common.CommonDDLResponse;
 import com.spring.model.common.CommonDDLReturn;
+import com.spring.model.common.ProcessDDLReturn;
+import com.spring.model.common.ProgramDDLReturn;
 import com.spring.model.common.ToolGroupModel;
 import com.spring.model.common.ToolGroupReturn;
 import com.spring.model.common.ToolIDModel;
@@ -142,6 +144,44 @@ public class CommonService implements ICommonService {
 		response.setList(list);
 		
 		return response;		
+	}
+	
+	
+	public BaseResponse getProcState(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selectProcState();
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;		
+	}
+	
+	
+	public List<ProgramDDLReturn> getPgmList(String plant_cd, String stn_gub){
+		
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("stn_gub", stn_gub);
+		
+		List<ProgramDDLReturn> list = mapper.selectPgmList(map);
+		
+		return list;
+		
+	}
+	
+	public List<ProcessDDLReturn> getProcList(String plant_cd,String stn_gub,String pgm_id){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("stn_gub", stn_gub);
+		map.put("pgm_id", pgm_id);
+		
+		List<ProcessDDLReturn> list = mapper.selectProcList(map);
+		
+		return list;
 	}
 	
 	public BaseResponse getUseFlage(){
