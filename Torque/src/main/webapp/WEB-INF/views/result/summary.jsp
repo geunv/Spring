@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8"> 
-	<title>index</title>
+	<title>summary</title>
 	<jsp:include page="../head.jsp" flush="false" />
 </head>
 <body>
@@ -380,5 +380,6 @@
         </div><!-- C_Result -->  
 	</div><!-- C_Body -->
 </div>
+<jsp:include page="../bottom.jsp" flush="false" />
 </body>
 </html>

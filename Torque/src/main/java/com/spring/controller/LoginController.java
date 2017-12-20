@@ -1,14 +1,17 @@
 package com.spring.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +40,25 @@ public class LoginController {
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString(loginRequest.getLang()));
 		
 		return loginService.getLogin(request,loginRequest);
+		
+	}
+	
+	
+	@RequestMapping(value="/api/changeLanguage",method=POST)
+	public BaseResponse changeLanguage(
+			HttpServletRequest request, HttpServletResponse response,
+			@RequestBody LoginRequest loginRequest){
+		
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+        localeResolver.setLocale(request, response, StringUtils.parseLocaleString(loginRequest.getLang()));
+		
+        HttpSession session = request.getSession(true);
+		
+    	session.setAttribute("LANG", loginRequest.getLang());
+    	
+    	BaseResponse res = new BaseResponse();
+    	
+    	return res;
 		
 	}
 	

@@ -20,6 +20,9 @@
 				<when test="lang == 'ko'">
 				, name_ko as name
 				</when>
+				<when test="lang == 'lo'">
+				, name_lo as name
+				</when>
 				<otherwise>
 				, name_en as name
 				</otherwise>
