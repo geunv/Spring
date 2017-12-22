@@ -6,6 +6,7 @@ import java.util.List;
 import com.spring.model.common.CommonDDLReturn;
 import com.spring.model.common.ProcessDDLReturn;
 import com.spring.model.common.ProgramDDLReturn;
+import com.spring.model.common.TighteningResultModel;
 import com.spring.model.common.ToolGroupModel;
 import com.spring.model.common.ToolIDModel;
 import com.spring.model.common.ToolIDParam;
@@ -41,4 +42,6 @@ public interface ICommonMapper {
 	public List<ProcessDDLReturn> selectProcList(HashMap<String, Object> map);
 	
 	public String selectShiftTime(String code);
+	
+	public List<TighteningResultModel> selectTighteningResult();
 }

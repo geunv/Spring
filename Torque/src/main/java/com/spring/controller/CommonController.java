@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.model.BaseResponse;
 import com.spring.model.common.ProcessDDLReturn;
 import com.spring.model.common.ProgramDDLReturn;
+import com.spring.model.common.TighteningResultModel;
 import com.spring.service.common.ICommonService;
 
 @RestController
@@ -134,5 +135,10 @@ public class CommonController {
 		return  commonService.getShiftTime(code);
 	}
 	
+	
+	@RequestMapping(value="/api/common/gettighteningresult", method=GET)
+	public List<TighteningResultModel> getTighteningResult(){
+		return  commonService.getTighteningResult();
+	}
 
 }

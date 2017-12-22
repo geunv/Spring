@@ -155,6 +155,13 @@ public class SettingController {
 		insertParam.setReg_user_id(user_id);
 		return toolService.insertJobNo(insertParam);
 		//
-	}	
+	}
+	
+	
+	@RequestMapping(value="/view/setting/user")
+	public ModelAndView userList(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/setting/user");
+		return mv;
+	}
 	
 }

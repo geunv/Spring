@@ -404,6 +404,16 @@ function ChangeDateFormat(DB_Date){
 	var datetime = ""; 
 	if ( DB_Date.trim().length > 0 )
 		datetime = DB_Date.substr(0,4) +'-' +DB_Date.substr(4,2) +"-" + DB_Date.substr(6,2) +" " +DB_Date.substr(8,2)+":"+ DB_Date.substr(10,2)+":"+DB_Date.substr(12,2)
+	else
+		datetime = "";
+	
+    return datetime;
+}
+
+function ChangeDateFormatSimple(DB_Date){
+	var datetime = ""; 
+	if ( DB_Date.trim().length > 0 )
+		datetime = DB_Date.substr(0,4) +'-' +DB_Date.substr(4,2) +"-" + DB_Date.substr(6,2)
     return datetime;
 }
 
@@ -770,5 +780,21 @@ function getUseFlag(txtid,gbn){
 	});
 }
 
+function getTighteningResult(str){
+	$.get('/api/common/gettighteningresult',function(data){
+		//if(data.result == 200){
+			$('#ddlTighteningResult').empty();
+			
+			if ( str == 'S')
+				$('#ddlTighteningResult').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlTighteningResult').append('<option value="-1">ALL</option>');
+			
+			data.forEach(function(item){
+				$('#ddlTighteningResult').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
 
 /* */

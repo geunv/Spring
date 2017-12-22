@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.dao.result.IResultMapper;
-import com.spring.dao.setting.ISettingMapper;
 import com.spring.model.BaseResponse;
+import com.spring.model.result.DetailListModel;
+import com.spring.model.result.DetailListReturn;
+import com.spring.model.result.DetailListSubModel;
 import com.spring.model.result.SummaryListModel;
 import com.spring.model.result.SummaryListReturn;
-import com.spring.model.setting.JobNoListModel;
 
 @Service
 public class ResultService implements IResultService {
@@ -65,4 +66,196 @@ public class ResultService implements IResultService {
 		
 	}
 	
+	
+	public BaseResponse getResultDetail(int page,int show_count,String plant_cd,String from_dt,String to_dt,String shift,String tool,String tightening_result,String seq,String car_type,String body_no,String old_data,String all_batch,String excel_down){
+		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !tool.equals("-1")){
+			array = tool.split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("from_dt", from_dt.replace("-", ""));
+		map.put("to_dt", to_dt.replace("-", ""));
+		map.put("shift", shift);
+		map.put("device_id",device_id);
+		map.put("device_serial", device_serial);
+		
+		map.put("scan_flg", "-1");
+		map.put("pass_flg", "-1");
+		
+		if(tightening_result.equals("-1") ){
+			map.put("tightening_result", "-1");
+		}else if ( tightening_result.equals("1") ){
+			map.put("tightening_result", "1");
+		}else if ( tightening_result.equals("0") ){
+			map.put("tightening_result", "0");
+		}else if ( tightening_result.equals("N") ){
+			map.put("tightening_result", "-1");
+			map.replace("scan_flg", "N");
+		}else if ( tightening_result.equals("P") ){
+			map.put("tightening_result", "-1");
+			map.replace("pass_flg", "Y");
+		}
+		
+		map.put("seq", "-1");
+		if (!seq.trim().equals(""))
+			map.replace("seq", seq);
+		
+		map.put("car_type", "-1");
+		if (!car_type.trim().equals(""))
+			map.put("car_type", car_type);
+		
+		map.put("body_no", "-1");
+		if(!body_no.trim().equals(""))
+			map.put("body_no", body_no);
+		
+		
+		
+		String table_nm = "";
+		if ( old_data.equals("N"))
+			table_nm = "TIGHTENING_STATUS_MA";
+		else
+			table_nm = "TIGHTENING_STATUS_BK";
+		
+		map.put("table_nm", table_nm);
+		
+		map.put("all_batch", all_batch);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+		
+		List<DetailListModel> list = mapper.selectResultDetailList(map);
+		int total = mapper.selectResultDetailListCount(map);
+		int batch_count = mapper.selectResultDetailListBatchCount(map);
+
+		if ( list.size() > 0 ){
+			for (DetailListModel model : list) {
+				HashMap<String, Object> map2 = new HashMap<String,Object>();
+				map2.put("plant_cd", model.getPlant_cd());
+				map2.put("device_id", model.getDevice_id());
+				map2.put("device_serial", model.getDevice_serial());
+				map2.put("body_no", model.getBody_no());
+				
+				DetailListSubModel sublist = mapper.selectResultDetailSubList(map2);
+				
+				model.setTen_value("");
+				model.setTor_value_1("");
+				model.setAng_value_1("");
+				model.setTor_value_2("");
+				model.setAng_value_2("");
+				model.setTor_value_3("");
+				model.setAng_value_3("");
+				model.setTor_value_4("");
+				model.setAng_value_4("");
+				model.setTor_value_5("");
+				model.setAng_value_5("");
+				model.setTor_value_6("");
+				model.setAng_value_6("");
+				model.setTor_value_7("");
+				model.setAng_value_7("");
+				model.setTor_value_8("");
+				model.setAng_value_8("");
+				model.setTor_value_9("");
+				model.setAng_value_9("");
+				model.setTor_value_10("");
+				model.setAng_value_10("");
+				model.setTor_value_11("");
+				model.setAng_value_11("");
+				model.setTor_value_12("");
+				model.setAng_value_12("");
+				
+				if ( sublist != null)
+				{
+					String[] array_num,array_tor,array_ang,array_ten;
+					array_num = sublist.getBatch_num().split(",");
+					array_tor = sublist.getTor_value().split(",");
+					array_ang = sublist.getAng_value().split(",");
+					array_ten = sublist.getTen_value().split(",");
+					
+					for(int i = 0 ; i < array_num.length ; i++){
+						
+						if ( i == 0 ){
+							model.setTor_value_1(array_tor[i].trim());
+							model.setAng_value_1(array_ang[i].trim());
+							model.setTen_value(array_ten[i].trim());
+						}
+						else if ( i == 1 ){
+							model.setTor_value_2(array_tor[i].trim());
+							model.setAng_value_2(array_ang[i].trim());
+						}
+						else if ( i == 2 ){
+							model.setTor_value_3(array_tor[i].trim());
+							model.setAng_value_3(array_ang[i].trim());
+						}
+						else if ( i == 3 ){
+							model.setTor_value_4(array_tor[i].trim());
+							model.setAng_value_4(array_ang[i].trim());
+						}
+						else if ( i == 4 ){
+							model.setTor_value_5(array_tor[i].trim());
+							model.setAng_value_5(array_ang[i].trim());
+						}
+						else if ( i == 5 ){
+							model.setTor_value_6(array_tor[i].trim());
+							model.setAng_value_6(array_ang[i].trim());
+						}
+						else if ( i == 6 ){
+							model.setTor_value_7(array_tor[i].trim());
+							model.setAng_value_7(array_ang[i].trim());
+						}
+						else if ( i == 7 ){
+							model.setTor_value_8(array_tor[i].trim());
+							model.setAng_value_8(array_ang[i].trim());
+						}
+						else if ( i == 8 ){
+							model.setTor_value_9(array_tor[i].trim());
+							model.setAng_value_9(array_ang[i].trim());
+						}
+						else if ( i == 9 ){
+							model.setTor_value_10(array_tor[i].trim());
+							model.setAng_value_10(array_ang[i].trim());
+						}
+						else if ( i == 10 ){
+							model.setTor_value_11(array_tor[i].trim());
+							model.setAng_value_11(array_ang[i].trim());
+						}
+						else if ( i == 11 ){
+							model.setTor_value_12(array_tor[i].trim());
+							model.setAng_value_12(array_ang[i].trim());
+						}
+						
+					}
+				}
+				/*if ( sublist.size() > 0 ){
+					for(DetailListSubModel sub : sublist){
+						model.setTor_value_1(sub.getTor_value());
+						model.setAng_value_1(sub.getAng_value());
+					}
+				}*/
+			}
+		}
+		
+		DetailListReturn res = new DetailListReturn();
+		res.setList(list);
+		res.setBatch_count(batch_count);
+		res.setTotal_count(total);
+		
+		return res;
+	}
 }

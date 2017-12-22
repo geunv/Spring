@@ -6,6 +6,7 @@ import java.util.List;
 import com.spring.model.BaseResponse;
 import com.spring.model.common.ProcessDDLReturn;
 import com.spring.model.common.ProgramDDLReturn;
+import com.spring.model.common.TighteningResultModel;
 
 public interface ICommonService {
 
@@ -38,4 +39,6 @@ public interface ICommonService {
 	public BaseResponse getUseFlage();
 	
 	public String getShiftTime(String code);
+	
+	public List<TighteningResultModel> getTighteningResult();
 }

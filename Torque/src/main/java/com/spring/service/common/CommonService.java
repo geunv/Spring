@@ -13,6 +13,7 @@ import com.spring.model.common.CommonDDLResponse;
 import com.spring.model.common.CommonDDLReturn;
 import com.spring.model.common.ProcessDDLReturn;
 import com.spring.model.common.ProgramDDLReturn;
+import com.spring.model.common.TighteningResultModel;
 import com.spring.model.common.ToolGroupModel;
 import com.spring.model.common.ToolGroupReturn;
 import com.spring.model.common.ToolIDModel;
@@ -200,5 +201,12 @@ public class CommonService implements ICommonService {
 		String startTime = mapper.selectShiftTime(code);
 		
 		return startTime ;
+	}
+	
+	public List<TighteningResultModel> getTighteningResult(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<TighteningResultModel> list= mapper.selectTighteningResult();
+		
+		return list;
 	}
 }

@@ -7,6 +7,7 @@
 	<resultMap type="com.spring.model.common.CommonDDLReturn" id="CommonDDL"></resultMap>
 	<resultMap type="com.spring.model.common.ToolGroupModel" id="ToolGroup"></resultMap>
 	<resultMap type="com.spring.model.common.ToolIDModel" id="ToolIDModel"></resultMap>
+	<resultMap type="com.spring.model.common.TighteningResultModel" id="TighteningResult"></resultMap>
 	
 	<resultMap type="com.spring.model.common.ProgramDDLReturn" id="Program"></resultMap>
 	<resultMap type="com.spring.model.common.ProcessDDLReturn" id="Process"></resultMap>
@@ -152,6 +153,17 @@
 		SELECT CODE_VALUE 
 		FROM C_COMM_CD A
 		WHERE CD_GRP = 'SHIFT' AND TRIM(CODE) = #{code}
+	</select>
+	
+	<select id="selectTighteningResult" resultMap="TighteningResult">
+		SELECT '1' CODE, 'OK' CODE_NM, '1' NUM FROM DUAL
+		UNION
+		SELECT '0' CODE, 'NG' CODE_NM, '2' NUM FROM DUAL
+		UNION
+		SELECT 'N' CODE, 'No Scan' CODE_NM, '3' NUM FROM DUAL
+		UNION 
+		SELECT 'P' CODE, 'Pass' CODE_NM, '4' NUM FROM DUAL
+		ORDER BY NUM
 	</select>
 	
 </mapper>

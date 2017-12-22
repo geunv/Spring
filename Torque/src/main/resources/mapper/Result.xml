@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.dao.result.IResultMapper">
 
-	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
+	<!-- <parameterMap type="com.spring.model.result.DetailListModel" id="DetailListModel"></parameterMap> -->
 	
 	<resultMap type="com.spring.model.result.SummaryListModel" id="SummaryList"></resultMap>
+	<resultMap type="com.spring.model.result.DetailListModel" id="DetailListModel"></resultMap>
+	<resultMap type="com.spring.model.result.DetailListSubModel" id="subList"></resultMap>
 	
 	<select id="selectResultSummaryList" parameterType="hashmap" resultMap="SummaryList" >
 	SELECT * 
@@ -98,5 +100,89 @@
 		                                     WHEN 'RH' THEN 2 
 		                                     ELSE 3 END 
 		     ))
+	</select>
+	
+	<select id="selectResultDetailList" parameterType="hashmap" resultMap="DetailListModel">
+		SELECT RNUM, PLANT_CD, DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, 
+	       BODY_NO, MES_PBSOUT_PROD_DT, MES_PBSOUT_SEQ, SHIFT, TOT_BATCH_NUM, 
+	       PASS_FLG, SCAN_FLG, TIGHTENING_RESULT, REPAIR_RESULT, LAST_UPDATE_DT, 
+	       MES_TRANS_FLG, MES_TRANS_DT, REGDT, REG_USER_ID 
+		FROM  (SELECT ROW_NUMBER() OVER (ORDER BY B.CODE_VALUE, M.DEVICE_NM, A.LAST_UPDATE_DT DESC) AS RNUM, M.PLANT_CD, M.DEVICE_ID, M.DEVICE_SERIAL, 
+		              RTRIM(M.DEVICE_NM) || '-' || RTRIM(M.DEVICE_ALIAS) AS DEVICE_NM, 
+		              A.BODY_NO, A.MES_PBSOUT_PROD_DT, A.MES_PBSOUT_SEQ, A.SHIFT, A.TOT_BATCH_NUM, 
+		              A.PASS_FLG, A.SCAN_FLG, A.TIGHTENING_RESULT, A.REPAIR_RESULT, A.LAST_UPDATE_DT, 
+		              A.MES_TRANS_FLG, A.MES_TRANS_DT, A.REG_DT || A.REG_TM REGDT, A.REG_USER_ID 
+		       FROM   TIGHTENING_DEVICE_MA M 
+		              LEFT OUTER JOIN ${table_nm} A ON A.PLANT_CD = M.PLANT_CD AND A.DEVICE_ID = M.DEVICE_ID AND A.DEVICE_SERIAL = M.DEVICE_SERIAL 
+		              LEFT OUTER JOIN C_COMM_CD B ON B.PLANT_CD = M.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = M.LINE_CD 
+		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
+		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
+		       AND    SUBSTR(A.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(A.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
+		       AND    (#{shift} = '-1' OR A.SHIFT = #{shift}) 
+		       AND    (#{seq} = '-1' OR A.MES_PBSOUT_SEQ = #{seq}) 
+		       AND    (#{car_type} = '-1' OR RTRIM(SUBSTR(A.BODY_NO, 1, 4)) LIKE '%' || #{car_type} || '%') 
+		       AND    (#{body_no} = '-1' OR RTRIM(SUBSTR(A.BODY_NO, 5, 6)) LIKE '%' || #{body_no} || '%') 
+		       AND    (#{tightening_result} = '-1' OR (A.TIGHTENING_RESULT = #{tightening_result} OR A.REPAIR_RESULT = #{tightening_result})) 
+		       AND    (#{scan_flg} = '-1' OR A.SCAN_FLG = #{scan_flg}) 
+		       AND    (#{pass_flg} = '-1' OR A.PASS_FLG = #{pass_flg})
+		       ORDER BY B.CODE_VALUE, M.DEVICE_NM, A.LAST_UPDATE_DT DESC 
+		) 
+		WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) AND (#{pageEndNo} = '-1' OR RNUM &lt; #{pageEndNo})
+	</select>
+	
+	<select id="selectResultDetailListCount" parameterType="hashmap" resultType="int">
+			   SELECT COUNT(1)
+			   FROM   ${table_nm} M 
+		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
+		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
+		       AND    SUBSTR(M.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(M.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
+		       AND    (#{shift} = '-1' OR M.SHIFT = #{shift}) 
+		       AND    (#{seq} = '-1' OR M.MES_PBSOUT_SEQ = #{seq}) 
+		       AND    (#{car_type} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 1, 4)) LIKE '%' || #{car_type} || '%') 
+		       AND    (#{body_no} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 5, 6)) LIKE '%' || #{body_no} || '%') 
+		       AND    (#{tightening_result} = '-1' OR (M.TIGHTENING_RESULT = #{tightening_result} OR M.REPAIR_RESULT = #{tightening_result})) 
+		       AND    (#{scan_flg} = '-1' OR M.SCAN_FLG = #{scan_flg}) 
+		       AND    (#{pass_flg} = '-1' OR M.PASS_FLG = #{pass_flg})
+	</select>
+	
+	<select id="selectResultDetailListBatchCount" parameterType="hashmap" resultType="int">
+			   SELECT NVL(MAX(TOT_BATCH_NUM) ,0)
+			   FROM   ${table_nm} M 
+		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
+		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
+		       AND    SUBSTR(M.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(M.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
+		       AND    (#{shift} = '-1' OR M.SHIFT = #{shift}) 
+		       AND    (#{seq} = '-1' OR M.MES_PBSOUT_SEQ = #{seq}) 
+		       AND    (#{car_type} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 1, 4)) LIKE '%' || #{car_type} || '%') 
+		       AND    (#{body_no} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 5, 6)) LIKE '%' || #{body_no} || '%') 
+		       AND    (#{tightening_result} = '-1' OR (M.TIGHTENING_RESULT = #{tightening_result} OR M.REPAIR_RESULT = #{tightening_result})) 
+		       AND    (#{scan_flg} = '-1' OR M.SCAN_FLG = #{scan_flg}) 
+		       AND    (#{pass_flg} = '-1' OR M.PASS_FLG = #{pass_flg})
+	</select>
+	
+	<select id="selectResultDetailSubList" parameterType="hashmap" resultMap="subList">
+	<!-- SELECT WM_CONCAT(BATCH_NUM) BATCH_NUM,WM_CONCAT(TOR_VALUE) TOR_VALUE,WM_CONCAT(ANG_VALUE) ANG_VALUE,WM_CONCAT(TEN_VALUE) TEN_VALUE
+	FROM (
+	    select A.BATCH_NUM, TOR_VALUE, ANG_VALUE, TEN_VALUE
+	    from TIGHTENING_BATCH_INFO A
+	    WHERE PLANT_CD = RPAD('1',4)
+	    AND DEVICE_ID = RPAD('QTR001',10)  
+	    AND DEVICE_SERIAL = '1'
+	    AND BODY_NO = 'B0  160779'
+	    ORDER BY TO_NUMBER(A.BATCH_NUM)
+	) -->
+	SELECT WM_CONCAT(BATCH_NUM) BATCH_NUM,WM_CONCAT(TOR_VALUE) TOR_VALUE,WM_CONCAT(ANG_VALUE) ANG_VALUE,WM_CONCAT(TEN_VALUE) TEN_VALUE
+	FROM (
+		SELECT BATCH_NUM, TOR_VALUE, ANG_VALUE, TEN_VALUE
+	    FROM TIGHTENING_BATCH_INFO
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	    AND DEVICE_ID = RPAD(#{device_id},10)
+	    AND DEVICE_SERIAL = #{device_serial}
+	    AND BODY_NO = #{body_no}
+	    ORDER BY BATCH_NUM
+	)
 	</select>
 </mapper>

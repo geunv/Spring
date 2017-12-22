@@ -95,7 +95,7 @@
     }
     
     var now_page = 1;
-    var show_count = 10;
+    var show_count = 20;
 
     function getList(){
         
@@ -279,8 +279,10 @@
                                     
                                 </td>
                                 <td rowspan="2" class="content-button">
-                                    <input type="submit" value="Search" id="btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
-                                    <input type="submit" value="Excel" id="btnExcel" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+                                	<c:set var="btnSearch"><spring:message code="BUTTON.Search"/></c:set>
+                                	<input type="button" id="btnSearch" value="${btnSearch}" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+                                    <c:set var="btnExcel"><spring:message code="BUTTON.Excel"/></c:set>
+                                	<input type="button" id="btnExcel" value="${btnExcel}" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                 </td>
                             </tr>
                             <tr>

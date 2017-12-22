@@ -29,7 +29,7 @@
 			</choose>
 			, menu_link 
 		FROM 
-			TEMP_C_MENU
+			C_MENU
 		WHERE
 			MENU_GRADE LIKE '%' || #{grade} || '%'
 		order by 

@@ -54,4 +54,39 @@ public class ResultController {
 		ModelAndView mv = new ModelAndView("/result/detail");
 		return mv;
 	}
+	
+/*	
+	var params = "?plant_cd="+$('#ddlPlant').val()+
+			 "&from_dt="+$('#txtFromDate').val()+
+			 "&to_dt="+$('#txtToDate').val()+
+			 "&shift="+$('#ddlShift').val() +
+			 "&tool="+$('#ddlTool').val() +
+			 "&tightening_result=" + +$('#ddlTighteningResult').val()+
+			 "&seq=" + $('#txtSeq').val()+
+			 "&car_type=" + $('#txtCarType').val() +
+			 "&body_no=" + $('#txtBodyNo').val() + 
+			 "&page="+now_page+
+			 "&show_count="+show_count;
+*/	
+	
+	@RequestMapping(value="/api/result/getresultdetail", method=GET)
+	public BaseResponse getResultDetail(
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="from_dt", required=false) String from_dt,
+			@RequestParam(value="to_dt", required=false, defaultValue="1") String to_dt,
+			@RequestParam(value="shift", required=false) String shift,
+			@RequestParam(value="tool", required=false) String tool,
+			@RequestParam(value="tightening_result", required=false) String tightening_result,
+			@RequestParam(value="seq", required=false) String seq,
+			@RequestParam(value="car_type", required=false) String car_type,
+			@RequestParam(value="body_no", required=false) String body_no,
+			@RequestParam(value="old_data", required=false) String old_data,
+			@RequestParam(value="all_batch", required=false) String all_batch,
+			@RequestParam(value="excel_down", required=false, defaultValue="N") String excel_down
+			
+			){
+		return resultService.getResultDetail(page, show_count, plant_cd, from_dt,to_dt, shift, tool, tightening_result,seq,car_type,body_no,old_data,all_batch, excel_down);
+	}
 }
