@@ -5,6 +5,8 @@ import java.util.List;
 import com.spring.model.BaseResponse;
 import com.spring.model.setting.JobNoInfo;
 import com.spring.model.setting.ToolInfoModel;
+import com.spring.model.setting.UserInfoModel;
+import com.spring.model.setting.UserInsertParam;
 
 public interface ISettingService {
 
@@ -35,4 +37,14 @@ public interface ISettingService {
 									  String excel_down );
 	
 	public BaseResponse insertJobNo(JobNoInfo inputparam);
+	
+	public BaseResponse getUserList(String plant_cd,String user_authority,String user_grp,String user_id,String user_nm,String user_grade,int page,int show_count,String excel_down );
+	
+	public BaseResponse insertUser(UserInsertParam insertParam);
+	
+	public List<UserInfoModel> SelectUserInfo(String user_id);
+	
+	public BaseResponse updateUser(UserInsertParam updateParam);
+	
+	public BaseResponse deleteUser(String plant_cd, String user_id);
 }

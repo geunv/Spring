@@ -166,4 +166,21 @@
 		ORDER BY NUM
 	</select>
 	
+	<select id="selectUserAuthority" parameterType="String" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+	    FROM   C_COMM_CD
+	    WHERE  CD_GRP = 'USER_AUTHORITY'
+	    AND    (#{user_grade} = 'A' OR CODE = 'U')
+	    ORDER BY CODE
+	</select>
+	
+	<select id="selectUserGroup" parameterType="String" resultMap="CommonDDL">
+		SELECT TRIM(M.CODE) CODE, TRIM(M.CODE_NM) CODE_NM 
+	    FROM   C_COMM_CD M 
+	           LEFT OUTER JOIN C_COMM_CD A ON A.PLANT_CD = M.PLANT_CD AND A.CD_GRP = 'LINE_CD' AND A.CODE = M.CODE 
+	    WHERE  M.CD_GRP = 'USER_GRP_CD' 
+	    AND    (#{user_grade} = 'A' OR M.CODE_VALUE = '0') 
+	    ORDER BY A.CODE_VALUE
+	</select> 
+	
 </mapper>

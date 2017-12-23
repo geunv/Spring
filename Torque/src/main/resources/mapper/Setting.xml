@@ -4,13 +4,17 @@
 
 	<parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap>
 	<parameterMap type="com.spring.model.setting.ToolInfoModel" id="ToolInsert"></parameterMap>
+	<parameterMap type="com.spring.model.setting.UserInsertParam" id="UserInsert"></parameterMap>
+	
 	<resultMap type="com.spring.model.setting.ToolListModel" id="ToolListModel"></resultMap>
 	<resultMap type="com.spring.model.setting.ToolInfoModel" id="ToolSelect"></resultMap>
 	<resultMap type="com.spring.model.setting.ToolInfoModel" id="JobNoSelect"></resultMap>
 	
-	
 	<resultMap type="com.spring.model.setting.JobNoListModel" id="JobNoList"></resultMap>
 	<resultMap type="com.spring.model.setting.JobNoInfo" id="JobNoInfo"></resultMap>
+	
+	<resultMap type="com.spring.model.setting.UserListModel" id="UserListModel"></resultMap>
+	<resultMap type="com.spring.model.setting.UserInfoModel" id="UserInfoModel"></resultMap>
 	
 	<select id="selectToolList" parameterMap="ToolListParam" resultMap="ToolListModel" >
 	SELECT * 
@@ -214,4 +218,92 @@
     AND TRIM(DEVICE_SERIAL) = #{device_serial}
     AND TRIM(JOB_NUM) = #{job_no}
 	</select>
+	
+	<select id="selectUserList" parameterType="hashmap" resultMap="UserListModel">
+	SELECT * FROM ( 
+		SELECT ROWNUM RNUM, USER_ID, USER_NM, 
+		(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP='USER_GRP_CD' AND CODE=A.USER_GRP) USER_GRP, 
+		(SELECT TRIM(CODE_NM) FROM C_COMM_CD WHERE PLANT_CD = A.PLANT_CD AND CD_GRP='USER_AUTHORITY' AND CODE=A.WEB_USER_PERMIT) WEB_USER_PERMIT, 
+		LAST_LOGIN_DT, REG_DT || REG_TM REGDT, REG_USER_ID   
+		FROM (
+			SELECT PLANT_CD, USER_ID, USER_NM, USER_GRP, WEB_USER_PERMIT, LAST_LOGIN_DT, REG_DT, REG_TM, REG_USER_ID  
+			FROM C_USER_MA 
+			WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			<choose>
+			<when test="user_authority == '-1'.toString() ">
+				AND  (#{user_grade} = 'A' OR WEB_USER_PERMIT = 'U') 
+			</when>
+			<when test="user_authority != '-1'.toString() ">
+				AND WEB_USER_PERMIT = #{user_authority} 
+			</when>
+			</choose>
+			<if test="user_grp != '-1'.toString() ">
+				AND USER_GRP = #{user_grp}
+			</if>
+			<if test="user_id != '' ">
+				AND UPPER(USER_ID) LIKE '%' || UPPER(#{user_id}) || '%' 
+			</if>
+			<if test="user_nm != '' ">
+				AND UPPER(USER_NM) LIKE '%' || UPPER(#{user_nm}) || '%' 
+			</if>
+			ORDER BY REG_DT || REG_TM DESC, USER_ID, USER_NM 
+		) A ) 
+	  WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+		AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo})
+	</select>
+	
+	<select id="selectUserListCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(1)
+			FROM C_USER_MA 
+			WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			<choose>
+			<when test="user_authority == '-1'.toString() ">
+				AND  (#{user_grade} = 'A' OR WEB_USER_PERMIT = 'U') 
+			</when>
+			<when test="user_authority != '-1'.toString() ">
+				AND WEB_USER_PERMIT = #{user_authority} 
+			</when>
+			</choose>
+			<if test="user_grp != '-1'.toString() ">
+				AND USER_GRP = #{user_grp}
+			</if>
+			<if test="user_id != '' ">
+				AND UPPER(USER_ID) LIKE '%' || UPPER(#{user_id}) || '%' 
+			</if>
+			<if test="user_nm != '' ">
+				AND UPPER(USER_NM) LIKE '%' || UPPER(#{user_nm}) || '%' 
+			</if>
+	</select>
+	
+	<select id="selectUserInfo" resultMap="UserInfoModel" parameterType="hashmap">
+		SELECT PLANT_CD, USER_PWD, USER_GRP, USER_NM, WEB_USER_PERMIT
+    	FROM C_USER_MA
+    	WHERE USER_ID = RPAD(#{user_id},20)
+	</select>
+	
+	<insert id="insertUserInfo" parameterMap="UserInsert">
+		INSERT INTO C_USER_MA
+	    (PLANT_CD, USER_ID, USER_PWD, USER_GRP, USER_NM,
+	    APP_USER_PERMIT, WEB_USER_PERMIT, REG_USER_ID)
+	    VALUES
+	    (#{plant_cd}, #{user_id}, #{user_pw}, #{user_grp}, #{user_nm}, 
+	    #{user_authority}, #{user_authority}, #{login_user_id} )
+	</insert>
+	
+	<update id="updateUserInfo" parameterMap="UserInsert">
+		UPDATE C_USER_MA
+	    SET USER_PWD = #{user_pw}, USER_NM = #{user_nm},  USER_GRP = #{user_grp},
+	    APP_USER_PERMIT = #{user_authority}, WEB_USER_PERMIT = #{user_authority},
+	    REG_DT = TO_CHAR(SYSDATE,'YYYYMMDD'),
+	    REG_TM = TO_CHAR(SYSDATE,'HH24MISS'),
+	    REG_USER_ID = #{login_user_id}
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+	    AND USER_ID = RPAD(#{user_id},20)
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="hashmap">
+		DELETE FROM C_USER_MA
+    	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+	    AND USER_ID = RPAD(#{user_id},20)
+	</delete>
 </mapper>

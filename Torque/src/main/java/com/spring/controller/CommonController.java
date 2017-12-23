@@ -140,5 +140,21 @@ public class CommonController {
 	public List<TighteningResultModel> getTighteningResult(){
 		return  commonService.getTighteningResult();
 	}
+	
+	@RequestMapping(value="/api/common/getuserauthority", method=GET)
+	public BaseResponse getUserAuthority(
+			@RequestParam(value="user_grade", required=false, defaultValue="U") String user_grade
+			){
+		
+		return  commonService.getUserAuthority(user_grade);
+	}
+	
 
+	@RequestMapping(value="/api/common/getusergroup", method=GET)
+	public BaseResponse getUserGroup(
+			@RequestParam(value="user_grade", required=false, defaultValue="U") String user_grade
+			){
+		
+		return  commonService.getUserGroup(user_grade);
+	}
 }

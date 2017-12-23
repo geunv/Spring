@@ -9,7 +9,7 @@
 	<select id="getMainMenu" parameterMap="ParamMenu" resultMap="MainMenu">
 		SELECT 
 			first_order
-			, second_order
+			, CASE WHEN 'M' = #{grade} AND second_order = 7 THEN 1 ELSE second_order END second_order 
 			<!-- <if test="lang == 'ko'">
 			, name_ko as name
 			</if>

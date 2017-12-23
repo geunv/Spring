@@ -3,7 +3,6 @@
 	HttpSession my_session = request.getSession();
 	String selected_lang = (String)my_session.getAttribute("LANG");
 %>
-<%=selected_lang.trim()%>
 <footer>
 	<div>       Copyright 2015 KIA KMM. All right reserved. &nbsp;
     <select id="ddlLanguage">

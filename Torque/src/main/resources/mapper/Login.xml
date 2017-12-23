@@ -17,5 +17,11 @@
 		<!-- WHERE trim(user_id) = 'DHLEE' -->
 		WHERE trim(user_id) = #{user_id}
 	</select>
+	
+	<update id="updateUserPassword" parameterType="hashmap">
+		UPDATE C_USER_MA
+    	SET USER_PWD = #{user_new_pass}
+    	WHERE USER_ID = RPAD(#{user_id},20)
+	</update>
 
 </mapper>

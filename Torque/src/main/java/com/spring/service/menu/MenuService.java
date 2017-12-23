@@ -23,7 +23,7 @@ public class MenuService implements IMenuService {
 		
 		ParamMenu param = new ParamMenu();
 		
-		param.setGrade(session.getAttribute("WEB_PERMIT").toString());
+		param.setGrade(session.getAttribute("USER_GRADE").toString());
 		param.setLang(session.getAttribute("LANG").toString());
 		
 		return mapper.getMainMenu(param);

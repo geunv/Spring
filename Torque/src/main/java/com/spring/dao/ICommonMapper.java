@@ -44,4 +44,8 @@ public interface ICommonMapper {
 	public String selectShiftTime(String code);
 	
 	public List<TighteningResultModel> selectTighteningResult();
+	
+	public List<CommonDDLReturn> selectUserAuthority(String user_grade);
+	
+	public List<CommonDDLReturn> selectUserGroup(String user_grade);
 }

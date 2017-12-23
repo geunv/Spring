@@ -209,4 +209,27 @@ public class CommonService implements ICommonService {
 		
 		return list;
 	}
+	
+	public BaseResponse getUserAuthority(String user_grade){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selectUserAuthority(user_grade);
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;		
+	}
+	
+	public BaseResponse getUserGroup(String user_grade){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selectUserGroup(user_grade);
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;		
+	}
+	
 }

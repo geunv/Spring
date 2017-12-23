@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.model.BaseResponse;
 import com.spring.model.setting.JobNoInfo;
 import com.spring.model.setting.ToolInfoModel;
+import com.spring.model.setting.UserInfoModel;
+import com.spring.model.setting.UserInsertParam;
 //import com.spring.service.common.ICommonService;
 import com.spring.service.setting.ISettingService;
 
@@ -46,7 +48,7 @@ public class SettingController {
 	@RequestMapping(value="/api/setting/gettoollist", method=GET)
 	public BaseResponse getToolList(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
-			@RequestParam(value="show_count", required=false, defaultValue="10") int show_count,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
 			@RequestParam(value="plant_cd", required=false) String plant_cd,
 			@RequestParam(value="stn_type", required=false) String stn_type,
 			@RequestParam(value="device_grp_cd", required=false) String device_grp_cd,
@@ -129,7 +131,7 @@ public class SettingController {
 	@RequestMapping(value="/api/setting/getjobnolist", method=GET)
 	public BaseResponse getJobNolList(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
-			@RequestParam(value="show_count", required=false, defaultValue="10") int show_count,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
 			@RequestParam(value="plant_cd", required=false) String plant_cd,
 			@RequestParam(value="car_type", required=false) String car_type,
 			@RequestParam(value="tool_id", required=false) String tool_id,
@@ -157,11 +159,62 @@ public class SettingController {
 		//
 	}
 	
-	
+	//
 	@RequestMapping(value="/view/setting/user")
 	public ModelAndView userList(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("/setting/user");
 		return mv;
+	}
+	
+	@RequestMapping(value="/api/setting/getuserlist", method=GET)
+	public BaseResponse getUserList(
+			@RequestParam(value="plant_cd", required=false) String plant_cd,
+			@RequestParam(value="user_authority", required=false) String user_authority,
+			@RequestParam(value="user_grp", required=false) String user_grp,
+			@RequestParam(value="user_id", required=false) String user_id,
+			@RequestParam(value="user_nm", required=false) String user_nm,
+			@RequestParam(value="user_grade", required=false) String user_grade,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
+			@RequestParam(value="excel_down", required=false, defaultValue="N") String excel_down
+	){
+		
+		return toolService.getUserList(plant_cd,user_authority,user_grp,user_id,user_nm,user_grade,page,show_count,excel_down );
+	}
+	
+	@RequestMapping(value="/view/setting/userP01")
+	public ModelAndView userP01(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/setting/userP01");
+		return mv;
+	}
+	
+	@RequestMapping(value="/api/setting/insertuser", method=POST)
+	public BaseResponse insertUser(@RequestBody UserInsertParam insertParam){
+		return toolService.insertUser(insertParam);
+	}
+	
+	
+	@RequestMapping(value="/api/setting/getuserinfo", method=GET)
+	public List<UserInfoModel> insertUser(
+			@RequestParam(value="user_id", required=false) String user_id
+			){
+		
+		return toolService.SelectUserInfo(user_id);
+	}
+	
+	
+	@RequestMapping(value="/api/setting/updatetuser", method=PUT)
+	public BaseResponse updateUser(@RequestBody UserInsertParam updateParam){
+		return toolService.updateUser(updateParam);
+	}
+	
+	
+	@RequestMapping(value="/api/setting/deleteuser", method=DELETE)
+	public BaseResponse deleteUser(
+								@RequestParam(value="plant_cd", required=false) String plant_cd,
+								@RequestParam(value="user_id", required=false) String user_id
+								){
+		return toolService.deleteUser(plant_cd,user_id);
 	}
 	
 }

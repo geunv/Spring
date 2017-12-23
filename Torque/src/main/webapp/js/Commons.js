@@ -400,9 +400,14 @@ function fn_Excelpostfix(){
     return postfix;
 }
 
+String.prototype.trim = function() {
+    return this.replace(/(^\s*)|(\s*$)/gi, "");
+}
+
 function ChangeDateFormat(DB_Date){
+	var dt = $.trim(DB_Date);
 	var datetime = ""; 
-	if ( DB_Date.trim().length > 0 )
+	if ( dt.length > 0 )
 		datetime = DB_Date.substr(0,4) +'-' +DB_Date.substr(4,2) +"-" + DB_Date.substr(6,2) +" " +DB_Date.substr(8,2)+":"+ DB_Date.substr(10,2)+":"+DB_Date.substr(12,2)
 	else
 		datetime = "";
@@ -794,6 +799,39 @@ function getTighteningResult(str){
 				$('#ddlTighteningResult').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
 			});
 		//}
+	});
+}
+
+function getUserAuthority(user_grade){
+	
+	$.get('/api/common/getuserauthority?user_grade='+user_grade,function(data){
+		if(data.result == 200){
+			$('#ddlUserAuthority').empty();
+			
+			$('#ddlUserAuthority').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlUserAuthority').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		}
+	});
+	
+}
+
+function getUserGroup(str,user_grade){
+	$.get('/api/common/getusergroup?user_grade='+user_grade,function(data){
+		if(data.result == 200){
+			$('#ddlUserGrp').empty();
+			
+			if ( str == 'S')
+				$('#ddlUserGrp').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlUserGrp').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlUserGrp').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		}
 	});
 }
 

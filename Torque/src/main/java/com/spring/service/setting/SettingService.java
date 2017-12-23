@@ -16,6 +16,10 @@ import com.spring.model.setting.ToolInfoModel;
 import com.spring.model.setting.ToolListModel;
 import com.spring.model.setting.ToolListParam;
 import com.spring.model.setting.ToolListReturn;
+import com.spring.model.setting.UserInfoModel;
+import com.spring.model.setting.UserInsertParam;
+import com.spring.model.setting.UserListModel;
+import com.spring.model.setting.UserListReturn;
 
 @Service
 public class SettingService implements ISettingService {
@@ -190,8 +194,8 @@ public class SettingService implements ISettingService {
 		}
 		else
 		{
-		map.put("pageStartNo", (page * show_count) - show_count);
-		map.put("pageEndNo", (page*show_count) +1);
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
 		}
 		
 		List<JobNoListModel> list = mapper.selectJobNoList(map);
@@ -208,6 +212,116 @@ public class SettingService implements ISettingService {
 	public BaseResponse insertJobNo(JobNoInfo inputparam){
 		
 		BaseResponse res = new BaseResponse();
+		
+		return res;
+	}
+	
+	public BaseResponse getUserList(String plant_cd,String user_authority,String user_grp,String user_id,String user_nm,String user_grade,int page,int show_count,String excel_down ){
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("user_authority", user_authority);
+		map.put("user_grp", user_grp);
+		map.put("user_id", user_id);
+		map.put("user_nm", user_nm);
+		map.put("user_grade", user_grade);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+
+		List<UserListModel> list = mapper.selectUserList(map);
+		int total_count = mapper.selectUserListCount(map);
+		
+		UserListReturn response = new UserListReturn();
+		
+		response.setList(list);
+		response.setTotal_count(total_count);
+		
+		return response;
+		
+	}
+	
+	public BaseResponse insertUser(UserInsertParam insertParam){
+		
+		BaseResponse res = new BaseResponse();
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", insertParam.getUser_id());
+		
+		List<UserInfoModel> info = mapper.selectUserInfo(map);
+		
+		if (info.size() > 0)
+			res.setResult(300);
+		else
+			mapper.insertUserInfo(insertParam);
+			
+		return res;
+	}
+	
+	public List<UserInfoModel> SelectUserInfo(String user_id){
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		BaseResponse res = new BaseResponse();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		
+		List<UserInfoModel> info = mapper.selectUserInfo(map);
+		
+		return info;
+	}
+	
+	public BaseResponse updateUser(UserInsertParam updateParam){
+		BaseResponse res = new BaseResponse();
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", updateParam.getUser_id());
+
+		if ( updateParam.getUser_authority() == "-1")
+			updateParam.setUser_authority(" ");
+		
+		if(updateParam.getUser_grp() == "-1")
+			updateParam.setUser_grp(" ");
+		
+		if(updateParam.getUser_pw().trim().length() == 0 )
+			updateParam.setUser_pw(" ");
+		
+		if(updateParam.getUser_nm().trim().length() == 0 )
+			updateParam.setUser_nm(" ");
+		
+	    
+		try{
+			mapper.updateUserInfo(updateParam);
+		}catch(Exception e){
+			res.setResult(300);
+		}
+		
+		return res;
+	}
+	
+	public BaseResponse deleteUser(String plant_cd, String user_id){
+		
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		BaseResponse res = new BaseResponse();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("user_id", user_id);
+		
+		
+		try{
+			mapper.deleteUserInfo(map);
+		}catch(Exception e){
+			res.setResult(300);
+		}
 		
 		return res;
 	}

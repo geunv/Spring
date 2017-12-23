@@ -8,17 +8,6 @@
 	<meta charset="UTF-8"> 
 	<title>detail</title>
 	<jsp:include page="../head.jsp" flush="false" />
-	<!-- <style type="text/css">
-	.left_5 input[type=checkbox] + span{
-	  font-weight:normal;
-	  color: gray;
-	}
-	
-	.left_5 input[type=checkbox]:checked + span{
-	  font-weight:bold;
-	  color:black;
-	}
-	</style> -->
 </head>
 <body>
 <jsp:include page="../menu.jsp" flush="false" />
