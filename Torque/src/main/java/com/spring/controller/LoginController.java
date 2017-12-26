@@ -2,10 +2,19 @@ package com.spring.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,7 +79,6 @@ public class LoginController {
 	@RequestMapping(value="/api/changepassword",method=POST)
 	public BaseResponse changePassword(
 			@RequestBody ChangePassModel inputparam){
-
 		
 		return loginService.changePassword(inputparam);
     	
@@ -81,4 +89,5 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView("/logout");
 		return mv;
 	}
+	
 }

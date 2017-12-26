@@ -43,6 +43,10 @@ public interface ICommonService {
 	public List<TighteningResultModel> getTighteningResult();
 	
 	public BaseResponse getUserAuthority(String user_grade);
-	
+		
 	public BaseResponse getUserGroup(String user_grade);
+	
+	public BaseResponse getSystemArea();
+	
+	public BaseResponse getLangType();
 }

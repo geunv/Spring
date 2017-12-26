@@ -65,7 +65,7 @@ if('null' == '<%=user_id%>'){
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" id="myMenu">
       
-        <li><a href="/index"><spring:message code="menu.Main" /></a></li>
+        <li><a href="/index"><spring:message code="MENU.MAIN" /></a></li>
       
       </ul>
       <ul class="nav navbar-nav" style="float:right;">

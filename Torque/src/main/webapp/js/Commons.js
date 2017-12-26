@@ -835,4 +835,38 @@ function getUserGroup(str,user_grade){
 	});
 }
 
+function getSystemArea(str){
+	$.get('/api/common/getsystemarea',function(data){
+		//if(data.result == 200){
+			$('#ddlSystemArea').empty();
+			
+			if ( str == 'S')
+				$('#ddlSystemArea').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlSystemArea').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlSystemArea').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
+
+function getLangType(str){
+	$.get('/api/common/getlangtype',function(data){
+		//if(data.result == 200){
+			$('#ddlLangType').empty();
+			
+			if ( str == 'S')
+				$('#ddlLangType').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlLangType').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlLangType').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
+
 /* */

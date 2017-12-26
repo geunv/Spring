@@ -157,4 +157,16 @@ public class CommonController {
 		
 		return  commonService.getUserGroup(user_grade);
 	}
+	
+	
+	@RequestMapping(value="/api/common/getsystemarea", method=GET)
+	public BaseResponse getSystemArea(){
+		return  commonService.getSystemArea();
+	}
+	
+	
+	@RequestMapping(value="/api/common/getlangtype", method=GET)
+	public BaseResponse getLangType(){
+		return  commonService.getLangType();
+	}
 }

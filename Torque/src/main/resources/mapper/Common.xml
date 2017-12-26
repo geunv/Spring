@@ -183,4 +183,17 @@
 	    ORDER BY A.CODE_VALUE
 	</select> 
 	
+	<select id="selectSystemArea" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+	    FROM C_COMM_CD
+	    WHERE CD_GRP = 'SYS_AREA'
+	    ORDER BY CODE
+	</select>
+	
+	<select id="selectLangType" resultMap="CommonDDL">
+		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
+	    FROM C_COMM_CD
+	    WHERE CD_GRP = 'LANG_TYPE'
+	    ORDER BY CODE
+	</select>
 </mapper>

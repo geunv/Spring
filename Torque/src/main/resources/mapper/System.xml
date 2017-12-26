@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.dao.system.ISystemMapper">
 
-	<!-- <parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap> -->
 	<parameterMap type="com.spring.model.system.ProgramProcessParamModel" id="inputParam"></parameterMap>
+	<parameterMap type="com.spring.model.system.LanguageParamModel" id="LanguageParamModel"></parameterMap>
 	
 	<resultMap type="com.spring.model.system.ProgramProcessInfoModel" id="info"></resultMap>
 	<resultMap type="com.spring.model.system.ProgramProcessListModel" id="ProgramProcessList"></resultMap>
 	
+	<resultMap type="com.spring.model.system.LanguageListModel" id="LanguageListModel"></resultMap>
+	<resultMap type="com.spring.model.system.LanguageInfo" id="LanguageInfo"></resultMap>
+	<resultMap type="com.spring.model.system.DictionaryModel" id="dic"></resultMap>
+
+
 	<select id="selectProgramProcessList" parameterType="hashmap" resultMap="ProgramProcessList" >
 	SELECT * FROM ( 
 	    SELECT ROWNUM RNUM, 
@@ -187,4 +192,89 @@
 		AND PGM_ID = RPAD(#{pgm_id},10) 
 		AND PROC_ID = RPAD(#{proc_id},10)
 	</delete>
+	<!-- Common Code -->
+	
+	<!-- Common Code -->
+	
+	<select id="selectLanguageList" parameterType="hashmap" resultMap="LanguageListModel">
+	SELECT * 
+	FROM (
+    	SELECT ROWNUM RNUM, MSG_ID, DATA_TYPE, SYS_AREA, MSG_TEXT_KO_KR, MSG_TEXT_EN_US, MSG_TEXT_LO_LN, REG_DT || REG_TM REGDT, REG_USER_ID
+    	FROM (
+    		SELECT MSG_ID, DATA_TYPE, SYS_AREA, MSG_TEXT_KO_KR, MSG_TEXT_EN_US, MSG_TEXT_LO_LN, REG_DT, REG_TM, REG_USER_ID
+    		FROM C_MSG_ID_MA
+    		WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+    		<if test="sys_area != '-1'">
+	            AND SYS_AREA = #{sys_area}
+	        </if>
+    		<if test="lang_type != '-1'">
+	            AND DATA_TYPE = #{lang_type}
+	        </if>
+    		<if test="lang_id != ''">
+	            AND UPPER(MSG_ID) LIKE '%' || UPPER(#{lang_id}) || '%'
+	        </if>
+    		ORDER BY REG_DT || REG_TM DESC 
+    		)
+    	) 
+    WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+		AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo})
+	</select>
+	
+	<select id="selectLanguageListCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(1)
+   		FROM C_MSG_ID_MA
+   		WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+   		<if test="sys_area != '-1'">
+            AND SYS_AREA = #{sys_area}
+        </if>
+   		<if test="lang_type != '-1'">
+            AND DATA_TYPE = #{lang_type}
+        </if>
+   		<if test="lang_id != ''">
+            AND UPPER(MSG_ID) LIKE '%' || UPPER(#{lang_id}) || '%'
+        </if>
+	</select> 
+	
+	<select id="selectLanguageInfo" parameterType="hashmap" resultMap="LanguageInfo">
+	    SELECT PLANT_CD, SYS_AREA, DATA_TYPE, MSG_TYPE, MSG_TEXT_KO_KR, MSG_TEXT_EN_US, MSG_TEXT_LO_LN
+    	FROM C_MSG_ID_MA
+    	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+    	AND MSG_ID = RPAD(#{lang_id},30)
+    	AND DATA_TYPE = #{lang_type}
+	</select>
+	
+	<insert id="InsertLanguage" parameterMap="LanguageParamModel">
+		INSERT INTO C_MSG_ID_MA(PLANT_CD, DATA_TYPE, MSG_ID, MSG_TYPE, SYS_AREA
+								, MSG_TEXT_KO_KR, MSG_TEXT_EN_US, MSG_TEXT_LO_LN, REG_USER_ID)
+    					VALUES
+    						   (#{plant_cd},#{lang_type},#{lang_id},#{msg_type},#{sys_area}
+    						   	,#{lang_kor},#{lang_eng},#{lang_lon}, #{login_user_id})
+	</insert>
+	
+	<update id="updateLanguage" parameterMap="LanguageParamModel">
+		UPDATE C_MSG_ID_MA
+    	SET SYS_AREA = #{sys_area}, MSG_TYPE = #{msg_type},
+    	MSG_TEXT_KO_KR = #{lang_kor}, MSG_TEXT_EN_US = #{lang_eng}, MSG_TEXT_LO_LN = #{lang_lon},
+    	REG_USER_ID = #{login_user_id},
+    	REG_DT = TO_CHAR(SYSDATE,'YYYYMMDD'),
+    	REG_TM = TO_CHAR(SYSDATE,'HH24MISS')
+    	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+    	AND MSG_ID = RPAD(#{lang_id},30)
+    	AND DATA_TYPE = #{lang_type}
+	</update>
+	
+	<delete id="deleteLanguage" parameterType="hashmap" >
+		DELETE FROM C_MSG_ID_MA
+    	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
+    	AND MSG_ID = RPAD(#{lang_id},30)
+    	AND DATA_TYPE = #{lang_type} 
+	</delete>
+	
+	<select id="selectDic" resultMap="dic">
+		select MSG_ID
+		, MSG_TEXT_KO_KR AS TEXT_KO
+	    , MSG_TEXT_EN_US AS TEXT_EN
+	    , MSG_TEXT_LO_LN AS TEXT_LO
+		from c_msg_id_ma
+	</select>
 </mapper>

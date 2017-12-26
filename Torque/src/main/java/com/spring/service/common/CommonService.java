@@ -231,5 +231,26 @@ public class CommonService implements ICommonService {
 		
 		return response;		
 	}
+
+	public BaseResponse getSystemArea(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selectSystemArea();
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;
+	}
 	
+	public BaseResponse getLangType(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selectLangType();
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;
+	}
 }
