@@ -8,6 +8,11 @@
 	<resultMap type="com.spring.model.result.DetailListModel" id="DetailListModel"></resultMap>
 	<resultMap type="com.spring.model.result.DetailListSubModel" id="subList"></resultMap>
 	
+	<resultMap type="com.spring.model.result.ResultHistoryListModel" id="resultHistory"></resultMap>
+
+	<resultMap type="com.spring.model.result.ResultByDateListModel" id="ResultByDateListModel"></resultMap>
+	
+	
 	<select id="selectResultSummaryList" parameterType="hashmap" resultMap="SummaryList" >
 	SELECT * 
 	FROM ( 
@@ -164,16 +169,6 @@
 	</select>
 	
 	<select id="selectResultDetailSubList" parameterType="hashmap" resultMap="subList">
-	<!-- SELECT WM_CONCAT(BATCH_NUM) BATCH_NUM,WM_CONCAT(TOR_VALUE) TOR_VALUE,WM_CONCAT(ANG_VALUE) ANG_VALUE,WM_CONCAT(TEN_VALUE) TEN_VALUE
-	FROM (
-	    select A.BATCH_NUM, TOR_VALUE, ANG_VALUE, TEN_VALUE
-	    from TIGHTENING_BATCH_INFO A
-	    WHERE PLANT_CD = RPAD('1',4)
-	    AND DEVICE_ID = RPAD('QTR001',10)  
-	    AND DEVICE_SERIAL = '1'
-	    AND BODY_NO = 'B0  160779'
-	    ORDER BY TO_NUMBER(A.BATCH_NUM)
-	) -->
 	SELECT WM_CONCAT(BATCH_NUM) BATCH_NUM,WM_CONCAT(TOR_VALUE) TOR_VALUE,WM_CONCAT(ANG_VALUE) ANG_VALUE,WM_CONCAT(TEN_VALUE) TEN_VALUE
 	FROM (
 		SELECT BATCH_NUM, TOR_VALUE, ANG_VALUE, TEN_VALUE
@@ -184,5 +179,74 @@
 	    AND BODY_NO = #{body_no}
 	    ORDER BY BATCH_NUM
 	)
+	</select>
+	
+	<select id="selectResultHistoryList" parameterType="hashmap" resultMap="resultHistory">
+ 	SELECT RNUM, DEVICE, BODY_NO, TOT_BATCH_NUM, BATCH_NUM, TIGHTEN_ID,
+            MES_PBSOUT_SEQ, BATCH_TIGHTENING_RESULT, TOR_STATE, TOR_VALUE, ANG_STATE, ANG_VALUE,
+            TIGHTENING_DT, REGDT, REG_USER_ID
+    FROM   (
+             SELECT ROW_NUMBER() OVER(ORDER BY C.CODE_VALUE, A.DEVICE_NM, M.TIGHTENING_DT) AS RNUM,
+                    M.PLANT_CD, M.DEVICE_ID, M.DEVICE_SERIAL,
+                    M.BODY_NO, M.BATCH_NUM, M.TIGHTEN_ID, M.MES_PBSOUT_SEQ, M.BATCH_TIGHTENING_RESULT,
+                    M.TOR_STATE, M.TOR_VALUE, M.ANG_STATE, M.ANG_VALUE, M.TIGHTENING_DT,
+                    M.REG_DT || M.REG_TM AS REGDT, M.REG_USER_ID,
+                    '[' || RTRIM(M.DEVICE_ID) || '-' || M.DEVICE_SERIAL || '] ' || RTRIM(A.DEVICE_NM) || '-' || RTRIM(A.DEVICE_ALIAS) AS DEVICE,
+                    B.TOT_BATCH_NUM
+             FROM   ${table_nm3} M
+                    LEFT OUTER JOIN TIGHTENING_DEVICE_MA A ON A.PLANT_CD = M.PLANT_CD AND A.DEVICE_ID = M.DEVICE_ID AND A.DEVICE_SERIAL = M.DEVICE_SERIAL
+                    LEFT OUTER JOIN ${table_nm4} B ON B.PLANT_CD= M.PLANT_CD AND B.DEVICE_ID = M.DEVICE_ID AND B.DEVICE_SERIAL = M.DEVICE_SERIAL AND B.BODY_NO = M.BODY_NO
+                    LEFT OUTER JOIN C_COMM_CD C ON C.PLANT_CD = A.PLANT_CD AND C.CD_GRP = 'LINE_CD' AND C.CODE = A.LINE_CD
+             WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+             AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
+		     AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial})
+             AND    (#{seq} = '-1' OR M.MES_PBSOUT_SEQ = #{seq}) 
+		     AND    (#{car_type} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 1, 4)) LIKE '%' || #{car_type} || '%') 
+		     AND    (#{body_no} = '-1' OR RTRIM(SUBSTR(M.BODY_NO, 5, 6)) LIKE '%' || #{body_no} || '%')
+		     AND    SUBSTR(M.TIGHTENING_DT, 1, 10) &gt;= #{from_dt} AND SUBSTR(M.TIGHTENING_DT, 1, 10) &lt;= #{to_dt}
+             AND    (#{tightening_result} = '-1' OR M.BATCH_TIGHTENING_RESULT = #{tightening_result} )
+             ORDER BY C.CODE_VALUE, A.DEVICE_NM,  A.DEVICE_ID, M.TIGHTENING_DT
+            )
+     WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) AND (#{pageEndNo} = '-1' OR RNUM &lt; #{pageEndNo})
+
+	</select>
+	
+	<select id="selectResultByDate" parameterType="hashmap" resultMap="ResultByDateListModel">
+	SELECT * FROM ( 
+    SELECT  ROWNUM AS RNUM, 
+             DEVICE, WORK_DT, 
+             TOTAL_CNT, (OK_CNT - REPAIR_CNT) AS OK_CNT, NG_CNT, NOSCAN_CNT, PASS_CNT, REPAIR_CNT, 
+             (SELECT NVL(COUNT(*), 0) FROM PLC_INTERLOCK_HI WHERE PLANT_CD = RPAD(#{plant_cd},4) AND (#{device_id} = '-1' OR DEVICE_ID = RPAD(#{device_id},10)) AND (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) AND INTERLOCK_FLG ='Y' AND INTERLOCK_DT = WORK_DT) AS INTERLOCK_CNT, 
+             OK_CNT AS TOTAL_OK, 
+             (NG_CNT + NOSCAN_CNT) AS TOTAL_NG, 
+             DECODE(TOTAL_CNT - PASS_CNT, 0, 0, TRUNC((OK_CNT) / (TOTAL_CNT - PASS_CNT) * 100, 2)) AS TOTAL_OK_RATIO, 
+             DECODE(TOTAL_CNT - PASS_CNT, 0, 0, TRUNC((NG_CNT) / (TOTAL_CNT - PASS_CNT) * 100, 2)) AS NG_RATIO, 
+             DECODE(TOTAL_CNT - PASS_CNT, 0, 0, TRUNC((NOSCAN_CNT) / (TOTAL_CNT - PASS_CNT) * 100, 2)) AS NOSCAN_RATIO 
+     FROM    ( SELECT CASE WHEN #{device_id} = '-1' THEN 'All Tools' 
+                           ELSE (SELECT RTRIM(DEVICE_NM) || '-' || RTRIM(DEVICE_ALIAS) ||' [' || TRIM(DEVICE_ID) || ']' FROM TIGHTENING_DEVICE_MA WHERE PLANT_CD = RPAD(#{plant_cd},4) AND (#{device_id} = '-1' OR DEVICE_ID = RPAD(#{device_id},10)) AND (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial})) 
+                           END  AS DEVICE, 
+                      WORK_DT,  
+                      SUM(NVL(TOTAL_CNT, 0)) AS TOTAL_CNT, SUM(NVL(OK_CNT, 0)) AS OK_CNT, SUM(NVL(NG_CNT, 0)) AS NG_CNT, 
+                      SUM(NVL(PASS_CNT, 0)) AS PASS_CNT, SUM(NVL(REPAIR_CNT, 0)) AS REPAIR_CNT, SUM(NVL(NOSCAN_CNT, 0)) AS NOSCAN_CNT 
+               FROM   TIGHTENING_SUM_HI 
+               WHERE  PLANT_CD = RPAD(#{plant_cd},1) 
+               AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},10)) 
+               AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) 
+               AND    WORK_DT &gt;=  #{from_dt} AND WORK_DT &lt;= #{to_dt}
+               GROUP BY WORK_DT 
+               ORDER BY WORK_DT 
+           )) 
+     WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) 
+     AND   (#{pageEndNo} = '-1' OR RNUM &lt; #{pageEndNo}) 
+	</select>
+	
+	<select id="selectResultByDateCount" parameterType="hashmap" resultType="int">
+	SELECT  NVL(COUNT(COUNT(WORK_DT)), 0) AS CNT 
+    FROM    TIGHTENING_SUM_HI 
+    WHERE  PLANT_CD = RPAD(#{plant_cd},1) 
+    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},10)) 
+    AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) 
+    AND    WORK_DT &gt;=  #{from_dt} AND WORK_DT &lt;= #{to_dt}
+    GROUP BY WORK_DT 
 	</select>
 </mapper>

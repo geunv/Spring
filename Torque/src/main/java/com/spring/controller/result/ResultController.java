@@ -25,14 +25,6 @@ public class ResultController {
 		return mv;
 	}
 	
-//	"plant_cd="+vplant_cd.trim()+
-//	"&work_dt="+vwork_dt.trim()+
-//	"&line="+vline.trim() +
-//	"&shift="+vshift.trim() +
-//	"&tool="+vtool.trim() +
-//	"&page="+now_page+
-//	"&show_count="+show_count;
-	
 	@RequestMapping(value="/api/result/getresultsummary", method=GET)
 	public BaseResponse getResultSummary(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
@@ -55,20 +47,6 @@ public class ResultController {
 		return mv;
 	}
 	
-/*	
-	var params = "?plant_cd="+$('#ddlPlant').val()+
-			 "&from_dt="+$('#txtFromDate').val()+
-			 "&to_dt="+$('#txtToDate').val()+
-			 "&shift="+$('#ddlShift').val() +
-			 "&tool="+$('#ddlTool').val() +
-			 "&tightening_result=" + +$('#ddlTighteningResult').val()+
-			 "&seq=" + $('#txtSeq').val()+
-			 "&car_type=" + $('#txtCarType').val() +
-			 "&body_no=" + $('#txtBodyNo').val() + 
-			 "&page="+now_page+
-			 "&show_count="+show_count;
-*/	
-	
 	@RequestMapping(value="/api/result/getresultdetail", method=GET)
 	public BaseResponse getResultDetail(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
@@ -88,5 +66,53 @@ public class ResultController {
 			
 			){
 		return resultService.getResultDetail(page, show_count, plant_cd, from_dt,to_dt, shift, tool, tightening_result,seq,car_type,body_no,old_data,all_batch, excel_down);
+	}
+	
+	@RequestMapping(value="/view/result/resulthistory")
+	public ModelAndView resultHistoryView(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/result/resulthistory");
+		return mv;
+	}
+	
+	@RequestMapping(value="/api/result/getresulthistory", method=GET)
+	public BaseResponse getResultHistory(
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="from_dt", required=false, defaultValue="2017-12-01") String from_dt,
+			@RequestParam(value="to_dt", required=false, defaultValue="2017-12-26") String to_dt,
+			@RequestParam(value="tool", required=false, defaultValue="-1") String tool,
+			@RequestParam(value="tightening_result", required=false, defaultValue="-1") String tightening_result,
+			@RequestParam(value="seq", required=false, defaultValue=" " ) String seq,
+			@RequestParam(value="car_type", required=false, defaultValue=" " ) String car_type,
+			@RequestParam(value="body_no", required=false, defaultValue=" ") String body_no,
+			@RequestParam(value="old_data", required=false, defaultValue="N") String old_data,
+			@RequestParam(value="excel_down", required=false, defaultValue="N") String excel_down
+			
+			){
+		return resultService.getResultHistory(page, show_count, plant_cd, from_dt,to_dt,  tool, tightening_result,seq,car_type,body_no,old_data, excel_down);
+	}
+	
+	
+	
+	@RequestMapping(value="/view/result/resultbydate")
+	public ModelAndView resultByDateView(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/result/resultbydate");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/api/result/getresultbydate", method=GET)
+	public BaseResponse getResultByDate(
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="show_count", required=false, defaultValue="20") int show_count,
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="from_dt", required=false, defaultValue="2017-12-01") String from_dt,
+			@RequestParam(value="to_dt", required=false, defaultValue="2017-12-26") String to_dt,
+			@RequestParam(value="tool", required=false, defaultValue="-1") String tool,
+			@RequestParam(value="excel_down", required=false, defaultValue="N") String excel_down
+			
+			){
+		return resultService.getResultByDate(page, show_count, plant_cd, from_dt,to_dt,  tool, excel_down);
 	}
 }

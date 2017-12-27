@@ -166,6 +166,12 @@
 		ORDER BY NUM
 	</select>
 	
+	<select id="selectTighteningResultSimple" resultMap="TighteningResult">
+		SELECT '1' CODE, 'OK' CODE_NM, '1' NUM FROM DUAL
+		UNION
+		SELECT '0' CODE, 'NG' CODE_NM, '2' NUM FROM DUAL
+	</select>
+	
 	<select id="selectUserAuthority" parameterType="String" resultMap="CommonDDL">
 		SELECT TRIM(CODE) CODE, TRIM(CODE_NM) CODE_NM
 	    FROM   C_COMM_CD
@@ -196,4 +202,12 @@
 	    WHERE CD_GRP = 'LANG_TYPE'
 	    ORDER BY CODE
 	</select>
+	
+	<select id="selecCommonCodeGroup" resultMap="CommonDDL">
+		SELECT TRIM(CD_GRP) CODE, TRIM(CD_GRP) CODE_NM
+    	FROM (
+    		SELECT DISTINCT(CD_GRP) CD_GRP FROM C_COMM_CD
+    		ORDER BY CD_GRP)
+	</select>
+	 
 </mapper>

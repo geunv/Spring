@@ -45,6 +45,8 @@ public interface ICommonMapper {
 	
 	public List<TighteningResultModel> selectTighteningResult();
 	
+	public List<TighteningResultModel> selectTighteningResultSimple();
+	
 	public List<CommonDDLReturn> selectUserAuthority(String user_grade);
 	
 	public List<CommonDDLReturn> selectUserGroup(String user_grade);
@@ -52,4 +54,6 @@ public interface ICommonMapper {
 	public List<CommonDDLReturn> selectSystemArea();
 	
 	public List<CommonDDLReturn> selectLangType();
+	
+	public List<CommonDDLReturn> selecCommonCodeGroup();
 }

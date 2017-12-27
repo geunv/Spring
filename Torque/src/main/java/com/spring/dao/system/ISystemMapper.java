@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.spring.model.system.ProgramProcessParamModel;
+import com.spring.model.system.CommonCodeInfo;
+import com.spring.model.system.CommonCodeListModel;
+import com.spring.model.system.CommonCodeParamModel;
 import com.spring.model.system.DictionaryModel;
 import com.spring.model.system.LanguageInfo;
 import com.spring.model.system.LanguageListModel;
@@ -13,6 +16,7 @@ import com.spring.model.system.ProgramProcessListModel;
 
 public interface ISystemMapper {
 
+	/* program & process */
 	public List<ProgramProcessListModel> selectProgramProcessList(HashMap<String, Object> map);
 	
 	public int selectProgramProcessListCount(HashMap<String, Object> map);
@@ -27,6 +31,20 @@ public interface ISystemMapper {
 	
 	public void deleteProgram(HashMap<String, Object> map);
 	
+	/* common code */
+	public List<CommonCodeListModel> selectCommonCodeList(HashMap<String, Object> map);
+	
+	public int selectCommonCodeListCount(HashMap<String, Object> map);
+	
+	public List<CommonCodeInfo> selectCommonCodeInfo(HashMap<String, Object> map);
+	
+	public void insertCommonCode(CommonCodeParamModel insertParam);
+	
+	public void updateCommonCode(CommonCodeParamModel updateParam);
+	
+	public void deleteCommonCode(HashMap<String, Object> map);
+	
+	/* language*/
 	public List<LanguageListModel> selectLanguageList(HashMap<String, Object> map);
 	
 	public int selectLanguageListCount(HashMap<String, Object> map);

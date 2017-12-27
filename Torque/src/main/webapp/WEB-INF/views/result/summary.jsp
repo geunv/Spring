@@ -367,8 +367,8 @@
 			    <div style="text-align:right;padding-right:5px;padding-top:5px;">
 			        <span>Display&nbsp;</span>
 			        <select id="select_show_count">
-				  			<option value="10" selected>10</option>
-				  			<option value="20">20</option>
+				  			<option value="10">10</option>
+				  			<option value="20" selected>20</option>
 				  			<option value="30">30</option>
 				  	</select>
 			        <span>&nbsp;Records per Page</span>

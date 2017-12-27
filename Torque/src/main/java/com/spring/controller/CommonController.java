@@ -141,6 +141,12 @@ public class CommonController {
 		return  commonService.getTighteningResult();
 	}
 	
+	@RequestMapping(value="/api/common/gettighteningresultsimple", method=GET)
+	public List<TighteningResultModel> getTighteningResultSimple(){
+		return  commonService.getTighteningResultSimple();
+	}
+	
+	
 	@RequestMapping(value="/api/common/getuserauthority", method=GET)
 	public BaseResponse getUserAuthority(
 			@RequestParam(value="user_grade", required=false, defaultValue="U") String user_grade
@@ -168,5 +174,10 @@ public class CommonController {
 	@RequestMapping(value="/api/common/getlangtype", method=GET)
 	public BaseResponse getLangType(){
 		return  commonService.getLangType();
+	}
+	
+	@RequestMapping(value="/api/common/getcommoncodegroup", method=GET)
+	public BaseResponse getCommonCodeGroup(){
+		return  commonService.getCommonCodeGroup();
 	}
 }

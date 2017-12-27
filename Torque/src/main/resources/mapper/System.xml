@@ -4,9 +4,13 @@
 
 	<parameterMap type="com.spring.model.system.ProgramProcessParamModel" id="inputParam"></parameterMap>
 	<parameterMap type="com.spring.model.system.LanguageParamModel" id="LanguageParamModel"></parameterMap>
+	<parameterMap type="com.spring.model.system.CommonCodeParamModel" id="CommonCodeParam"></parameterMap>
 	
 	<resultMap type="com.spring.model.system.ProgramProcessInfoModel" id="info"></resultMap>
 	<resultMap type="com.spring.model.system.ProgramProcessListModel" id="ProgramProcessList"></resultMap>
+
+	<resultMap type="com.spring.model.system.CommonCodeListModel" id="CommonCodeListModel"></resultMap>
+	<resultMap type="com.spring.model.system.CommonCodeInfo" id="CommonCodeInfo"></resultMap>
 	
 	<resultMap type="com.spring.model.system.LanguageListModel" id="LanguageListModel"></resultMap>
 	<resultMap type="com.spring.model.system.LanguageInfo" id="LanguageInfo"></resultMap>
@@ -194,7 +198,76 @@
 	</delete>
 	<!-- Common Code -->
 	
-	<!-- Common Code -->
+	
+	<select id="selectCommonCodeList" parameterType="hashmap" resultMap="CommonCodeListModel">
+	SELECT * FROM (
+	    SELECT ROWNUM RNUM, CD_GRP, CODE, CODE_NM, CODE_VALUE, REG_DT || REG_TM REGDT, REG_USER_ID
+	    FROM (
+	    SELECT CD_GRP, CODE, CODE_NM, CODE_VALUE, REG_DT, REG_TM, REG_USER_ID 
+	    FROM C_COMM_CD 
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	    <if test="code_grp != '-1'">
+	        AND TRIM(CD_GRP) = #{code_grp}
+	    </if>
+	    <if test="code != ''">
+	        AND UPPER(CODE) LIKE '%' || UPPER(#{code}) || '%'
+	    </if>
+	    <if test="code_nm != ''">
+	        AND UPPER(CODE_NM) LIKE '%' || UPPER(#{code_nm}) || '%'
+	    </if>    
+	    ORDER BY CD_GRP, CODE, REG_DT || REG_TM DESC ))
+	WHERE ( #{pageStartNo} = '-1' OR RNUM  &gt; #{pageStartNo}) 
+		AND ( #{pageEndNo} = '-1' OR RNUM &lt;  #{pageEndNo})            
+	</select>
+	
+	<select id="selectCommonCodeListCount" parameterType="hashmap" resultType="int">
+	    SELECT count(1) 
+	    FROM C_COMM_CD 
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	    <if test="code_grp != '-1'">
+	        AND TRIM(CD_GRP) = #{code_grp}
+	    </if>
+	    <if test="code != ''">
+	        AND UPPER(CODE) LIKE '%' || UPPER(#{code}) || '%'
+	    </if>
+	    <if test="code_nm != ''">
+	        AND UPPER(CODE_NM) LIKE '%' || UPPER(#{code_nm}) || '%'
+	    </if>    
+	</select>
+	
+	<select id="selectCommonCodeInfo" parameterType="hashmap" resultMap="CommonCodeInfo">
+		SELECT PLANT_CD, CD_GRP, CODE, CODE_NM, CODE_VALUE
+    	FROM C_COMM_CD
+    	WHERE PLANT_CD  = RPAD(#{plant_cd},4) 
+    	AND CD_GRP = RPAD(#{code_grp},20) 
+    	AND UPPER(CODE) = RPAD(UPPER(#{code}),30)
+	</select>
+	
+	<insert id="insertCommonCode" parameterMap="CommonCodeParam">
+	INSERT INTO C_COMM_CD (PLANT_CD, CD_GRP, CODE, CODE_NM, CODE_VALUE, REG_USER_ID)
+    					VALUES
+    					  (#{plant_cd}, #{code_grp}, #{code}, #{code_nm}, #{code_value}, #{login_user_id}) 
+	</insert>
+	
+	<update id="updateCommonCode" parameterMap="CommonCodeParam">
+		UPDATE C_COMM_CD
+    	SET CODE_NM = #{code_nm}
+    	, CODE_VALUE =  #{code_value}
+    	, REG_USER_ID =  #{login_user_id}
+    	, REG_DT = TO_CHAR(SYSDATE,'YYYYMMDD')
+    	, REG_TM = TO_CHAR(SYSDATE,'HH24MISS')
+    	WHERE PLANT_CD  = RPAD(#{plant_cd},4) 
+    	AND CD_GRP = RPAD(#{code_grp},20) 
+    	AND UPPER(CODE) = RPAD(UPPER(#{code}),30)
+	</update>
+	
+	<delete id="deleteCommonCode" parameterType="hashmap">
+	DELETE FROM C_COMM_CD
+    WHERE PLANT_CD  = RPAD(#{plant_cd},4) 
+    	AND CD_GRP = RPAD(#{code_grp},20) 
+    	AND UPPER(CODE) = RPAD(UPPER(#{code}),30)
+	</delete>
+	<!-- Common Code End -->
 	
 	<select id="selectLanguageList" parameterType="hashmap" resultMap="LanguageListModel">
 	SELECT * 

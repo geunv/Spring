@@ -802,6 +802,23 @@ function getTighteningResult(str){
 	});
 }
 
+function getTighteningResultSimple(str){
+	$.get('/api/common/gettighteningresultsimple',function(data){
+		//if(data.result == 200){
+			$('#ddlTighteningResult').empty();
+			
+			if ( str == 'S')
+				$('#ddlTighteningResult').append('<option value="">Select</option>');
+			else if ( str == 'A')
+				$('#ddlTighteningResult').append('<option value="-1">ALL</option>');
+			
+			data.forEach(function(item){
+				$('#ddlTighteningResult').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
+
 function getUserAuthority(user_grade){
 	
 	$.get('/api/common/getuserauthority?user_grade='+user_grade,function(data){
@@ -869,4 +886,20 @@ function getLangType(str){
 	});
 }
 
+function getCommonCodeGroup(str){
+	$.get('/api/common/getcommoncodegroup',function(data){
+		//if(data.result == 200){
+			$('#ddlCodeGrp').empty();
+			
+			if ( str == 'S')
+				$('#ddlCodeGrp').append('<option value="">Select</option>');
+			else 
+				$('#ddlCodeGrp').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlCodeGrp').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
 /* */

@@ -210,6 +210,15 @@ public class CommonService implements ICommonService {
 		return list;
 	}
 	
+	
+	public List<TighteningResultModel> getTighteningResultSimple(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<TighteningResultModel> list= mapper.selectTighteningResultSimple();
+		
+		return list;
+	}
+	
+	
 	public BaseResponse getUserAuthority(String user_grade){
 		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
 		List<CommonDDLReturn> list = mapper.selectUserAuthority(user_grade);
@@ -246,6 +255,17 @@ public class CommonService implements ICommonService {
 	public BaseResponse getLangType(){
 		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
 		List<CommonDDLReturn> list = mapper.selectLangType();
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;
+	}
+	
+	public BaseResponse getCommonCodeGroup(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selecCommonCodeGroup();
 		
 		CommonDDLResponse response = new CommonDDLResponse();
 		

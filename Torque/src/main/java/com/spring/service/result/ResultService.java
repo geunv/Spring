@@ -12,6 +12,10 @@ import com.spring.model.BaseResponse;
 import com.spring.model.result.DetailListModel;
 import com.spring.model.result.DetailListReturn;
 import com.spring.model.result.DetailListSubModel;
+import com.spring.model.result.ResultByDateListModel;
+import com.spring.model.result.ResultByDateListReturn;
+import com.spring.model.result.ResultHistoryListModel;
+import com.spring.model.result.ResultHistoryListReturn;
 import com.spring.model.result.SummaryListModel;
 import com.spring.model.result.SummaryListReturn;
 
@@ -255,6 +259,127 @@ public class ResultService implements IResultService {
 		res.setList(list);
 		res.setBatch_count(batch_count);
 		res.setTotal_count(total);
+		
+		return res;
+	}
+	
+	public BaseResponse getResultHistory(int page,int show_count,String plant_cd,String from_dt,String to_dt,String tool,String tightening_result,String seq,String car_type,String body_no,String old_data,String excel_down){
+		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);		
+		
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !tool.equals("-1")){
+			array = tool.split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		//map.put("from_dt", from_dt.replace("-", ""));
+		//map.put("to_dt", to_dt.replace("-", ""));
+		map.put("from_dt", from_dt);
+		map.put("to_dt", to_dt);
+		map.put("device_id",device_id);
+		map.put("device_serial", device_serial);
+		
+		
+		map.put("seq", "-1");
+		if (!seq.trim().equals(""))
+			map.replace("seq", seq);
+		
+		map.put("car_type", "-1");
+		if (!car_type.trim().equals(""))
+			map.put("car_type", car_type);
+		
+		map.put("body_no", "-1");
+		if(!body_no.trim().equals(""))
+			map.put("body_no", body_no);
+		
+		if(tightening_result.equals("-1") ){
+			map.put("tightening_result", "-1");
+		}else if ( tightening_result.equals("1") ){
+			map.put("tightening_result", "1");
+		}else if ( tightening_result.equals("0") ){
+			map.put("tightening_result", "0");
+		}
+				
+		String table_nm3 = "";
+		String table_nm4 = "";
+		
+		if ( old_data.equals("Y")){
+			table_nm3 = "TIGHTENING_BATCH_INFO_HI_BK";
+			table_nm4= "TIGHTENING_STATUS_BK";
+		}else{
+			table_nm3 = "TIGHTENING_BATCH_INFO_HI";
+			table_nm4 = "TIGHTENING_STATUS_MA";
+		}
+		
+		map.put("table_nm3", table_nm3);
+		map.put("table_nm4", table_nm4);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+		
+		List<ResultHistoryListModel> list = mapper.selectResultHistoryList(map); 
+		
+		ResultHistoryListReturn res = new ResultHistoryListReturn();
+		res.setList(list);
+		return res;
+	}
+	
+	public BaseResponse getResultByDate(int page,int show_count,String plant_cd,String from_dt,String to_dt,String tool,String excel_down){
+		
+		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);		
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !tool.equals("-1")){
+			array = tool.split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("from_dt", from_dt.replace("-", ""));
+		map.put("to_dt", to_dt.replace("-", ""));
+		//map.put("from_dt", from_dt);
+		//map.put("to_dt", to_dt);
+		map.put("device_id",device_id);
+		map.put("device_serial", device_serial);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+		
+		List<ResultByDateListModel> list = mapper.selectResultByDate(map);
+		int total_count = mapper.selectResultByDateCount(map);
+		
+		ResultByDateListReturn res = new ResultByDateListReturn();
+		
+		res.setList(list);
+		res.setTotal_count(total_count);
 		
 		return res;
 	}

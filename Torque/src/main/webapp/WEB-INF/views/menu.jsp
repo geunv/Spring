@@ -44,21 +44,6 @@ if('null' == '<%=user_id%>'){
       	</div>
     </div>
 </div>
-
-<!-- <div class="T_Body">
-	<div style="float:left;padding-top:5px;">
-		<a href="/MAIN.ASPX"><img src="/WebCommon/images/logo.png" alt="logo"></a>
-		<span class="font-red h3" style="vertical-align:middle;text-align:center;">Torque Management System</span>
-	</div>
-	<div style="float:right;">
-	Ie11용 Timer 주석처리 
-
-		<div style="float:right;text-align:right;padding-top:35px;font-size:80%;">
-
-			<input type="button" id="btnManual" value="Manual" onclick="javascript:Filedownload();" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
-      	</div>
-    </div>
-</div> -->
             
 <nav class="navbar navbar-default">
   <div class="container">
