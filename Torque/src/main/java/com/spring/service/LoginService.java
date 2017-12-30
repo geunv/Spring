@@ -30,6 +30,8 @@ public class LoginService implements ILoginService{
 		
 		BaseResponse res = new BaseResponse();
 		
+		
+		
 		if(result != null && result.getUser_pwd().trim().equals(loginRequest.getPassWd())){
 			HttpSession session = request.getSession(true);
 			session.setAttribute("PLANT_CD", result.getPlant_cd().trim());

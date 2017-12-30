@@ -1,250 +1,202 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>KIA</title>
-<style>
-/****** LOGIN MODAL ******/
-.loginmodal-container {
-  padding: 30px;
-  max-width: 350px;
-  width: 100% !important;
-  background-color: #F7F7F7;
-  margin: 0 auto;
-  border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  font-family: roboto;
-}
+<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>KMM TMS</title>
+    <link href="/WebCommon/css/bootstrap.css" type="text/css" rel="stylesheet"/>	
+    <link href="/WebCommon/css/jquery-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="/WebCommon/css/default.css" type="text/css" rel="stylesheet"/>	
+    <link href="/WebCommon/css/font-awesome.css" type="text/css" rel="stylesheet"  />
+    <script src="/WebCommon/scripts/jquery.js" type="text/javascript"></script>
+    <script src="/WebCommon/scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="/WebCommon/scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/js/Commons.js" type="text/javascript"></script>
+    
+    <script src="/WebCommon/scripts/aes.js" type="text/javascript"></script>
+    <script src="/WebCommon/scripts/AesUtil.js" type="text/javascript"></script>
+    <script src="/WebCommon/scripts/pbkdf2.js" type="text/javascript"></script>
+    
+	<script type="text/javascript">
+        $(document).ready(function() {
+            $("#txtUserID").focus();
+            rememberID();
 
-.loginmodal-container h1 {
-  text-align: center;
-  font-size: 1.8em;
-  font-family: roboto;
-}
+            function rememberID() {
+                var c_userid = $.cookie("c_userid");
 
-.loginmodal-container input[type=button] {
-  width: 100%;
-  display: block;
-  margin-bottom: 10px;
-  position: relative;
-}
+                if (c_userid != null && c_userid != "") {
+                    $("#txtUserID").val(c_userid);
+                    $("#chkRememberID").attr("checked", "checked");
+                }
+            }
+            
+            /* $("input[id=txtPassword]").keydown(function (key) {
+           	 
+                if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+                	$('input[id=btnLogin]').click();
+                }
+         
+            }); */
+            
 
-.loginmodal-container input[type=text], input[type=password] {
-  height: 44px;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 10px;
-  -webkit-appearance: none;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  border-top: 1px solid #c0c0c0;
-  /* border-radius: 2px; */
-  padding: 0 8px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
+            //$("#btnLogin").click(function(e) {
+            $('input[id=btnLogin]').on('click', function(){
+            	
+                var chkStatus = $("#chkRememberID").is(":checked");
 
-.loginmodal-container input[type=text]:hover, input[type=password]:hover {
-  border: 1px solid #b9b9b9;
-  border-top: 1px solid #a0a0a0;
-  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-}
+                if (chkStatus) {
+                    $.cookie("c_userid", $("#txtUserID").val(), { expires: 1 });
+                } else {
+                    $.cookie("c_userid", "");
+                }
 
-.loginmodal {
-  text-align: center;
-  font-size: 14px;
-  font-family: 'Arial', sans-serif;
-  font-weight: 700;
-  height: 36px;
-  padding: 0 8px;
-/* border-radius: 3px; */
-/* -webkit-user-select: none;
-  user-select: none; */
-}
 
-.loginmodal-submit {
-  /* border: 1px solid #3079ed; */
-  border: 0px;
-  color: #fff;
-  text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
-  padding: 17px 0px;
-  font-family: roboto;
-  font-size: 14px;
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-}
+                if ($("#txtUserID").val() == "") {
+                    e.preventDefault();
+                    //fn_DisplayMessage("COMMON.EnterUserID", "A");
+                     //var retVal = '<spring:message code="COMMON.EnterUserID"/>';
+                    alert('Enter user id');
+                    $("#txtUserID").focus();
+                    return;
+                } else if ($("#txtPassword").val() == "") {
+                    e.preventDefault();
+                    //fn_DisplayMessage("COMMON.EnterPassword", "A");
+                    alert('Enter user password');
+                    $("#txtPassword").focus();
+                    return;
+                }
+                
+                var keySize = 128;
+                var iterations = iterationCount = 100;
+                 
+                var iv = "F27D5C9927726BCEFE7510B1BDD3D137";
+                var salt = "3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+                var passPhrase = "KMM987654321";
+                 
+                var plainText = "AES ENCODING ALGORITHM PLAIN TEXT";
+                
+             
+                var aesUtil = new AesUtil(keySize, iterationCount)
+                var encrypt = aesUtil.encrypt(salt, iv, passPhrase, plainText);
+                
+                aesUtil = new AesUtil(keySize, iterationCount)
+                var decrypt = aesUtil.decrypt(salt, iv, passPhrase, encrypt);
+                
+                var body = {   
+                		userId : $('#txtUserID').val() , 
+        				passWd: aesUtil.encrypt(salt, iv, passPhrase, $('#txtPassword').val()) ,
+        				/* passWd : encrypted1.toString(), */
+        				lang: $('#select_lang').val()
+                }
+        		
+        		$.ajax({
+        			type : "POST",
+        			url : '/api/login',
+        			data : JSON.stringify(body),
+        			headers: { 
+        				'Accept': 'application/json',
+        				'Content-Type': 'application/json' 
+        			},
+        			beforeSend : function(){
+        				$('#load-image').show();
+        			}
+        		}).done(function(result) {
+        			//console.log(result);
+        			$('#load-image').hide();
+        			if(result.result == 300){
+        				alert('아이디 또는 패스워드를 확인하세요');
+        				location.href="/";
+        			}else{
+        				location.href="/index";
+        			}
+        			
+        		}).fail(function(data) {
+        			$('#load-image').hide();
+        			alert(data);
+        		});
+                
 
-.loginmodal-submit:hover {
-  /* border: 1px solid #2f5bb7; */
-  border: 0px;
-  text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-}geunv
+                
 
-.loginmodal-container a {
-  text-decoration: none;
-  color: #666;
-  font-weight: 400;
-  text-align: center;
-  display: inline-block;
-  opacity: 0.6;
-  transition: opacity ease 0.5s;
-} 
-
-.login-help{
-  font-size: 12px;
-}
-</style>
-<script src="/js/jquery-3.2.1.min.js"></script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="/bootstrap-3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="/bootstrap-3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+                
+            });
+        })
+    </script>
 </head>
-<body>
-<a href="#" data-toggle="modal" data-target="#login-modal" id="login_btn_modal"></a>
-
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-<div class="modal-dialog">
-	<form id="signupForm">
-	<div class="loginmodal-container">
-		<h1>Login to Your Account</h1><br>
-	  <form>
-		<input type="text" name="user" placeholder="Username" value="">
-		<input type="password" name="pass" placeholder="Password" value="">
-		
-      
-		<div class="form-group">
-		Language : 
-		<select id="select_lang">
-			<option value="lo">Spanish</option>
-			<option value="en">English</option>
-			<option value="ko">한글</option>
-		</select>
-		<img src="/images/ajax-loader.gif" style="display:none;" id="load-image"/>
-		</div>
-		
-		<div class="checkbox">
-	        <label>
-	          <input type="checkbox" id="remember_me" value="remember-me"> Remember me
-	        </label>
-	      </div>
-		<input type="button" name="login" class="login loginmodal-submit" value="Login">
-	  </form>
-		
-	<!--   <div class="login-help">
-		<a href="#">Register</a> - <a href="#">Forgot Password</a>
-	  </div> -->
-	</div>
-	</form>
-</div>
-</div>
-<script>
-var minUserLen = 0, maxUserLen = 30;
-var minPassLen = 0, maxPassLen = 4096;
-var usernameMsg = "Username must be between " + minUserLen + " and " +
-maxUserLen + " characters, inclusive.";
-var passwordMsg = "Password must be between " + minPassLen + " and " +
-maxPassLen + " characters, inclusive.";
-
-
- 
-$(document).ready(function(){
-	$('#login_btn_modal').trigger('click');
-	
-	if (localStorage.chkbx && localStorage.chkbx != '') {
-        $('#remember_me').attr('checked', 'checked');
-        $('input[name=user]').val(localStorage.user);
-        //$('input[name=pass]').val(localStorage.pass);
-    } else {
-        $('#remember_me').removeAttr('checked');
-        $('input[name=user]').val('');
-        //$('input[name=pass]').val('');
-    }
-
-    $('#remember_me').click(function() {
-
-
-        if ($('#remember_me').is(':checked')) {
-            // save username and password
-            localStorage.user = $('input[name=user]').val();
-            //localStorage.pass = $('input[name=pass]').val();
-            localStorage.chkbx = $('#remember_me').val();
-        } else {
-            localStorage.user = '';
-            //localStorage.pass = '';
-            localStorage.chkbx = '';
-        }
-    });
+<body id="login-container">
+    <form id="form1" onsubmit="return false;">
     
-    $("input[name=pass]").keydown(function (key) {
-    	 
-        if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
-        	$('input[value=Login]').click();
-        }
- 
-    });
-    
-    
-	$('input[value=Login]').on('click', function(){
-				
-		if( $('input[name=user]').val().length < 1 ){
-			
-			$('input[name=user]').css("border","2px solid red");
-			$('input[name=user]').css("box-shadow","0 0 3px red");
-			alert("Please fill all fields...!!!!!!");
-				
-			return false;
-		}
-		
-	if( $('input[name=pass]').val().length < 1 ){
-			
-			$('input[name=pass]').css("border","2px solid red");
-			$('input[name=pass]').css("box-shadow","0 0 3px red");
-			alert("Please fill all fields...!!!!!!");
-				
-			return false;
-		}
-		
-		var body = {   
-				userId : $('input[name=user]').val() , 
-				passWd: $('input[name=pass]').val() , 
-				lang: $('#select_lang').val() 
-		}
-		
-		$.ajax({
-			type : "POST",
-			url : '/api/login',
-			data : JSON.stringify(body),
-			headers: { 
-				'Accept': 'application/json',
-				'Content-Type': 'application/json' 
-			},
-			beforeSend : function(){
-				$('#load-image').show();
-			}
-		}).done(function(result) {
-			//console.log(result);
-			$('#load-image').hide();
-			if(result.result == 300){
-				alert('아이디 또는 패스워드를 확인하세요');
-			}else{
-				location.href="/index";
-			}
-			
-		}).fail(function(data) {
-			$('#load-image').hide();
-			alert(data);
-		});
-	});
-	
-});
-</script>
+    <div id="login-table">
+        <div style="padding-left:15%;padding-bottom:5px;">
+            <img src="/WebCommon/images/logo2.png" alt="logo"/>
+        </div>
+        <div id="login-form">
+            <table width="100%">
+                <tr>
+                    <td height="350" width="50%" class="login-title">
+                        <h2>KMM <br />Torque Management System</h2>
+                    </td>
+                    <td width="1%"><img src="/WebCommon/images/ver_line_2.png" /></td>
+                    <td width="49%" style="padding-left:5%">
+                        <table width="85%" border="0" >
+                            <tr>
+                                <td width="40%" height="30" style="text-align:right;padding-right:20px;"><i class="fa fa-user fa-fw" style="font-size:120%;"></i><span id="lblUserID" class="h4">User ID</span> <!-- <asp:Label ID="lblUserID" runat="server" Text="User ID" CssClass="h4"></asp:Label> --></td>
+                                <td width="40%"><input type="text" id="txtUserID" placeholder="Username" value=""  style="width:90%" MaxLength="20" style="ime-mode:disabled;text-transform:uppercase;" onKeyUp="fn_ToUpperCase(this);"><!-- <asp:TextBox ID="txtUserID" runat="server"  Width="90%" MaxLength="20" style="ime-mode:disabled;text-transform:uppercase;" onKeyUp="fn_ToUpperCase(this);"></asp:TextBox> --></td>
+                                <td width="20%"></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="text-align:right;padding-right:20px;"><i class="fa fa-key fa-fw" style="font-size:120%"></i> <span id="lblPassword" class="h4">Password</span><!-- <asp:Label ID="lblPassword" runat="server" Text="Password" CssClass="h4"></asp:Label> --></td>
+                                <td><input type="password" id="txtPassword" name="pass" placeholder="Password"  style="width:90%" MaxLength="20"  value=""><!-- <asp:TextBox TextMode="Password" ID="txtPassword" runat="server"  Width="90%" MaxLength="20"></asp:TextBox> --></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="text-align:right;padding-right:20px;"><i class="fa fa-flag fa-fw" style="font-size:120%"></i> <span id="lblLanguage" class="h4">Language</span><!-- <asp:Label ID="lblLanguage" runat="server" Text="Language" CssClass="h4"></asp:Label> --></td>
+                                <td>
+                                	<select id="select_lang">
+										<option value="lo">Spanish</option>
+										<option value="en">English</option>
+										<option value="ko">Korean</option>
+									</select>
+                                    <!-- <asp:DropDownList ID="ddlLanguage" runat="server" Width="90%" class="input-sm" >
+                                        <asp:ListItem Text="Spanish" Value="lo"></asp:ListItem>
+										<asp:ListItem Text="English" Value="en"></asp:ListItem>
+                                        <asp:ListItem Text="Korean" Value="ko"></asp:ListItem>
+                                    </asp:DropDownList> -->
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td height="30" colspan="2" style="text-align:right;padding-right:5%;"><input type="checkbox" id="chkRememberID" />
+                                	<span id="lblRemeberID" class="h5">Remember id</span>
+                                    <!-- <asp:Label ID="lblRemeberID" runat="server" Text="Remember id" CssClass="h5"></asp:Label> -->
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>   
+                                <td height="50" colspan="2" style="text-align:right;padding-right:5%;">
+                                	<input type="image" name="btnLogin" id="btnLogin" src="/WebCommon/images/btnLogin.png" style="border-width:0px;">
+                                	
+                                    <!-- <asp:ImageButton ID="btnLogin" runat="server" OnClick="btnLogin_Click" ImageUrl="/WebCommon/images/btnLogin.png" ></asp:ImageButton> -->
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div align="center" class="font-red">
+            <h5>Copyright 2015 KIA KMM. All right reserved.</h5>
+        </div>
+        <div align="center">
+        	<img src="/images/ajax-loader.gif" style="display:none;" id="load-image"/>
+        </div>
+        <!-- <span style="DISPLAY:none;">
+            <asp:TextBox ID="txtEncryptedPwd" runat="server" Text="txtEncryptedPwd"></asp:TextBox>
+            <asp:TextBox ID="txtSecurityKey" runat="server"></asp:TextBox>
+        </span> -->
+    </div>
+    </form>
 </body>
 </html>

@@ -53,4 +53,5 @@ public interface ICommonService {
 	public BaseResponse getLangType();
 	
 	public BaseResponse getCommonCodeGroup();
+	
 }

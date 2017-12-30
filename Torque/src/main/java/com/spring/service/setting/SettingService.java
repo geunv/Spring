@@ -216,6 +216,7 @@ public class SettingService implements ISettingService {
 		return res;
 	}
 	
+	
 	public BaseResponse getUserList(String plant_cd,String user_authority,String user_grp,String user_id,String user_nm,String user_grade,int page,int show_count,String excel_down ){
 		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
 		

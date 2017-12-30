@@ -144,9 +144,13 @@ public class ResultService implements IResultService {
 			map.put("pageEndNo", (page*show_count) +1);
 		}
 		
+		long time1 = System.currentTimeMillis ();
 		List<DetailListModel> list = mapper.selectResultDetailList(map);
+		long time2 = System.currentTimeMillis ();
 		int total = mapper.selectResultDetailListCount(map);
+		long time3 = System.currentTimeMillis ();
 		int batch_count = mapper.selectResultDetailListBatchCount(map);
+		long time4 = System.currentTimeMillis ();
 
 		if ( list.size() > 0 ){
 			for (DetailListModel model : list) {
@@ -254,6 +258,12 @@ public class ResultService implements IResultService {
 				}*/
 			}
 		}
+		long time5 = System.currentTimeMillis ();
+		
+		System.out.println ( "5-4=====>" + ( time5 - time4 ) / 1000.0  + "<=====");
+		System.out.println ( "4-3=====>" + ( time4 - time3 ) / 1000.0  + "<=====");
+		System.out.println ( "3-2=====>" + ( time3 - time2 ) / 1000.0  + "<=====");
+		System.out.println ( "2-1=====>" + ( time2 - time1 ) / 1000.0  + "<=====");
 		
 		DetailListReturn res = new DetailListReturn();
 		res.setList(list);

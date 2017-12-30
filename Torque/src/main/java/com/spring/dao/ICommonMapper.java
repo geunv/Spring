@@ -10,6 +10,7 @@ import com.spring.model.common.TighteningResultModel;
 import com.spring.model.common.ToolGroupModel;
 import com.spring.model.common.ToolIDModel;
 import com.spring.model.common.ToolIDParam;
+import com.spring.model.system.CommonCodeListModel;
 
 public interface ICommonMapper {
 
@@ -56,4 +57,6 @@ public interface ICommonMapper {
 	public List<CommonDDLReturn> selectLangType();
 	
 	public List<CommonDDLReturn> selecCommonCodeGroup();
+	
+	
 }

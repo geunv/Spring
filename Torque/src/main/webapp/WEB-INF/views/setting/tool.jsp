@@ -162,7 +162,8 @@
             <div style="position: relative;width:500;overflow:auto;background-color:#F5F5F5" >
 	            <!-- <table class="table" id="list_table"> -->
 	            <!-- <table style="width:3700px;" id="list_table"> -->
-	            <table class="type08" style="width:3700px;" id="list_table">
+	            <!-- <table class="type08" style="width:3700px;" id="list_table"> -->
+	            <table class="gridview" cellspacing="0" border="0" style="width:3700px;border-collapse:collapse;" id="list_table">
 					<thead>
 						<tr>
 							<th><spring:message code="COMMON.Num"/></th>
@@ -215,8 +216,8 @@
 				  	<div class="pull-right">
 				  		SHOW 
 				  		<select id="select_show_count">
-				  			<option value="10" selected>10</option>
-				  			<option value="20">20</option>
+				  			<option value="10">10</option>
+				  			<option value="20" selected>20</option>
 				  			<option value="30">30</option>
 				  		</select>
 				  	</div>
@@ -327,7 +328,7 @@ function ddlTool(){
 }
 
 var now_page = 1;
-var show_count = 10;
+var show_count = 20;
 
 function getToolList(){
       
@@ -555,5 +556,6 @@ function CloseDialog(flg) {
 <div title="Error" id="error-modal" style="display: none;">
     <p>생성실패.</p>
 </div>
+<jsp:include page="../bottom.jsp" flush="false" />
 </body>
 </html>

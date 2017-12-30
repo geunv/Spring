@@ -29,6 +29,7 @@ public interface ISettingService {
 	
 	public BaseResponse deleteToolId(String plant_cd, String tool_id, String tool_serial);
 
+	/*					*/
 	public BaseResponse getJobNolList(int page,
 									  int show_count, 
 									  String plant_cd, 
@@ -37,7 +38,10 @@ public interface ISettingService {
 									  String excel_down );
 	
 	public BaseResponse insertJobNo(JobNoInfo inputparam);
+	/*					*/
 	
+	
+	/*					*/
 	public BaseResponse getUserList(String plant_cd,String user_authority,String user_grp,String user_id,String user_nm,String user_grade,int page,int show_count,String excel_down );
 	
 	public BaseResponse insertUser(UserInsertParam insertParam);

@@ -484,6 +484,16 @@ function getQuerystring(paramName){
 	} 
 }
 
+function fn_enter(txtid){
+	var ID = txtid; 
+	
+	$("#"+ID).keydown(function (key) {
+    	if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+        	$('#btnSearch').click()
+        }
+    });
+}
+
 
 	
 	

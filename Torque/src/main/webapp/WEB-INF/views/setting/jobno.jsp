@@ -71,7 +71,7 @@
 		
 		$.ajaxSetup({async:true});	//비동기 켜기
 		
-		getList();
+		//getList();
 		
 		$("#btnSearch").on('click', function(e){
 			getList();
@@ -122,7 +122,7 @@
     }
     
     var now_page = 1;
-    var show_count = 10;
+    var show_count = 20;
 
     function getList(){
     	var vplant_cd = $('#ddlPlant').val()
@@ -342,9 +342,8 @@
                 [ <spring:message code="COMMON.TotalCont" /> : <div style='display:inline;' id="list_total"></div> ]
             </div>
             <div style="position: relative;width:500;overflow:auto;background-color:#F5F5F5" >
-	            <!-- <table class="table" id="list_table"> -->
-	            <!-- <table style="width:3700px;" id="list_table"> -->
-	            <table class="type08" style="width:3000px;" id="list_table">
+	            <!-- <table class="type08" style="width:3000px;" id="list_table"> -->
+	            <table class="gridview" cellspacing="0" border="0" style="width:3000px;border-collapse:collapse;" id="list_table">
 					<thead>
 						<tr>
 							<th><spring:message code="COMMON.Num"/></th>
@@ -388,8 +387,8 @@
 				  	<div class="pull-right">
 				  		SHOW 
 				  		<select id="select_show_count">
-				  			<option value="10" selected>10</option>
-				  			<option value="20">20</option>
+				  			<option value="10">10</option>
+				  			<option value="20" selected>20</option>
 				  			<option value="30">30</option>
 				  		</select>
 				  	</div>
@@ -403,5 +402,6 @@
         </div>  
     </div>      
 </div>
+<jsp:include page="../bottom.jsp" flush="false" />
 </body>
 </html>
