@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.spring.dao.result.IResultMapper;
 import com.spring.model.BaseResponse;
+import com.spring.model.result.CycleTestResultListModel;
+import com.spring.model.result.CycleTestResultListReturn;
 import com.spring.model.result.DetailListModel;
 import com.spring.model.result.DetailListReturn;
 import com.spring.model.result.DetailListSubModel;
+import com.spring.model.result.LineStopHistoryModel;
+import com.spring.model.result.LineStopHistoryRetrun;
 import com.spring.model.result.ResultByDateListModel;
 import com.spring.model.result.ResultByDateListReturn;
 import com.spring.model.result.ResultHistoryListModel;
@@ -393,4 +397,115 @@ public class ResultService implements IResultService {
 		
 		return res;
 	}
+	
+	public BaseResponse getCycleTestResult(int page,int show_count,String plant_cd,String work_dt,String hh,String pgm_id,String proc_id,String car_type,String tool,String txt_car_type,String txt_body_no,String  excel_down){
+		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);		
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !tool.equals("-1")){
+			array = tool.split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("work_dt", work_dt.replace("-", ""));
+		
+		map.put("hh", hh);
+		map.put("pgm_id", pgm_id);
+		map.put("proc_id", proc_id);
+		
+		map.put("car_type", car_type);
+		
+		map.put("txt_car_type", "-1");
+		if (!txt_car_type.trim().equals(""))
+			map.replace("txt_car_type", txt_car_type);
+		
+		map.put("txt_body_no", "-1");
+		if (!txt_body_no.trim().equals(""))
+			map.replace("txt_body_no", txt_body_no);
+		
+		map.put("device_id",device_id);
+		map.put("device_serial", device_serial);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+		
+		List<CycleTestResultListModel> list = mapper.selectCycleTestResult(map);
+		int total_count = mapper.selectCycleTestResultCount(map);
+		
+		CycleTestResultListReturn res = new CycleTestResultListReturn();
+		
+		res.setList(list);
+		res.setTotal_count(total_count);
+		
+		return res;
+		
+	}
+	
+	public BaseResponse getLineStopHistory(int page,int show_count,String plant_cd,String work_dt,String interlock_type,String tool,String txt_car_type,String txt_body_no,String excel_down){
+		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);		
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !tool.equals("-1")){
+			array = tool.split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("plant_cd", plant_cd);
+		map.put("work_dt", work_dt.replace("-", ""));
+		
+		map.put("interlock_type", interlock_type);
+		
+		map.put("txt_car_type", "-1");
+		if (!txt_car_type.trim().equals(""))
+			map.replace("txt_car_type", txt_car_type);
+		
+		map.put("txt_body_no", "-1");
+		if (!txt_body_no.trim().equals(""))
+			map.replace("txt_body_no", txt_body_no);
+		
+		map.put("device_id",device_id);
+		map.put("device_serial", device_serial);
+		
+		if ( excel_down.equals("Y"))
+		{
+			map.put("pageStartNo", -1);
+			map.put("pageEndNo", -1);
+		}
+		else
+		{
+			map.put("pageStartNo", (page * show_count) - show_count);
+			map.put("pageEndNo", (page*show_count) +1);
+		}
+		
+		
+		List<LineStopHistoryModel> list = mapper.selectInterlockHistory(map);
+		int total_count = mapper.selectInterlockHistoryCount(map);
+		
+		LineStopHistoryRetrun res = new LineStopHistoryRetrun();
+		
+		res.setList(list);
+		res.setTotal_count(total_count);
+		
+		return res;
+	}
 }
+

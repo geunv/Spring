@@ -5,12 +5,17 @@
 	<!-- <parameterMap type="com.spring.model.result.DetailListModel" id="DetailListModel"></parameterMap> -->
 	
 	<resultMap type="com.spring.model.result.SummaryListModel" id="SummaryList"></resultMap>
+	
 	<resultMap type="com.spring.model.result.DetailListModel" id="DetailListModel"></resultMap>
 	<resultMap type="com.spring.model.result.DetailListSubModel" id="subList"></resultMap>
 	
 	<resultMap type="com.spring.model.result.ResultHistoryListModel" id="resultHistory"></resultMap>
 
 	<resultMap type="com.spring.model.result.ResultByDateListModel" id="ResultByDateListModel"></resultMap>
+	
+	<resultMap type="com.spring.model.result.CycleTestResultListModel" id="CycleTestResultListModel"></resultMap>
+	
+	<resultMap type="com.spring.model.result.LineStopHistoryModel" id="LineStopHistoryModel"></resultMap>
 	
 	
 	<select id="selectResultSummaryList" parameterType="hashmap" resultMap="SummaryList" >
@@ -248,5 +253,104 @@
     AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) 
     AND    WORK_DT &gt;=  #{from_dt} AND WORK_DT &lt;= #{to_dt}
     GROUP BY WORK_DT 
+	</select>
+	
+	
+	<select id="selectCycleTestResult" parameterType="hashmap" resultMap="CycleTestResultListModel">
+	SELECT * 
+    FROM ( 
+	    SELECT ROWNUM RNUM, 
+	    (SELECT PGM_NM FROM TIGHTENING_PGM_MA WHERE PLANT_CD = A.PLANT_CD AND PGM_ID = A.PGM_ID AND PROC_ID = A.PROC_ID ) PROGRAM, 
+	    (SELECT PROC_NM FROM TIGHTENING_PGM_MA WHERE PLANT_CD = A.PLANT_CD AND PGM_ID = A.PGM_ID AND PROC_ID = A.PROC_ID ) PROCESS, 
+	    CYCLE_TEST_DT, CYCLE_TEST_HOUR, SHIFT, CAR_TYPE_GRP, 
+	    (SELECT  '['|| TRIM(DEVICE_ID) ||'] '|| TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) FROM TIGHTENING_DEVICE_MA WHERE DEVICE_ID = A.DEVICE_ID AND DEVICE_SERIAL = A.DEVICE_SERIAL ) DEVICE_ID,   
+	    BODY_NO, MES_PBSOUT_SEQ, REPAIR_JOB_NUM, 
+	    TOT_BATCH_NUM, BATCH_NUM, TIGHTEN_ID, BATCH_TIGHTENING_RESULT, TOR_STATE, TOR_VALUE, ANG_STATE, ANG_VALUE, 
+	    REGDT, REG_USER_ID 
+	    FROM ( 
+		    SELECT PLANT_CD, PGM_ID, PROC_ID, 
+		    CYCLE_TEST_DT, CYCLE_TEST_HOUR, SHIFT, CAR_TYPE_GRP, DEVICE_ID, DEVICE_SERIAL, TOT_BATCH_NUM, 
+		    CASE WHEN TOR_STATE != '1' AND BATCH_NUM != TOT_BATCH_NUM THEN TO_NUMBER(BATCH_NUM) + 1 ELSE TO_NUMBER(BATCH_NUM) END BATCH_NUM, 
+		    BODY_NO, MES_PBSOUT_SEQ, REPAIR_JOB_NUM, 
+		    TIGHTEN_ID, BATCH_TIGHTENING_RESULT, TOR_STATE, TOR_VALUE, ANG_STATE, ANG_VALUE, 
+		    REG_DT || REG_TM REGDT, REG_USER_ID 
+		    FROM CYCLE_TEST_HI 
+		    WHERE PLANT_CD = RPAD(#{plant_cd},4)  
+		    AND CYCLE_TEST_DT = #{work_dt}
+		    AND ( #{hh} = '-1' OR CYCLE_TEST_HOUR = #{hh} )
+		    <if test="pgm_id != '-1'">
+	            AND PGM_ID = RPAD(#{pgm_id},10)
+	        </if>
+	        <if test="proc_id != '-1'">
+	            AND PROC_ID = RPAD(#{proc_id},10)
+	        </if>
+		    AND    (#{car_type} ='-1' OR CAR_TYPE_GRP = RPAD(#{car_type},4) )
+		    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 
+    		AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial})
+    		
+    		AND    (#{txt_car_type} = '-1' OR RTRIM(SUBSTR(BODY_NO, 1, 4)) LIKE '%' || #{txt_car_type} || '%') 
+		    AND    (#{txt_body_no} = '-1' OR RTRIM(SUBSTR(BODY_NO, 5, 6)) LIKE '%' || #{txt_body_no} || '%')
+		    ORDER BY REG_DT || REG_TM DESC
+		    ) A 
+		) 
+	WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) 
+     AND   (#{pageEndNo} = '-1' OR RNUM &lt; #{pageEndNo}) 
+	</select>
+	
+	<select id="selectCycleTestResultCount" parameterType="hashmap" resultType="int">
+		SELECT count(1)
+		    FROM CYCLE_TEST_HI 
+		    WHERE PLANT_CD = RPAD(#{plant_cd},4)  
+		    AND CYCLE_TEST_DT = #{work_dt}
+		    AND ( #{hh} = '-1' OR CYCLE_TEST_HOUR = #{hh} )
+		    <if test="pgm_id != '-1'">
+	            AND PGM_ID = RPAD(#{pgm_id},10)
+	        </if>
+	        <if test="proc_id != '-1'">
+	            AND PROC_ID = RPAD(#{proc_id},10)
+	        </if>
+		    AND    (#{car_type} ='-1' OR CAR_TYPE_GRP = RPAD(#{car_type},4) )
+		    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 
+    		AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial})
+    		AND    (#{txt_car_type} = '-1' OR RTRIM(SUBSTR(BODY_NO, 1, 4)) LIKE '%' || #{txt_car_type} || '%') 
+		    AND    (#{txt_body_no} = '-1' OR RTRIM(SUBSTR(BODY_NO, 5, 6)) LIKE '%' || #{txt_body_no} || '%')
+	</select>
+	
+	<select id="selectInterlockHistory" parameterType="hashmap" resultMap="LineStopHistoryModel">
+	    SELECT * 
+	    FROM ( 
+		    SELECT ROWNUM RNUM,  '[' || TRIM(DEVICE_ID) ||'-'|| DEVICE_SERIAL ||'] ' ||  
+		    (SELECT TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) FROM TIGHTENING_DEVICE_MA WHERE DEVICE_ID = A.DEVICE_ID AND DEVICE_SERIAL = A.DEVICE_SERIAL) DEVICE, 
+		    INTERLOCK_DT, INTERLOCK_SEQ, INTERLOCK_FLG, BODY_NO, INTERLOCK_REASON, 
+		    REGDT, REG_USER_ID 
+		    FROM ( 
+			    SELECT PLANT_CD, DEVICE_ID, DEVICE_SERIAL, 
+			    INTERLOCK_DT, INTERLOCK_SEQ, INTERLOCK_FLG, BODY_NO, INTERLOCK_REASON, 
+			    REG_DT || REG_TM REGDT, REG_USER_ID 
+			    FROM PLC_INTERLOCK_HI 
+			    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			    AND  INTERLOCK_DT = #{work_dt}
+			    AND    (#{interlock_type} = '-1' OR INTERLOCK_FLG = #{interlock_type}  )
+			    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 
+    			AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) 
+				AND    (#{txt_car_type} = '-1' OR RTRIM(SUBSTR(BODY_NO, 1, 4)) LIKE '%' || #{txt_car_type} || '%') 
+		    	AND    (#{txt_body_no} = '-1' OR RTRIM(SUBSTR(BODY_NO, 5, 6)) LIKE '%' || #{txt_body_no} || '%')
+			    ORDER BY REG_DT || REG_TM DESC
+			    ) A 
+		    ) 
+	    WHERE (#{pageStartNo} = '-1' OR RNUM &gt; #{pageStartNo}) 
+     	AND   (#{pageEndNo} = '-1' OR RNUM &lt; #{pageEndNo})
+	</select>
+	
+	<select id="selectInterlockHistoryCount" parameterType="hashmap" resultType="int">
+				SELECT COUNT(1) 
+			    FROM PLC_INTERLOCK_HI 
+			    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			    AND  INTERLOCK_DT = #{work_dt}
+			    AND    (#{interlock_type} = '-1' OR INTERLOCK_FLG = #{interlock_type}  )
+			    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 
+    			AND    (#{device_serial} = '-1' OR DEVICE_SERIAL = #{device_serial}) 
+				AND    (#{txt_car_type} = '-1' OR RTRIM(SUBSTR(BODY_NO, 1, 4)) LIKE '%' || #{txt_car_type} || '%') 
+		    	AND    (#{txt_body_no} = '-1' OR RTRIM(SUBSTR(BODY_NO, 5, 6)) LIKE '%' || #{txt_body_no} || '%')
 	</select>
 </mapper>

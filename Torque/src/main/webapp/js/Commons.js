@@ -416,8 +416,9 @@ function ChangeDateFormat(DB_Date){
 }
 
 function ChangeDateFormatSimple(DB_Date){
-	var datetime = ""; 
-	if ( DB_Date.trim().length > 0 )
+	var datetime = "";
+	var dt = $.trim(DB_Date);
+	if ( dt.length > 0 )
 		datetime = DB_Date.substr(0,4) +'-' +DB_Date.substr(4,2) +"-" + DB_Date.substr(6,2)
     return datetime;
 }
@@ -446,7 +447,7 @@ function fn_getday(str){
 	
 }
 
-function fn_time(){
+function fn_nowtime(){
 	var date = new Date;
 	var hour = date.getHours();
 	var min = date.getMinutes();
@@ -468,6 +469,18 @@ function pad (str, max) {
 	  str = str.toString();
 	  return str.length < max ? pad("0" + str, max) : str;
 }
+
+function getHour(str){
+	if( str == 'S')
+		$('#ddlHour').append('<option value="">Select</option>');
+	else
+		$('#ddlHour').append('<option value="-1">ALL</option>');
+	
+	for ( i = 0 ;i < 24; i++){
+		$('#ddlHour').append('<option value="' + pad(i,2) + '">' + pad(i,2) + '</option>');
+	}
+}
+
 
 /* */
 
@@ -908,6 +921,23 @@ function getCommonCodeGroup(str){
 			
 			data.list.forEach(function(item){
 				$('#ddlCodeGrp').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
+			});
+		//}
+	});
+}
+
+function ddlInterlockType(str){
+	$.get('/api/common/getinterlocktype',function(data){
+		//if(data.result == 200){
+			$('#ddlInterlockType').empty();
+			
+			if ( str == 'S')
+				$('#ddlInterlockType').append('<option value="">Select</option>');
+			else 
+				$('#ddlInterlockType').append('<option value="-1">ALL</option>');
+			
+			data.list.forEach(function(item){
+				$('#ddlInterlockType').append('<option value="'+item.code+ '">' + item.code_nm+'</option>');
 			});
 		//}
 	});

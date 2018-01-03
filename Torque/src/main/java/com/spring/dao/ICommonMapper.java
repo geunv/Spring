@@ -58,5 +58,6 @@ public interface ICommonMapper {
 	
 	public List<CommonDDLReturn> selecCommonCodeGroup();
 	
+	public List<CommonDDLReturn> selecInterLockType();
 	
 }

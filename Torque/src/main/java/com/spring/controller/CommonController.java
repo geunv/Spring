@@ -180,4 +180,10 @@ public class CommonController {
 	public BaseResponse getCommonCodeGroup(){
 		return  commonService.getCommonCodeGroup();
 	}
+	
+	@RequestMapping(value="/api/common/getinterlocktype", method=GET)
+	public BaseResponse getInterLockType(){
+		return  commonService.getInterLockType();
+	}
+	
 }

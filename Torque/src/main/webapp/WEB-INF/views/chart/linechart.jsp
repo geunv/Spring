@@ -108,7 +108,7 @@
 		
 		init();
 		
-		//getList();
+		//makeChart();
 		
 		$("#btnSearch").on('click', function(e){
 			makeChart();
@@ -139,7 +139,7 @@
     	
 		$.ajaxSetup({async:true});	//비동기 켜기
 		
-		makeChart();
+		
 		
     }
     
@@ -157,7 +157,7 @@
     		//console.log(pad(hour,2) + ":" + pad(min,2) + ":" + pad(sec,2));
     	});
     	
-    	$('#txtToTime').val(fn_time());
+    	$('#txtToTime').val(fn_nowtime());
     	//return shiftStartTime;
     }
     

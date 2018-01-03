@@ -273,5 +273,16 @@ public class CommonService implements ICommonService {
 		
 		return response;
 	}
+	
+	public BaseResponse getInterLockType(){
+		ICommonMapper mapper = sqlSession.getMapper(ICommonMapper.class);
+		List<CommonDDLReturn> list = mapper.selecInterLockType();
+		
+		CommonDDLResponse response = new CommonDDLResponse();
+		
+		response.setList(list);
+		
+		return response;
+	}
 		
 }

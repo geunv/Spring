@@ -209,5 +209,12 @@
     		SELECT DISTINCT(CD_GRP) CD_GRP FROM C_COMM_CD
     		ORDER BY CD_GRP)
 	</select>
+	
+	<select id="selecInterLockType" resultMap="CommonDDL">
+		SELECT 'Y' CODE, 'Set Interlock' CODE_NM FROM DUAL
+		UNION
+		SELECT 'N' CODE, 'Clear Interlock' CODE_NM FROM DUAL
+		
+	</select>
 	 
 </mapper>
