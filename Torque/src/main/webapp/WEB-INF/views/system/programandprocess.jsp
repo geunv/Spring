@@ -140,16 +140,16 @@
     				$('#list_data').append(
     					  '<tr>' 
 							+ ' <td>'+ item.rnum +'</td>'
-							+ ' <td>'+ item.stn_gub +'</td>'
+							+ ' <td class="left_5">'+ item.stn_gub +'</td>'
 							//+ ' <td>'+ item.pgm_id +'</td>'
-							+ '<td><a href=\'#\' onClick="OpenRegistration(\'' + item.pgm_id.trim() +'\',\''+item.proc_id.trim() +'\');">' + item.pgm_id              + '</a></td>'
-							+ ' <td>'+ item.pgm_nm +'</td>'
-							+ ' <td>'+ item.proc_id +'</td>'
-							+ ' <td>'+ item.proc_nm +'</td>'
-							+ ' <td>'+ item.tightening_proc_status +'</td>'
-							+ ' <td>'+ item.device_id +'</td>'
+							+ '<td class="left_5"><a href=\'#\' onClick="OpenRegistration(\'' + item.pgm_id.trim() +'\',\''+item.proc_id.trim() +'\');">' + item.pgm_id              + '</a></td>'
+							+ ' <td class="left_5">'+ item.pgm_nm +'</td>'
+							+ ' <td class="left_5">'+ item.proc_id +'</td>'
+							+ ' <td class="left_5">'+ item.proc_nm +'</td>'
+							+ ' <td class="left_5">'+ item.tightening_proc_status +'</td>'
+							+ ' <td class="left_5">'+ item.device_id +'</td>'
 							+ ' <td>'+ item.reconnect_waiting_sec +'</td>'
-							+ ' <td>'+ item.trk_stn_cnt +'</td>'
+							+ ' <td class="left_5">'+ item.trk_stn_cnt +'</td>'
 							+ ' <td>'+ item.trk_stn_nm +'</td>'
 							+ ' <td>'+ item.logical_trk_flg +'</td>'
 							+ ' <td>'+ item.interlock_use_flg +'</td>'
@@ -399,42 +399,42 @@
 	        	<table class="gridview" cellspacing="0" border="0" style="width:5500px;border-collapse:collapse;" id="list_table">
 	            	<thead>
 						<tr>
-							<th><spring:message code="COMMON.Num"/></th>
-							<th><spring:message code="COMMON.StnType"/></th>
-							<th><spring:message code="SM01.Program"/></th>
-							<th><spring:message code="SM01.PgmName"/></th>
-							<th><spring:message code="SM01.Process"/></th>
-							<th><spring:message code="SM01.ProcName"/></th>
-							<th><spring:message code="SM01.ProcState"/></th>
-							<th><spring:message code="COMMON.Tool"/></th>
-							<th><spring:message code="SM01.ReconnTime"/></th>
-							<th><spring:message code="SM01.TrkDispCount"/></th>
-							<th><spring:message code="SM01.TrkTitle"/></th>
-							<th><spring:message code="SM01.LogicalTrkFlag"/></th>
-							<th><spring:message code="SM01.InterlockFlag"/></th>
-							<th><spring:message code="SM01.InterlockNGPoint"/></th>
-							<th><spring:message code="SM01.InterlockNGCount"/></th>
-							<th><spring:message code="SM01.InterlockNoScanPoint"/></th>
-							<th><spring:message code="SM01.InterlockNoScanCount"/></th>
-							<th><spring:message code="SM01.TrkPLCType"/></th>
-							<th><spring:message code="SM01.TrkPLCIP"/></th>
-							<th><spring:message code="SM01.TrkPLCPort"/></th>
-							<th><spring:message code="SM01.TrkPLCStartAddr"/></th>
-							<th><spring:message code="SM01.InterlockPLCType"/></th>
-							<th><spring:message code="SM01.InterlockPLCIP"/></th>
-							<th><spring:message code="SM01.InterlockPLCPort"/></th>
-							<th><spring:message code="SM01.InterlockPLCStartAddr"/></th>
-							<th><spring:message code="SM01.MESStnCD"/></th>
-							<th><spring:message code="SM01.TrkStartPos"/></th>
-							<th><spring:message code="SM01.NGMESStnCD"/></th>
-							<th><spring:message code="SM01.NGTrkStartPos"/></th>
-							<th><spring:message code="SM01.NGTrkDispCount"/></th>
-							<th><spring:message code="SM01.NGTrkAlarmPos"/></th>
-							<th><spring:message code="SM01.ScannerFlag"/></th>
-							<th><spring:message code="SM01.CycleTestInterval"/></th>
-							<th><spring:message code="SM01.ProcChkTime"/></th>
-							<th><spring:message code="COMMON.RegisterDate"/></th>
-							<th><spring:message code="COMMON.Register"/></th>
+							<th style="width:1%"><div align="center"><spring:message code="COMMON.Num"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="COMMON.StnType"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.Program"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="SM01.PgmName"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.Process"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="SM01.ProcName"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.ProcState"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="COMMON.Tool"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.ReconnTime"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.TrkDispCount"/></div></th>
+							<th style="width:6%"><div align="center"><spring:message code="SM01.TrkTitle"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.LogicalTrkFlag"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockFlag"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockNGPoint"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockNGCount"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.InterlockNoScanPoint"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.InterlockNoScanCount"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.TrkPLCType"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.TrkPLCIP"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.TrkPLCPort"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.TrkPLCStartAddr"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockPLCType"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockPLCIP"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.InterlockPLCPort"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.InterlockPLCStartAddr"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="SM01.MESStnCD"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.TrkStartPos"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="SM01.NGMESStnCD"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.NGTrkStartPos"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.NGTrkDispCount"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.NGTrkAlarmPos"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.ScannerFlag"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.CycleTestInterval"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="SM01.ProcChkTime"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="COMMON.RegisterDate"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="COMMON.Register"/></div></th>
 						</tr>
 					</thead>
 					<tbody id="list_data">
@@ -483,7 +483,7 @@
 			    </div>
 			</div>
 
-        	<div id="wrapper" style="visibility:hidden">
+        	<div id="wrapper" style="visibility:hidden;overflow:hidden;height:0px;">
 	            <table class="type08" border="1" id="list_excel"></table>
             </div>
         

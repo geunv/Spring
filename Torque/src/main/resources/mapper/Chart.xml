@@ -99,4 +99,55 @@
  -->
 	</select>
 	
+	<select id="selectXbarChart" parameterType="hashmap" resultType="String">
+	select '5.98' XVAL FROM DUAL	union all 
+	select '6' XVAL FROM DUAL		union all
+	select '5.99' XVAL FROM DUAL	union all
+	select '5.99' XVAL FROM DUAL	union all
+	select '6' XVAL FROM DUAL		union all
+	select '6' XVAL FROM DUAL		union all
+	select '5.99' XVAL FROM DUAL	union all
+	select '5.98' XVAL FROM DUAL	union all
+	select '5.99' XVAL FROM DUAL	union all
+	select '6' XVAL FROM DUAL		union all
+	select '6' XVAL FROM DUAL		union all
+	select '5.98' XVAL FROM DUAL	union all
+	select '5.99' XVAL FROM DUAL	union all
+	select '5.99' XVAL FROM DUAL
+	<!-- ${x_sub}
+		FROM ${table_nm}
+		WHERE PLANT_CD = RPAD(#{plant_cd},4)
+		AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} 
+		AND DEVICE_ID = RPAD(#{device_id},10)
+    	AND DEVICE_SERIAL = #{device_serial}
+		ORDER BY TIGHTENING_DT 
+	)
+	GROUP BY CEIL(ROWNUM/ ${group_size} )  -->
+	</select>
+	
+	<select id="selectRchart" parameterType="hashmap" resultType="String">
+	select '1.03' RVAL FROM DUAL union all
+	select '1.03' RVAL FROM DUAL union all
+	select '1.04' RVAL FROM DUAL union all
+	select '1.02' RVAL FROM DUAL union all
+	select '1.05' RVAL FROM DUAL union all
+	select '1.06' RVAL FROM DUAL union all
+	select '1.05' RVAL FROM DUAL union all
+	select '1.02' RVAL FROM DUAL union all
+	select '1.02' RVAL FROM DUAL union all
+	select '1.06' RVAL FROM DUAL union all
+	select '1.04' RVAL FROM DUAL union all
+	select '1.04' RVAL FROM DUAL union all
+	select '1.02' RVAL FROM DUAL union all
+	select '1.04' RVAL FROM DUAL
+	<!-- ${r_sub}
+		FROM ${table_nm}
+		WHERE PLANT_CD = RPAD(#{plant_cd},4)
+		AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} 
+		AND DEVICE_ID = RPAD(#{device_id},10)
+    	AND DEVICE_SERIAL = #{device_serial}
+		ORDER BY TIGHTENING_DT 
+	)
+	GROUP BY CEIL(ROWNUM/ ${group_size} ) --> 
+	</select>
 </mapper>

@@ -16,4 +16,8 @@ public interface IChartMapper {
 	
 	
 	public List<FaultyChartModel> selectFaultyChart(HashMap<String,Object> map);
+	
+	public List<String> selectXbarChart(HashMap<String,Object> map);
+	
+	public List<String> selectRchart(HashMap<String,Object> map);
 }

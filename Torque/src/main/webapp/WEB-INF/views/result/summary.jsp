@@ -40,6 +40,8 @@
 		getList();
 		
 		$("#btnSearch").on('click', function(e){
+			now_page = 1;
+    		show_count  = $('#select_show_count').val();
 			getList();
 		});
 		
@@ -99,17 +101,11 @@
 
     function getList(){
         
-    	var vplant_cd = $('#ddlPlant').val()
-    	var vwork_dt = $('#txtDate').val();
-    	var vline = $('#ddlLine').val();
-    	var vshift = $('#ddlShift').val();
-    	var vtool = $('#ddlTool').val();
-    	
-    	var params = "?plant_cd="+vplant_cd.trim()+
-    				 "&work_dt="+vwork_dt.trim()+
-    				 "&line="+vline.trim() +
-    				 "&shift="+vshift.trim() +
-    				 "&tool="+vtool.trim() +
+    	var params = "?plant_cd="+$('#ddlPlant').val()+
+    				 "&work_dt="+$('#txtDate').val()+
+    				 "&line="+$('#ddlLine').val() +
+    				 "&shift="+$('#ddlShift').val() +
+    				 "&tool="+$('#ddlTool').val() +
     				 "&page="+now_page+
     				 "&show_count="+show_count;
     	
@@ -147,8 +143,8 @@
     				$('#list_data').append(
     					  '<tr>' 
 							+ ' <td>' + item.rnum +'</td>'
-							+ ' <td>' + item.device +'</td>'
-							+ ' <td>' + item.line_cd +'</td>'
+							+ ' <td class="left_5">' + item.device +'</td>'
+							+ ' <td class="left_5">' + item.line_cd +'</td>'
 							+ ' <td>' + item.total +'</td>'
 							+ ' <td>' + item.ok +'</td>'
 							+ ' <td>' + item.ng +'</td>'
@@ -157,7 +153,7 @@
 							+ ' <td>' + item.repair +'</td>'
 							+ ' <td>' + item.tot_ok +'</td>'
 							+ ' <td>' + item.tot_ng +'</td>'
-							+ ' <td>' + item.pass_ratio +'</td>'
+							+ ' <td class="right_5">' + item.pass_ratio +'</td>'
     					+ '</tr>'
     				);
     			});
@@ -315,18 +311,18 @@
 	        	<table class="gridview" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;" id="list_table">
 	            	<thead>
 						<tr>
-							<th><spring:message code="COMMON.Num"/></th>
-							<th><spring:message code="COMMON.Tool"/></th>
-							<th><spring:message code="COMMON.Line"/></th>
-							<th><spring:message code="COMMON.Total"/></th>
-							<th><spring:message code="COMMON.OK"/></th>
-							<th><spring:message code="COMMON.NG"/></th>
-							<th><spring:message code="COMMON.NoScan"/></th>
-							<th><spring:message code="COMMON.Pass"/></th>
-							<th><spring:message code="COMMON.Repair"/></th>
-							<th><spring:message code="COMMON.TotalOK"/></th>
-							<th><spring:message code="COMMON.TotalNG"/></th>
-							<th><spring:message code="COMMON.PassRatio"/></th>
+							<th style="width:4%"><div align="center"><spring:message code="COMMON.Num"/></div></th>
+							<th style="width:28%"><div align="center"><spring:message code="COMMON.Tool"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.Line"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.Total"/></div></th>
+							<th style="width:6%"><div align="center"><spring:message code="COMMON.OK"/></div></th>
+							<th style="width:6%"><div align="center"><spring:message code="COMMON.NG"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.NoScan"/></div></th>
+							<th style="width:6%"><div align="center"><spring:message code="COMMON.Pass"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.Repair"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.TotalOK"/></div></th>
+							<th style="width:7%"><div align="center"><spring:message code="COMMON.TotalNG"/></div></th>
+							<th style="width:9%"><div align="center"><spring:message code="COMMON.PassRatio"/></div></th>
 						</tr>
 					</thead>
 					<tbody id="list_data">
@@ -375,7 +371,7 @@
 			    </div>
 			</div>
 
-        	<div id="wrapper" style="visibility:hidden">
+        	<div id="wrapper" style="visibility:hidden;overflow:hidden;height:0px;">
 	            <table class="type08" border="1" id="list_excel"></table>
             </div>
         

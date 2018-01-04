@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8"> 
-	<title>index</title>
+	<title>Line Chart</title>
 	<jsp:include page="../head.jsp" flush="false" />
 	<script src="/WebCommon/scripts/mask.js" type="text/javascript"></script>
 	<style type="text/css">

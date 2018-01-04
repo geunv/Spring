@@ -400,10 +400,15 @@ function fn_Excelpostfix(){
     return postfix;
 }
 
-String.prototype.trim = function() {
+/*String.prototype.trim = function() {
     return this.replace(/(^\s*)|(\s*$)/gi, "");
 }
+*/
 
+function numberComma(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+	
 function ChangeDateFormat(DB_Date){
 	var dt = $.trim(DB_Date);
 	var datetime = ""; 
@@ -421,6 +426,27 @@ function ChangeDateFormatSimple(DB_Date){
 	if ( dt.length > 0 )
 		datetime = DB_Date.substr(0,4) +'-' +DB_Date.substr(4,2) +"-" + DB_Date.substr(6,2)
     return datetime;
+}
+
+function fn_getFirstday(){
+	
+	var d;
+		d = new Date(); 
+		
+	var year = d.getFullYear(); 
+	var month = new String(d.getMonth()+1); 
+	var day = new String("1"); 
+
+	// 한자리수일 경우 0을 채워준다. 
+	if(month.length == 1){ 
+	  month = "0" + month; 
+	} 
+	if(day.length == 1){ 
+	  day = "0" + day; 
+	} 
+
+	return year + "-" + month + "-" + day;
+	
 }
 
 function fn_getday(str){

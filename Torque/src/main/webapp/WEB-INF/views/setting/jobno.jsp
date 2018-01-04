@@ -8,52 +8,7 @@
 	<meta charset="UTF-8"> 
 	<title>index</title>
 	<jsp:include page="../head.jsp" flush="false" />
-	
 
-	<style type="text/css">
-	
-
-	table.type08 {
-		font-size:12px;
-		font-weight: bold;
-	    border-collapse: collapse;
-	    text-align: left;
-	    line-height: 1.5;
-	    border-left: 1px solid #ccc;
-	    margin: 20px 10px;
-	}
-	
-	table.type08 thead th {
-	    padding: 10px;
-	    font-weight: bold;
-	    border-top: 1px solid #ccc;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 2px solid #c00;
-	    background: #dcdcd1;
-	}
-	table.type08 tbody th {
-	    padding: 10px;
-	    font-weight: bold;
-	    vertical-align: top;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 1px solid #ccc;
-	    background: #ececec;
-	}
-	table.type08 td {
-	    padding: 10px;
-	    vertical-align: top;
-	    border-right: 1px solid #ccc;
-	    border-bottom: 1px solid #ccc;
-	}
-	
-	
-	/* Define the hover highlight color for the table row */
-    .type08 tr:hover {
-          /* background-color: #ffff99; */
-          background-color: #E0E0E0;
-    }
-    
-	</style>
 </head>
 <body>
 <jsp:include page="../menu.jsp" flush="false" />
@@ -396,7 +351,7 @@
 				</div>
 			</div>
         	
-        	<div id="wrapper" style="visibility:hidden">
+        	<div id="wrapper" style="visibility:hidden;overflow:hidden;height:0px;">
 	            <table class="type08" border="1" id="list_excel"></table>
             </div>
         </div>  

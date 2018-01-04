@@ -649,7 +649,7 @@
 			    </div>
 			</div>
 
-        	<div id="wrapper" style="visibility:hidden">
+        	<div id="wrapper" style="visibility:hidden;overflow:hidden;height:0px;">
 	            <table class="type08" border="1" id="list_excel"></table>
             </div>
         
