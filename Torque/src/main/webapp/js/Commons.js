@@ -926,7 +926,7 @@ function getCommonCodeGroup(str){
 	});
 }
 
-function ddlInterlockType(str){
+/*function ddlInterlockType(str){
 	$.get('/api/common/getinterlocktype',function(data){
 		//if(data.result == 200){
 			$('#ddlInterlockType').empty();
@@ -941,5 +941,6 @@ function ddlInterlockType(str){
 			});
 		//}
 	});
-}
+}*/
+
 /* */

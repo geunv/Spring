@@ -108,7 +108,7 @@
 		
 		init();
 		
-		//makeChart();
+		makeChart();
 		
 		$("#btnSearch").on('click', function(e){
 			makeChart();
@@ -343,7 +343,7 @@
                                     <input id="chkSelOldData" type="checkbox" name="chkSelOldData"><spring:message code="CT01.SearchOldData"/>
                                 </td>
                                 <td rowspan="2" class="content-button">
-                                    <input type="submit" name="btnSearch" value="Search" id="btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+                                    <input type="button" name="btnSearch" value="Search" id="btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                 </td>
                             </tr>
                             <tr>
