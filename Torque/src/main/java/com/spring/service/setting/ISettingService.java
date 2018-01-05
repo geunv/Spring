@@ -3,7 +3,7 @@ package com.spring.service.setting;
 import java.util.List;
 
 import com.spring.model.BaseResponse;
-import com.spring.model.setting.JobNoInfo;
+import com.spring.model.setting.JobNoInsertParam;
 import com.spring.model.setting.ToolInfoModel;
 import com.spring.model.setting.UserInfoModel;
 import com.spring.model.setting.UserInsertParam;
@@ -37,7 +37,7 @@ public interface ISettingService {
 									  String tool_id,
 									  String excel_down );
 	
-	public BaseResponse insertJobNo(JobNoInfo inputparam);
+	public BaseResponse insertJobNo(JobNoInsertParam inputparam);
 	/*					*/
 	
 	

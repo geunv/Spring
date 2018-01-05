@@ -26,12 +26,17 @@
 		
 		$.ajaxSetup({async:true});	//비동기 켜기
 		
-		//getList();
+		getList();
 		
 		$("#btnSearch").on('click', function(e){
 			getList();
 		});
 		
+		
+		$('#ddlCarType').on('change', function(){
+			getJobNoTool();
+			$('#btnSearch').click();
+    	});
 		
        /*  $("#btnReg").click(function(e) {
             e.preventDefault();
@@ -59,6 +64,10 @@
             fn_ExcelReport('list_excel', fileName);
     	});
         
+    	$("#btnReg").click(function(e) {
+            e.preventDefault();
+            OpenRegistration(' ',' ',' ',' ');
+        });
     });
 
     
@@ -70,7 +79,7 @@
         fn_ShowDialog('/view/setting/jobnoP01?CarType=' + CarType + '&ToolID=' + ToolID + '&ToolSerial=' + ToolSerial + '&JobNo=' + JobNo, title, '750', '600', true);
         //fn_ShowDialog('/SETTING/ST02P01.aspx?CarType=' + CarType + '&ToolID=' + ToolID + '&ToolSerial=' + ToolSerial + '&JobNo=' + JobNo, title, '750', '600', true);
     }
-
+    
     function CloseDialog(flg) {
         $('#btnSearch').click()
         fn_CloseDialog('', flg);
@@ -122,20 +131,46 @@
     				//console.log(item);
     				//+ '	<td><a href=\'#\' onClick="OpenRegistration(\'' + item.device_id.trim() +'\',\''+item.device_serial+ '\');">' + item.device_id +'</a></td>'
     				//OpenRegistration(CarType, ToolID, ToolSerial, JobNo)
+    				
+    				var var_cond_gub = "";
+    				var var_equal_operator_flg = "";
+    				var var_cond_seq = "";
+    				var var_sepec219_num = "";
+    				var var_spec219_value = "";
+    				
+    				if ( item.cond_gub == "O")
+    					var_cond_gub ="O:219";
+    				else if ( item.cond_gub == "C")
+    					var_cond_gub ="C:Color";
+    				
+    				if ( item.equal_operator_flg == "T")
+    					var_equal_operator_flg = "=";
+    				else if (item.equal_operator_flg == "F")
+    					var_equal_operator_flg = "!=";
+    				
+    				if ( item.cond_seq != null)
+    					var_cond_seq = item.cond_seq;
+    				
+    				if (item.spec219_num != null)
+    					var_sepec219_num = item.spec219_num; 
+    				
+    				if ( item.spec219_value != null)
+    					var_spec219_value = item.spec219_value;
+    				
     				$('#list_data').append(
     				'<tr>' 
     					+ '<td>' + item.rnum				+ '</td>'
 						+ '<td>' + item.car_type_grp        + '</td>'
-						+ '<td><a href=\'#\' onClick="OpenRegistration(\'' + item.car_type_grp.trim() +'\',\''+item.device_id.trim() +'\',\''+item.device_serial.trim()+'\',\''+item.job_num.trim() +'\');">' + item.device              + '</a></td>'
+						+ '<td class="left_5"><a href=\'#\' onClick="OpenRegistration(\'' + $.trim(item.car_type_grp) +'\',\''+$.trim(item.device_id) +'\',\''+$.trim(item.device_serial)+'\',\''+$.trim(item.job_num) +'\');">' + item.device              + '</a></td>'
 						+ '<td>' + item.job_num             + '</td>'
 						+ '<td>' + item.repair_job_num      + '</td>'
 						+ '<td>' + item.tot_batch_num       + '</td>'
 						+ '<td>' + item.cond_grp_num        + '</td>'
-						+ '<td>' + item.cond_seq            + '</td>'
-						+ '<td>' + item.cond_gub            + '</td>'
-						+ '<td>' + item.spec219_num         + '</td>'
-						+ '<td>' + item.equal_operator_flg  + '</td>'
-						+ '<td>' + item.spec219_value       + '</td>'
+						+ '<td>' + var_cond_seq            + '</td>'
+						+ '<td>' + var_cond_gub            + '</td>'
+						+ '<td>' + var_sepec219_num         + '</td>'
+						+ '<td>' + var_equal_operator_flg  + '</td>'
+						+ '<td>' + var_spec219_value       + '</td>'
 						+ '<td>' + item.torque_low          + '</td>'
 						+ '<td>' + item.torque_ok           + '</td>'
 						+ '<td>' + item.torque_high         + '</td>'
@@ -266,7 +301,7 @@
                                 <td  width="7%" class="left_5">
                                     <i class="fa fa-chevron-circle-right"></i>&nbsp; <spring:message code="COMMON.CarType"/>
                                 </td>
-                                <td width="15%" class="left_5" >
+                                <td width="12%" class="left_5" >
                                 	<select id="ddlCarType"></select>
                                     <!-- <asp:DropDownList ID="ddlCarType" runat="server" AutoPostBack="true"
                                         onselectedindexchanged="ddlCarType_SelectedIndexChanged"></asp:DropDownList> -->
@@ -284,7 +319,7 @@
                                 	<c:set var="btnExcel"><spring:message code="BUTTON.Excel"/></c:set>
                                 	<input type="button" id="btnExcel" value="${btnExcel}" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                 	<c:set var="btnReg"><spring:message code="BUTTON.Registration"/></c:set>
-                                	<input type="button" id="btnReg" value="${btnReg}" class="ui-button ui-widget ui-state-default ui-corner-all" onclick="OpenRegistration('', '', '', '')" role="button">
+                                	<input type="button" id="btnReg" value="${btnReg}" class="ui-button ui-widget ui-state-default ui-corner-all"  role="button">
                                 </td>
                             </tr>
                         </table>
@@ -296,31 +331,31 @@
             <div class="total_count">
                 [ <spring:message code="COMMON.TotalCont" /> : <div style='display:inline;' id="list_total"></div> ]
             </div>
-            <div style="position: relative;width:500;overflow:auto;background-color:#F5F5F5" >
+            <div style="position: relative;width:500;overflow:auto;">
 	            <!-- <table class="type08" style="width:3000px;" id="list_table"> -->
 	            <table class="gridview" cellspacing="0" border="0" style="width:3000px;border-collapse:collapse;" id="list_table">
 					<thead>
 						<tr>
-							<th><spring:message code="COMMON.Num"/></th>
-							<th><spring:message code="COMMON.CarType"/></th>
-							<th><spring:message code="COMMON.Tool"/></th>
-							<th><spring:message code="ST02.JobNo"/></th>
-							<th><spring:message code="ST02.RepairJobNo"/></th>
-							<th><spring:message code="ST02.TotBatchNo"/></th>
-							<th><spring:message code="ST02.CondGrpNo"/></th>
-							<th><spring:message code="ST02.CondSeq"/></th>
-							<th><spring:message code="ST02.CondGub"/></th>
-							<th><spring:message code="ST02.CondNo"/></th>
-							<th><spring:message code="ST02.CondOperator"/></th>
-							<th><spring:message code="ST02.OptVal"/></th>
-							<th><spring:message code="ST01.TorqLowVal"/></th>
-							<th><spring:message code="ST01.TorqOkVal"/></th>
-							<th><spring:message code="ST01.TorqHighVal"/></th>
-							<th><spring:message code="ST01.AnglLowVal"/></th>
-							<th><spring:message code="ST01.AnglOkVal"/></th>
-							<th><spring:message code="ST01.AnglHighVal"/></th>
-							<th><spring:message code="COMMON.RegisterDate"/></th>
-							<th><spring:message code="COMMON.Register"/></th>
+							<th style="width:2%"><div align="center"><spring:message code="COMMON.Num"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="COMMON.CarType"/></div></th>
+							<th style="width:13%"><div align="center"><spring:message code="COMMON.Tool"/></div></th>
+							<th style="width:3%"><div align="center"><spring:message code="ST02.JobNo"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.RepairJobNo"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.TotBatchNo"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST02.CondGrpNo"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST02.CondSeq"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.CondGub"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.CondNo"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.CondOperator"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="ST02.OptVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.TorqLowVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.TorqOkVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.TorqHighVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.AnglLowVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.AnglOkVal"/></div></th>
+							<th style="width:5%"><div align="center"><spring:message code="ST01.AnglHighVal"/></div></th>
+							<th style="width:6%"><div align="center"><spring:message code="COMMON.RegisterDate"/></div></th>
+							<th style="width:4%"><div align="center"><spring:message code="COMMON.Register"/></div></th>
 						</tr>
 					</thead>
 					<tbody id="list_data">
@@ -328,31 +363,26 @@
 				</table>
             </div>
             
-            <div class="well">
-				<div class="row">
-				  <div class="col-md-6">
-				  	<div class="pull-left">
-				  		PAGE 
-				  		<select id="select_page_count">
-			  			</select>
-			  			of <div style='display:inline;' id="page_total"></div> pages
-			  		</div>
-				  </div>
-				  <div class="col-md-6">
-				  	<div class="pull-right">
-				  		SHOW 
-				  		<select id="select_show_count">
+            <div style="margin-top:5px;border:double 1px #A6A6A6;height:35px;border-radius:5px;background-color:#EEEEEE;">
+			    <div style="float:left;text-align:left;padding-left:5px;padding-top:5px;">
+			        <span>Show Page&nbsp;</span>
+			        <select id="select_page_count"></select>
+			        <span>&nbsp;of</span>
+			        <div style='display:inline;' id="page_total"></div> pages
+			    </div>
+			    <div style="text-align:right;padding-right:5px;padding-top:5px;">
+			        <span>Display&nbsp;</span>
+			        <select id="select_show_count">
 				  			<option value="10">10</option>
 				  			<option value="20" selected>20</option>
 				  			<option value="30">30</option>
-				  		</select>
-				  	</div>
-				  </div>
-				</div>
+				  	</select>
+			        <span>&nbsp;Records per Page</span>
+			    </div>
 			</div>
-        	
+
         	<div id="wrapper" style="visibility:hidden;overflow:hidden;height:0px;">
-	            <table class="type08" border="1" id="list_excel"></table>
+	            <table border="1" id="list_excel"></table>
             </div>
         </div>  
     </div>      

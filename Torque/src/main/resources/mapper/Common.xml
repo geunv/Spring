@@ -52,7 +52,7 @@
 		FROM ( 
 		    SELECT DISTINCT TRIM(DEVICE_GRP_CD) DEVICE_GRP_CD 
 		    FROM TIGHTENING_DEVICE_MA 
-		    WHERE trim(PLANT_CD) = #{plant_cd}
+		    WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		    ) 
 		ORDER BY DEVICE_GRP_CD
 	</select>
@@ -60,7 +60,7 @@
 	<select id="selectToolID"  parameterMap="ToolIDParam" resultMap="ToolIDModel" >
 	SELECT TRIM(DEVICE_ID) || '-' || DEVICE_SERIAL DEVICE_ID, '['|| TRIM(DEVICE_ID) ||'] '|| TRIM(DEVICE_NM) || '-' || TRIM(DEVICE_ALIAS) DEVICE_NM 
 	FROM (SELECT  DEVICE_ID, DEVICE_SERIAL, DEVICE_NM, DEVICE_ALIAS FROM TIGHTENING_DEVICE_MA 
-		WHERE TRIM(PLANT_CD) = #{plant_cd} 
+		WHERE PLANT_CD = RPAD(#{plant_cd},4) 
 		<if test="device_grp_cd != '-1'">
 			AND TRIM(DEVICE_GRP_CD) = #{device_grp_cd}
 		</if>
@@ -86,11 +86,11 @@
 	        INNER JOIN (
 	                    SELECT DISTINCT A.PLANT_CD, A.DEVICE_ID, A.DEVICE_SERIAL
 	                    FROM   DEVICE_JOBNO_MA A
-	                    WHERE  TRIM(A.PLANT_CD) = #{plant_cd}
-	                    AND    (#{car_type} = '-1' OR A.CAR_TYPE_GRP = #{car_type})
+	                    WHERE  A.PLANT_CD = RPAD(#{plant_cd},4)
+	                    AND    (#{car_type} = '-1' OR A.CAR_TYPE_GRP = RPAD(#{car_type},4))
 	                  )  A ON A.PLANT_CD = M.PLANT_CD AND A.DEVICE_ID = M.DEVICE_ID AND A.DEVICE_SERIAL = M.DEVICE_SERIAL
 	       LEFT OUTER JOIN C_COMM_CD B ON B.PLANT_CD = M.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = M.LINE_CD
-	WHERE  TRIM(M.PLANT_CD) = #{plant_cd}
+	WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
 	ORDER BY B.CODE_VALUE, M.DEVICE_NM, M.DEVICE_SERIAL
 	</select> 
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.spring.dao.setting.ISettingMapper;
 import com.spring.model.BaseResponse;
 import com.spring.model.setting.JobNoInfo;
+import com.spring.model.setting.JobNoInsertParam;
 import com.spring.model.setting.JobNoListModel;
 import com.spring.model.setting.JobNoListReturn;
 import com.spring.model.setting.ToolInfoModel;
@@ -209,9 +210,41 @@ public class SettingService implements ISettingService {
 		return response;
 	}
 	
-	public BaseResponse insertJobNo(JobNoInfo inputparam){
+	public BaseResponse insertJobNo(JobNoInsertParam insertParam){
 		
+		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
 		BaseResponse res = new BaseResponse();
+		
+		
+		
+		String[] array;
+		String device_id = "-1";
+		String device_serial = "-1";
+		 
+		if( !insertParam.getTool().equals("-1")){
+			array = insertParam.getTool().split("-");
+			device_id = array[0].trim().toString();
+			device_serial = array[1].trim().toString();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("plant_cd", insertParam.getPlant_cd());
+		map.put("device_id", device_id);
+		map.put("device_serial",device_serial);
+		map.put("car_type", insertParam.getCar_type());
+		map.put("job_num", insertParam.getJob_num());
+		
+		insertParam.setDevice_id(device_id);
+		insertParam.setDevice_serial(device_serial);
+		
+		List<JobNoInfo> info = mapper.selectJobNoInfo(map);
+		
+		if ( info.size() > 0)
+			res.setResult(300);
+		else
+		{
+			mapper.insertJobNo(insertParam);
+		}
 		
 		return res;
 	}

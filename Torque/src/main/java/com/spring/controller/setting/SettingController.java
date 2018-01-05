@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.BaseResponse;
-import com.spring.model.setting.JobNoInfo;
+import com.spring.model.setting.JobNoInsertParam;
 import com.spring.model.setting.ToolInfoModel;
 import com.spring.model.setting.UserInfoModel;
 import com.spring.model.setting.UserInsertParam;
@@ -128,7 +128,7 @@ public class SettingController {
 		//
 	}
 	
-	
+	/*******************************/
 	@RequestMapping(value="/view/setting/jobno")
 	public ModelAndView jobnoList(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("/setting/jobno");
@@ -157,7 +157,7 @@ public class SettingController {
 	
 	
 	@RequestMapping(value="/api/setting/insertjobno", method=POST)
-	public BaseResponse insertJobNo(@RequestBody JobNoInfo insertParam,HttpServletRequest request){
+	public BaseResponse insertJobNo(@RequestBody JobNoInsertParam insertParam,HttpServletRequest request){
 		
 		HttpSession my_session = request.getSession();
 		String user_id = (String)my_session.getAttribute("USER_ID");

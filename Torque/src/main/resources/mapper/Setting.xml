@@ -5,6 +5,7 @@
 	<parameterMap type="com.spring.model.setting.ToolListParam" id="ToolListParam"></parameterMap>
 	<parameterMap type="com.spring.model.setting.ToolInfoModel" id="ToolInsert"></parameterMap>
 	<parameterMap type="com.spring.model.setting.UserInsertParam" id="UserInsert"></parameterMap>
+	<parameterMap type="com.spring.model.setting.JobNoInsertParam" id="JobNoinsert"></parameterMap>
 	
 	<resultMap type="com.spring.model.setting.ToolListModel" id="ToolListModel"></resultMap>
 	<resultMap type="com.spring.model.setting.ToolInfoModel" id="ToolSelect"></resultMap>
@@ -48,7 +49,7 @@
 					WHEN 'OK' THEN 9 
 					END AS LINE_ORDER  
 			FROM TIGHTENING_DEVICE_MA 
-			WHERE TRIM(PLANT_CD) = #{plant_cd}  
+			WHERE PLANT_CD = RPAD(#{plant_cd},4)  
 				<if test="stn_type != '-1'">
 					AND TRIM(STN_GUB) = #{stn_type}
 				</if>
@@ -76,7 +77,7 @@
 	<select id="selectToolListCount" parameterMap="ToolListParam" resultType="int" >
 		SELECT COUNT(1)
     	FROM TIGHTENING_DEVICE_MA 
-			WHERE TRIM(PLANT_CD) = #{plant_cd} 
+			WHERE PLANT_CD = RPAD(#{plant_cd},4) 
 			<if test="stn_type != '-1'">
 				AND TRIM(STN_GUB) = #{stn_type}
 			</if>
@@ -138,14 +139,14 @@
 			REG_TM = TO_CHAR(SYSDATE,'HH24MISS'), 
 			REG_USER_ID = #{reg_user_id},  
 			SHOW_VALUE_TYPE = #{show_value_type} 
-	    WHERE TRIM(PLANT_CD) = #{plant_cd} 
+	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		AND TRIM(DEVICE_ID) = #{device_id} 
 		AND TRIM(DEVICE_SERIAL) = #{device_serial}
 	</update>
 	
 	<delete id="deleteToolId" parameterType="hashmap">
 		DELETE FROM TIGHTENING_DEVICE_MA
-		WHERE TRIM(PLANT_CD) = #{plant_cd} 
+		WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		AND TRIM(DEVICE_ID) = #{device_id} 
 		AND TRIM(DEVICE_SERIAL) = #{device_serial} 
 	</delete>
@@ -178,7 +179,7 @@
 	                             AND    ( #{device_serial} = '-1' OR TRIM(A.DEVICE_SERIAL) = #{device_serial} ) 
 	                            ) C ON C.PLANT_CD = M.PLANT_CD AND C.DEVICE_ID = M.DEVICE_ID AND C.DEVICE_SERIAL = M.DEVICE_SERIAL 
 	                LEFT OUTER JOIN C_COMM_CD D ON D.PLANT_CD = M.PLANT_CD AND D.CD_GRP = 'LINE_CD' AND D.CODE = M.LINE_CD 
-	         WHERE  TRIM(M.PLANT_CD) = #{plant_cd} 
+	         WHERE  M.PLANT_CD = RPAD(#{plant_cd},4) 
 	         AND    ( #{device_id} = '-1' OR TRIM(M.DEVICE_ID) = #{device_id}) 
 	         AND    ( #{device_serial} = '-1' OR TRIM(M.DEVICE_SERIAL) = #{device_serial}) 
 	         ORDER BY C.CAR_TYPE_GRP, D.CODE_VALUE, M.DEVICE_NM, M.DEVICE_ID, M.DEVICE_SERIAL, C.JOB_NUM, C.COND_SEQ ) 
@@ -203,22 +204,37 @@
 	                             AND    ( #{device_serial} = '-1' OR TRIM(A.DEVICE_SERIAL) = #{device_serial} ) 
 	                            ) C ON C.PLANT_CD = M.PLANT_CD AND C.DEVICE_ID = M.DEVICE_ID AND C.DEVICE_SERIAL = M.DEVICE_SERIAL 
 	                LEFT OUTER JOIN C_COMM_CD D ON D.PLANT_CD = M.PLANT_CD AND D.CD_GRP = 'LINE_CD' AND D.CODE = M.LINE_CD 
-	         WHERE  TRIM(M.PLANT_CD) = #{plant_cd} 
+	         WHERE  M.PLANT_CD = RPAD(#{plant_cd},4) 
 	         AND    ( #{device_id} = '-1' OR TRIM(M.DEVICE_ID) = #{device_id}) 
 	         AND    ( #{device_serial} = '-1' OR TRIM(M.DEVICE_SERIAL) = #{device_serial}) 
 	         ORDER BY C.CAR_TYPE_GRP, D.CODE_VALUE, M.DEVICE_NM, M.DEVICE_ID, M.DEVICE_SERIAL, C.JOB_NUM, C.COND_SEQ
 	</select>
 	
-	<select id="selectJobInfo" resultMap="JobNoInfo" parameterType="hashmap">
+	<select id="selectJobNoInfo" resultMap="JobNoInfo" parameterType="hashmap">
 	SELECT PLANT_CD, COND_USE_FLG, REPAIR_JOB_NUM, TOT_BATCH_NUM,
     TORQUE_LOW, TORQUE_OK, TORQUE_HIGH, ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, REPAIR_BATCH_NUM
     FROM DEVICE_JOBNO_MA
-    WHERE TRIM(CAR_TYPE_GRP) = #{car_type} 
-    AND TRIM(DEVICE_ID) = #{device_id}
-    AND TRIM(DEVICE_SERIAL) = #{device_serial}
-    AND TRIM(JOB_NUM) = #{job_no}
+    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+    AND CAR_TYPE_GRP = RPAD(#{car_type},4) 
+    AND DEVICE_ID = RPAD(#{device_id},7)
+    AND DEVICE_SERIAL = #{device_serial}
+    AND JOB_NUM = RPAD(#{job_num},5)
 	</select>
 	
+	<insert id="insertJobNo" parameterMap="JobNoinsert">
+		INSERT INTO DEVICE_JOBNO_MA (
+        PLANT_CD, CAR_TYPE_GRP, DEVICE_ID, DEVICE_SERIAL, JOB_NUM,
+        COND_GRP_NUM, COND_USE_FLG, REPAIR_JOB_NUM, TOT_BATCH_NUM,
+        TORQUE_LOW, TORQUE_OK, TORQUE_HIGH,
+        ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, REG_USER_ID, REPAIR_BATCH_NUM 
+        ) VALUES ( 
+        #{plant_cd}, #{car_type}, #{device_id}, #{device_serial}, #{job_num}, 
+        '1', #{cond_use_flg}, #{repair_job_num}, #{total_batch_num}, 
+        #{torque_low}, #{torque_ok}, #{torque_high}, 
+        #{angle_low}, #{angle_ok}, #{angle_high}, #{reg_user_id}, #{repair_batch_num})
+	</insert>
+	
+		
 	<select id="selectUserList" parameterType="hashmap" resultMap="UserListModel">
 	SELECT * FROM ( 
 		SELECT ROWNUM RNUM, USER_ID, USER_NM, 
