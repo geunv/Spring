@@ -81,5 +81,4 @@ public class JobNoInfo {
 		this.repair_batch_num = repair_batch_num;
 	}
 	
-	
 }

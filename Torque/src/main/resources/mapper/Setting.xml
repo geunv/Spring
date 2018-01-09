@@ -13,6 +13,7 @@
 	
 	<resultMap type="com.spring.model.setting.JobNoListModel" id="JobNoList"></resultMap>
 	<resultMap type="com.spring.model.setting.JobNoInfo" id="JobNoInfo"></resultMap>
+	<resultMap type="com.spring.model.setting.JobNoConditionModel" id="JobNoConditionModel"></resultMap>
 	
 	<resultMap type="com.spring.model.setting.UserListModel" id="UserListModel"></resultMap>
 	<resultMap type="com.spring.model.setting.UserInfoModel" id="UserInfoModel"></resultMap>
@@ -229,12 +230,51 @@
         ANGLE_LOW, ANGLE_OK, ANGLE_HIGH, REG_USER_ID, REPAIR_BATCH_NUM 
         ) VALUES ( 
         #{plant_cd}, #{car_type}, #{device_id}, #{device_serial}, #{job_num}, 
-        '1', #{cond_use_flg}, #{repair_job_num}, #{total_batch_num}, 
+        #{cond_grp_num}, #{cond_use_flg}, #{repair_job_num}, #{total_batch_num}, 
         #{torque_low}, #{torque_ok}, #{torque_high}, 
         #{angle_low}, #{angle_ok}, #{angle_high}, #{reg_user_id}, #{repair_batch_num})
 	</insert>
+					
+	<insert id="insertJobNoCondition" parameterType="hashmap">
+		INSERT INTO DEVICE_JOBNO_COND_HI (
+        PLANT_CD, CAR_TYPE_GRP, DEVICE_ID, DEVICE_SERIAL, JOB_NUM,
+        COND_GRP_NUM, COND_SEQ, COND_GUB, SPEC219_NUM,
+        EQUAL_OPERATOR_FLG, SPEC219_VALUE, REG_USER_ID
+        ) VALUES (
+        #{plant_cd}, #{car_type}, #{device_id}, #{device_serial}, #{job_num}, 
+        #{cond_grp_num}, #{cond_seq}, #{cond_gub}, #{spec219_num}, 
+        #{equal_operator_flg}, #{spec219_value}, #{reg_user_id} )
+	</insert>
 	
-		
+	<select id="selectJobNoConditionInfo" parameterType="hashmap" resultMap="JobNoConditionModel">
+		SELECT COND_GRP_NUM, COND_SEQ, COND_GUB, SPEC219_NUM, EQUAL_OPERATOR_FLG, SPEC219_VALUE
+    	FROM DEVICE_JOBNO_COND_HI
+    	WHERE PLANT_CD = RPAD(#{plant_cd},4)
+    	AND CAR_TYPE_GRP = RPAD(#{car_type},4) 
+    	AND DEVICE_ID = RPAD(#{device_id},7)
+    	AND DEVICE_SERIAL = #{device_serial}
+    	AND JOB_NUM = RPAD(#{job_num},5)
+    	ORDER BY COND_GRP_NUM, COND_SEQ
+	</select>
+	
+	<delete id="deleteJobNo"  parameterType="hashmap" >
+		DELETE FROM DEVICE_JOBNO_MA
+		WHERE PLANT_CD = RPAD(#{plant_cd},4)
+    	AND CAR_TYPE_GRP = RPAD(#{car_type},4) 
+    	AND DEVICE_ID = RPAD(#{device_id},7)
+    	AND DEVICE_SERIAL = #{device_serial}
+    	AND JOB_NUM = RPAD(#{job_num},5)
+	</delete>
+	
+	<delete id="deleteJobNoCond"  parameterType="hashmap" >
+		DELETE FROM DEVICE_JOBNO_COND_HI
+		WHERE PLANT_CD = RPAD(#{plant_cd},4)
+    	AND CAR_TYPE_GRP = RPAD(#{car_type},4) 
+    	AND DEVICE_ID = RPAD(#{device_id},7)
+    	AND DEVICE_SERIAL = #{device_serial}
+    	AND JOB_NUM = RPAD(#{job_num},5)
+	</delete>
+	
 	<select id="selectUserList" parameterType="hashmap" resultMap="UserListModel">
 	SELECT * FROM ( 
 		SELECT ROWNUM RNUM, USER_ID, USER_NM, 

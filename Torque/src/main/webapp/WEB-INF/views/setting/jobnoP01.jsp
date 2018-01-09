@@ -24,7 +24,7 @@ $(document).ready(function(){
 	var cartype = getQuerystring('CarType')
 	var toolid = getQuerystring('ToolID');
 	var toolserial = getQuerystring('ToolSerial');
-	var jobno = getQuerystring('JobNo');
+	var job_num = getQuerystring('JobNo');
 	
 	$("#btnSave").button();
 	$("#btnModify").button();
@@ -35,7 +35,24 @@ $(document).ready(function(){
 	
 	Init();
 	
+	if ( toolid.length > 0 ){
+		$('#ddlCarType').val(cartype);
+		$('#ddlCarType').attr("disabled",true);
+		
+		$('#ddlTool').val(toolid+'-'+toolserial);
+		$('#ddlTool').attr("disabled",true);
+		
+		$('#txtJobNo').val(job_num);
+		$('#txtJobNo').attr("disabled",true);
+		
+		
+		LoadInfo(cartype,toolid,toolserial,job_num);
 	
+		$("#btnSave").hide();
+		$("#btnModify").show();
+		$("#btnDelete").show();
+
+	}
 	
 	$('#ddlCondFlag').on('change', function(){
 		//$("#divCondition").toggle();
@@ -192,7 +209,7 @@ function fn_save(){
 	
 	$.ajax({
 		type : "POST",
-		url : '/api/setting/insertjobno',
+		url : '/api/setting/jobno_insert',
 		data : JSON.stringify(body),
 		headers: { 
 			'Accept': 'application/json',
@@ -215,18 +232,57 @@ function fn_save(){
 }
 
 function fn_modify(){
-	var body = {
-			plant_cd 		: $('#ddlPlant').val(),
-			code_grp		: $('#txtCodeGrp').val(),
-			code			: $('#txtCode').val(),
-			code_nm			: $('#txtCodeName').val(),
-			code_value		: ' ',
-			login_user_id   : '<%=login_user_id%>'
+var body = {
+			
+			plant_cd 			: $('#ddlPlant').val(),
+			car_type			: $('#ddlCarType').val(),
+			tool				: $('#ddlTool').val(),
+			
+			job_num				: $('#txtJobNo').val(),
+			repair_job_num		: $('#txtRepairJobNo').val(),
+			total_batch_num		: $('#txtTotBatchNo').val(),
+			
+			torque_low			: $('#txtTorqLowVal').val(),
+			torque_ok			: $('#txtTorqOkVal').val(),
+			torque_high			: $('#txtTorqHighVal').val(),
+			angle_low			: $('#txtAnglLowVal').val(),
+			angle_ok			: $('#txtAnglOkVal').val(),
+			angle_high			: $('#txtAnglHighVal').val(),
+			reg_user_id 		: '' ,
+			repair_batch_num	: $('#txtRepBatchNo').val(),
+			
+			cond_use_flg		: $('#ddlCondFlag').val(),
+			condition_exp		: $('#txtCondExpression').val(),
+			
+			cond_seq1 			: $('#txtCondSeq1').val(),
+			cond_type1 			: $('#ddlCondType1').val(),
+			cond_no1 			: $('#txtCondNo1').val(),
+			cond_operator1 		: $('#ddlCondOperator1').val(),
+			cond_optval1 		: $('#txtOptVal1').val(),
+
+			cond_seq2 			: $('#txtCondSeq2').val(),
+			cond_type2 			: $('#ddlCondType2').val(),
+			cond_no2 			: $('#txtCondNo2').val(),
+			cond_operator2 		: $('#ddlCondOperator2').val(),
+			cond_optval2 		: $('#txtOptVal2').val(),
+
+			cond_seq3 			: $('#txtCondSeq3').val(),
+			cond_type3 			: $('#ddlCondType3').val(),
+			cond_no3 			: $('#txtCondNo3').val(),
+			cond_operator3 		: $('#ddlCondOperator3').val(),
+			cond_optval3 		: $('#txtOptVal3').val(),
+
+			cond_seq4 			: $('#txtCondSeq4').val(),
+			cond_type4 			: $('#ddlCondType4').val(),
+			cond_no4 			: $('#txtCondNo4').val(),
+			cond_operator4 		: $('#ddlCondOperator4').val(),
+			cond_optval4 		: $('#txtOptVal4').val()
+
 	}
 	
 	$.ajax({
 		type : "PUT",
-		url : '/api/setting/line_update',
+		url : '/api/setting/jobno_update',
 		data : JSON.stringify(body),
 		headers: { 
 			'Accept': 'application/json',
@@ -250,13 +306,14 @@ function fn_modify(){
 
 function fn_delete(){
 	
-	var params = "?plant_cd="+ $('#ddlPlant').val()+
-				 "&code_grp="+ $('#txtCodeGrp').val()+
-				 "&code="+ $('#txtCode').val();
+	var params = "?plant_cd="+$('#ddlPlant').val()+
+				 "&car_type="+$('#ddlCarType').val()+ 
+				 "&tool="+$('#ddlTool').val()+
+				 "&job_num="+$('#txtJobNo').val();
 
 	$.ajax({
 		type : "DELETE",
-		url : '/api/setting/line_delete'+params,
+		url : '/api/setting/jobno_delete'+params,
 	}).done(function(result) {
 		//console.log(result);
 		if(result.result == 200){
@@ -273,35 +330,71 @@ function fn_delete(){
 	});
 }
 
-function LoadInfo(toolid,toolserial){
+function LoadInfo(cartype,toolid,toolserial,job_num){
 	
-	//$('#ddlStnType').val("N");
-	
-	var params = "tool_id="+toolid+
-	"&tool_serial="+toolserial;
-	
-	/*
-	$.ajax({
-		url:'/api/setting/gettoolinfo?'+params,
-		type:'GET',
-		async:false,
-		success: function(data) {
-			if(data.length > 0){
-				$('#ddlPlant').val(data[0].plant_cd);
-				//$('#ddlStnType').val(data[0].stn_gub);	
-				$('#ddlStnType').val("N");
-			}
-		},
-		error:function(e){  
-			alert(e.responseText);
-        }  
+	var params = "plant_cd="+$('#ddlPlant').val()+
+				 "&car_type="+cartype+ 
+				 "&tool_id="+toolid+
+				 "&tool_serial="+toolserial+
+				 "&job_num="+job_num;
+
+	$.get('/api/setting/jobno_info?'+params,function(data){
+		//console.log(data);
+		data.infolist.forEach(function(item){
+			$('#ddlPlant').val($.trim(item.plant_cd));
+			$('#txtRepairJobNo').val(item.repair_job_num);
+			$('#txtTotBatchNo').val(item.tot_batch_num);
+			$('#txtTorqLowVal').val(item.torque_low);
+			$('#txtTorqOkVal').val(item.torque_ok);
+			$('#txtTorqHighVal').val(item.torque_high);
+			$('#txtAnglLowVal').val(item.angle_low);
+			$('#txtAnglOkVal').val(item.angle_ok);
+			$('#txtAnglHighVal').val(item.angle_high);
+			$('#txtRepBatchNo').val(item.repair_batch_num);
+			$('#ddlCondFlag').val(item.cond_use_flg);
+			
+		});
+			
+		if ($('#ddlCondFlag').val() == "Y" ){
+			$("#divCondition").show();
+			
+			$('#txtCondExpression').val(data.cond_expr);
+			
+			data.condlist.forEach(function(item){
+				if ( item.cond_seq == "A"){
+					$('#txtCondSeq1').val(item.cond_seq);
+					$('#ddlCondType1').val(item.cond_type);
+					$('#txtCondNo1').val(item.cond_no);
+					$('#ddlCondOperator1').val(item.cond_operator);
+					$('#txtOptVal1').val(item.cond_optval);
+				}else if ( item.cond_seq == "B"){
+					$('#txtCondSeq2').val(item.cond_seq);
+					$('#ddlCondType2').val(item.cond_type);
+					$('#txtCondNo2').val(item.cond_no);
+					$('#ddlCondOperator2').val(item.cond_operator);
+					$('#txtOptVal2').val(item.cond_optval);
+				}else if ( item.cond_seq == "C"){
+					$('#txtCondSeq3').val(item.cond_seq);
+					$('#ddlCondType3').val(item.cond_type);
+					$('#txtCondNo3').val(item.cond_no);
+					$('#ddlCondOperator3').val(item.cond_operator);
+					$('#txtOptVal3').val(item.cond_optval);
+				}else if ( item.cond_seq == "D"){
+					$('#txtCondSeq4').val(item.cond_seq);
+					$('#ddlCondType4').val(item.cond_type);
+					$('#txtCondNo4').val(item.cond_no);
+					$('#ddlCondOperator4').val(item.cond_operator);
+					$('#txtOptVal4').val(item.cond_optval);
+				}
+				
+				
+			});
+			
+		}else{
+			$("#divCondition").hide();
+		}
 		
-	});
-		*/
-	
-	$.get('/api/setting/gettoolinfo?'+params,function(data){
-		console.log(data);
-		if(data.length > 0){
+		/* if(data.length > 0){
 			$('#ddlPlant').val(data[0].plant_cd.trim());
 			$('#ddlStnType').val(data[0].stn_gub.trim());	
 			$('#txtToolGrp').val(data[0].device_grp_cd.trim());
@@ -330,7 +423,7 @@ function LoadInfo(toolid,toolserial){
 			$('#ddlWebDispFlag').val(data[0].web_display_flg.trim());
 			$('#ddlResetJobNo').val(data[0].scan_jobreset_flg.trim());
 			$('#ddlShowValueType').val(data[0].show_value_type.trim());
-		}
+		} */
 	})
 	
 }

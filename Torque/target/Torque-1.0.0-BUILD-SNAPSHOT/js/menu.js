@@ -10,7 +10,7 @@ $(document).ready(function(){
 			if(data.second_order == 0){
 				$menu = $('<li class="dropdown"> ' +
 						  	'<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'
-								+ data.name +
+								+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+  data.name +
 							'<span class="caret"></span></a>' +
 						'</li>');
 				

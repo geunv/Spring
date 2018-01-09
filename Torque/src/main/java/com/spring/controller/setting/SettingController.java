@@ -156,7 +156,7 @@ public class SettingController {
 	}
 	
 	
-	@RequestMapping(value="/api/setting/insertjobno", method=POST)
+	@RequestMapping(value="/api/setting/jobno_insert", method=POST)
 	public BaseResponse insertJobNo(@RequestBody JobNoInsertParam insertParam,HttpServletRequest request){
 		
 		HttpSession my_session = request.getSession();
@@ -165,6 +165,58 @@ public class SettingController {
 		insertParam.setReg_user_id(user_id);
 		return settingService.insertJobNo(insertParam);
 		//
+	}
+	
+	
+	
+	@RequestMapping(value="/api/setting/jobno_info", method=GET)
+	public BaseResponse getJobNoInfo(
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="car_type", required=true) String car_type,
+			@RequestParam(value="tool_id", required=true) String tool_id,
+			@RequestParam(value="tool_serial", required=true) String tool_serial,
+			@RequestParam(value="job_num", required=true) String job_num
+			){
+	
+		return settingService.getJobNoInfo(plant_cd,car_type,tool_id,tool_serial,job_num);
+	}
+	
+	
+	@RequestMapping(value="/api/setting/jobno_update", method=PUT)
+	public BaseResponse updateJobNo(@RequestBody JobNoInsertParam updateParam,HttpServletRequest request){
+		
+		HttpSession my_session = request.getSession();
+		String user_id = (String)my_session.getAttribute("USER_ID");
+		
+		updateParam.setReg_user_id(user_id);
+		
+		BaseResponse res = new BaseResponse();
+		
+		try{
+		 settingService.updateJobNo(updateParam);
+		}catch(Exception e){
+			res.setResult(300);
+		}
+		return res;
+	}
+	
+	@RequestMapping(value="/api/setting/jobno_delete", method=DELETE)
+	public BaseResponse deleteJobNo(
+			@RequestParam(value="plant_cd", required=true, defaultValue="1") String plant_cd,
+			@RequestParam(value="car_type", required=true) String car_type,
+			@RequestParam(value="tool", required=true) String tool,
+			@RequestParam(value="job_num", required=true) String job_num
+			) {
+		
+		BaseResponse res = new BaseResponse();
+		
+		try{
+			settingService.deleteJobNo(plant_cd,car_type,tool,job_num);
+		}catch(Exception e){
+			res.setResult(300);
+		}
+		
+		return res; 
 	}
 	
 	/*******************************/

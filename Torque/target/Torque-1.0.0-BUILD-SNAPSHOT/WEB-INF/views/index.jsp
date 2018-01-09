@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,7 @@
 	<div id="M_Body">
 		<!-- LEFT -->
 		<div style="float:left;width:59%;height:400px;">
-			<h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_lblToolConnection">Tool  Connection</span></h4>
+			<h4 class="text-left"><i class="fa fa-check-square"></i> <spring:message code="MAIN.ToolConnection"/><!-- <span id="ctl00_ContentPlaceHolder1_lblToolConnection">Tool  Connection</span> --></h4>
 			<div class="main_panel">
             <div style="height:350px;">
                 <div style="float:left;padding-top:15px;padding-left: 10px;padding-bottom:10px;width:60%;height:350px;border:1px;">
@@ -27,7 +29,7 @@
                 </div>
                 <div style="float:left;padding-top:10px;padding-left:20px;padding-right:20px;padding-bottom:10px;width:40%;">
                     <div class="total_count">
-                        [ <span id="ctl00_ContentPlaceHolder1_lblDisconnToolList">Disconnected Tool List</span> :
+                        [ <spring:message code="MAIN.DisconnToolList"/> :
                         <div style='display:inline;' id="conn_ng"></div>/<div style='display:inline;' id="status_total"></div></span>
                          ]
                     </div>
@@ -35,18 +37,10 @@
                         <div>
 							<table class="gridview" cellspacing="0" border="0" id="ctl00_ContentPlaceHolder1_gridView1" style="border-collapse:collapse;">
 								<thead>
-								<tr>
-									<th scope="col" style="width:25%;"><div align="center">Tool</div></th><th class="left_5" scope="col" style="width:75%;"><div align="center">Tool Name</div></th>
-								</tr>
-								<!-- <tr>
-									<td>QTT001</td><td class="left_5">T110 TM MTG BRKT-RH</td>
-								</tr>
-								<tr class="even">
-									<td>QBP001</td><td class="left_5">T133 Brake Pedal-LH</td>
-								</tr> -->
-								
+									<tr>
+										<th scope="col" style="width:25%;"><div align="center"><spring:message code="COMMON.Tool"/></div></th><th class="left_5" scope="col" style="width:75%;"><div align="center"><spring:message code="ST01.ToolName"/></div></th>
+									</tr>
 								</thead>
-								
 								<tbody id="disconnected_toollist">
 								</tbody>
 							</table>
@@ -60,48 +54,34 @@
 		<div style="float:left;width:2%;">&nbsp;</div>
 		<!-- RIGHT -->
 		<div style="float:left;width:39%;">
-	        <h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_lblRepairConnection">Repair Connection</span></h4>
+	        <h4 class="text-left"><i class="fa fa-check-square"></i> <spring:message code="MAIN.RepairConnection"/><!-- <span id="ctl00_ContentPlaceHolder1_lblRepairConnection">Repair Connection</span> --></h4>
 	        <div class="main_panel">
 	            <div style="float:right;padding-right:20px;height:30px;padding-top:10px;">
 	                <img src="./images/conn_ok.png">
-	                <span id="ctl00_ContentPlaceHolder1_lblConnected" style="vertical-align:middle;">Connected</span> &nbsp;
+	                <spring:message code="COMMON.Connected"/>
+	                <!-- <span id="ctl00_ContentPlaceHolder1_lblConnected" style="vertical-align:middle;">Connected</span> --> &nbsp;
 	                <img src="./images/conn_ng.png">
-	                <span id="ctl00_ContentPlaceHolder1_lblDisconnected" style="vertical-align:middle;">Disconnected</span>
+	                <spring:message code="COMMON.Disconnected"/>
+	                <!-- <span id="ctl00_ContentPlaceHolder1_lblDisconnected" style="vertical-align:middle;">Disconnected</span> -->
 	            </div>
 	            <div style="width:100%;height:350px;text-align:center;padding-left:15px;padding-right:15px;padding-bottom:10px;">
 	                <table width="100%" style="border:1px solid steelblue;">
 	                    <tbody><tr>
 	                        <td width="40%" height="30" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
-	                            <span id="ctl00_ContentPlaceHolder1_lblLine">Line</span>
+	                        	<spring:message code="COMMON.Line"/>
+	                            <!-- <span id="ctl00_ContentPlaceHolder1_lblLine">Line</span> -->
 	                        </td>
 	                        <td width="30%" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
-	                            <span id="ctl00_ContentPlaceHolder1_lblProgram">Program</span>
+	                        	<spring:message code="COMMON.Program"/>
+	                            <!-- <span id="ctl00_ContentPlaceHolder1_lblProgram">Program</span> -->
 	                        </td>
 	                        <td width="30%" style="text-align:center;font-weight:bold;color:White;background-image:url('/images/bg_gridheader_3.png');">
-	                            <span id="ctl00_ContentPlaceHolder1_lblTool">Tool</span>
+	                        	<spring:message code="COMMON.Tool"/>
+	                            <!-- <span id="ctl00_ContentPlaceHolder1_lblTool">Tool</span> -->
 	                        </td>
 	                    </tr>
 	                </tbody></table>
 	                <div style="width:100%;height:280px;overflow:auto" id="repairList">
-	                	
-	                   <!--  <table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">
-	                        <tbody><tr>
-	                            <td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">T119 KEEPER T1-1                                  </td>
-	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
-	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
-	                        </tr>
-	                    </tbody></table>
-	                    
-	                    <table width="100%" style="background-color:white;border-spacing: 1px;border-collapse: separate;border:1px solid #6799FF;">
-	                        <tbody><tr>
-	                            <td width="40%" height="30" style="text-align:center;background-color:#A7C4E4;color:#2C5481;font-weight:bold">T137 KEEPER T1-2                                  </td>
-	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
-	                            <td width="30%" style="text-align:center;background-color:#F6F7F9;"><img src="/WebCommon/Images/conn_ng.png"></td>
-	                        </tr>
-	                    </tbody></table> -->
-	                    
-	                    
-	                    
 	                </div>
 	            </div>
 					        
@@ -109,7 +89,7 @@
 	    </div>
 		<!-- bottom graph  -->	
 		<div style="float:left;width:100%;height:400px;">
-	        <h4 class="text-left"><i class="fa fa-check-square"></i> <span id="ctl00_ContentPlaceHolder1_Label1">Tightening Result</span></h4>
+	        <h4 class="text-left"><i class="fa fa-check-square"></i> <spring:message code="COMMON.TighteningResult"/></h4>
 	        <div class="main_panel">
 	            <div style="padding-top:20px;padding-bottom:20px;height:400px;">
 	            	<div style="float:left;width:49%;/* border:1px solid red; */">
@@ -119,11 +99,6 @@
 	            	<div style="float:left;width:49%;">
 	            		<div id="barchart2"></div>
 	            	</div>
-	                <!-- <map id="ctl00$ContentPlaceHolder1$Chart1Map" name="ctl00$ContentPlaceHolder1$Chart1Map">
-						<area shape="rect" coords="983,86,1082,214" onmousedown="SFX_SetRightClickMenu(event,'ctl00$ContentPlaceHolder1$Chart1','29539','D,30')" oncontextmenu="return false;">
-						<area shape="rect" coords="0,0,1100,300" onmousedown="SFX_SetRightClickMenu(event,'ctl00$ContentPlaceHolder1$Chart1','29474','')" oncontextmenu="return false;">
-					</map>
-					<img id="ctl00$ContentPlaceHolder1$Chart1" src="/chartfx70/temp/CFV1120_1102563DDDD.png" width="1100" height="300" usemap="#ctl00$ContentPlaceHolder1$Chart1Map" border="0" oncontextmenu="return SFX_OnChartContextMenu();"> -->
 	            </div>
 	        </div>
 	    </div>
@@ -138,7 +113,10 @@ var ngCnt = ['Disconnection'];
 
 $(document).ready(function(){
 
+	$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
 	getDisconnectedToolList();
+	
+	$.ajaxSetup({async:true});	//비동기 켜기
 	
 	var chart = c3.generate({
 		bindto: '#chart',
@@ -159,16 +137,20 @@ $(document).ready(function(){
 	    }
 	});
 
-
-	setTimeout(function () {
+	
+	
+	
+	//setTimeout(function () {
 		chart.load({
 			columns: [
 		  		okCnt,
 		  	    ngCnt
 			]
 		});
-	},100);
 
+	//},100);
+	
+	
 	getRepairToolConnStatus()
 	
 	barchart()

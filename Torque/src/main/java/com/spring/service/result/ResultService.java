@@ -125,8 +125,6 @@ public class ResultService implements IResultService {
 		if(!body_no.trim().equals(""))
 			map.put("body_no", body_no);
 		
-		
-		
 		String table_nm = "";
 		if ( old_data.equals("N"))
 			table_nm = "TIGHTENING_STATUS_MA";

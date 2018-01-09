@@ -38,6 +38,10 @@
 			$('#btnSearch').click();
     	});
 		
+		$('#ddlTool').on('change', function(){
+			$('#btnSearch').click();
+    	});
+		
        /*  $("#btnReg").click(function(e) {
             e.preventDefault();
             OpenRegistration(CarType, ToolID, ToolSerial, JobNo, CondGrpNo);
@@ -76,7 +80,7 @@
     function OpenRegistration(CarType, ToolID, ToolSerial, JobNo) {
         //var title = fn_DisplayDictionary("SCREEN.ST02", "R");
         var title= '<spring:message code="SCREEN.ST02" />';
-        fn_ShowDialog('/view/setting/jobnoP01?CarType=' + CarType + '&ToolID=' + ToolID + '&ToolSerial=' + ToolSerial + '&JobNo=' + JobNo, title, '750', '600', true);
+        fn_ShowDialog('/view/setting/jobnoP01?CarType=' + $.trim(CarType) + '&ToolID=' + $.trim(ToolID) + '&ToolSerial=' + $.trim(ToolSerial) + '&JobNo=' + $.trim(JobNo), title, '750', '600', true);
         //fn_ShowDialog('/SETTING/ST02P01.aspx?CarType=' + CarType + '&ToolID=' + ToolID + '&ToolSerial=' + ToolSerial + '&JobNo=' + JobNo, title, '750', '600', true);
     }
     

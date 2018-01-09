@@ -3,6 +3,7 @@ package com.spring.dao.setting;
 import java.util.HashMap;
 import java.util.List;
 
+import com.spring.model.setting.JobNoConditionModel;
 import com.spring.model.setting.JobNoInfo;
 import com.spring.model.setting.JobNoInsertParam;
 import com.spring.model.setting.JobNoListModel;
@@ -36,7 +37,13 @@ public interface ISettingMapper {
 	
 	public void insertJobNo(JobNoInsertParam param);
 	
+	public void insertJobNoCondition(HashMap<String,Object> submap);
 	
+	public List<JobNoConditionModel> selectJobNoConditionInfo(HashMap<String,Object> submap);
+	
+	public void deleteJobNo(HashMap<String, Object> map);
+	
+	public void deleteJobNoCond(HashMap<String, Object> map);
 	
 	//////////////////////////////////////
 	public List<UserListModel> selectUserList(HashMap<String, Object> map);

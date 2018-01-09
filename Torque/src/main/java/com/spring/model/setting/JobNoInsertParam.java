@@ -13,6 +13,7 @@ public class JobNoInsertParam {
 	String total_batch_num;
 	String reg_user_id;
 	String repair_batch_num;
+	String cond_grp_num;
 	
 	String torque_low;
 	String torque_ok;
@@ -275,6 +276,12 @@ public class JobNoInsertParam {
 	}
 	public void setDevice_serial(String device_serial) {
 		this.device_serial = device_serial;
+	}
+	public String getCond_grp_num() {
+		return cond_grp_num;
+	}
+	public void setCond_grp_num(String cond_grp_num) {
+		this.cond_grp_num = cond_grp_num;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.spring.service.setting;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.spring.model.BaseResponse;
@@ -38,6 +39,12 @@ public interface ISettingService {
 									  String excel_down );
 	
 	public BaseResponse insertJobNo(JobNoInsertParam inputparam);
+	
+	public BaseResponse getJobNoInfo(String plant_cd,String car_type,String device_id,String device_serial,String job_num);
+	
+	public BaseResponse updateJobNo(JobNoInsertParam updateParam);
+	
+	public BaseResponse deleteJobNo(String plant_cd,String car_type,String tool,String job_num);
 	/*					*/
 	
 	
