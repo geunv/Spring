@@ -56,7 +56,9 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 	<tx:annotation-driven proxy-target-class="true"/>
+	 
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

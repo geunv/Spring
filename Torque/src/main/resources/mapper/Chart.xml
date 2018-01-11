@@ -14,18 +14,18 @@
 	<select id="selectLineChart" parameterType="hashmap" resultMap="LineChartModel">
 	<choose>
     	<when test="display_type == 'V'.toString() ">
-    	select 'B0  170631' body_no , '50' tor ,'1' ang from dual 
+    	<!-- select 'B0  170631' body_no , '50' tor ,'1' ang from dual 
     	union
     	select 'B0  170858' body_no , '60' tor ,'2' ang from dual
     	union
-    	select 'B0  170945' body_no , '70' tor ,'3' ang from dual 
+    	select 'B0  170945' body_no , '70' tor ,'3' ang from dual  -->
     	
-        <!--     SELECT BODY_NO, TOR_VALUE TOR, ANG_VALUE ANG 
+            SELECT BODY_NO, TOR_VALUE TOR, ANG_VALUE ANG 
 			FROM ${table_nm}
 			WHERE PLANT_CD = RPAD(#{plant_cd},4)
 			AND DEVICE_ID = RPAD(#{device_id},10) AND DEVICE_SERIAL = #{device_serial}
 			AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt}
-			ORDER BY TIGHTENING_DT --> 
+			ORDER BY TIGHTENING_DT 
 			
         </when>
         <when test="display_type == 'A'.toString() ">
@@ -63,13 +63,13 @@
 	</select>
 	
 	<select id="selectFaultyChart" parameterType="hashmap" resultMap="FaultyChartModel">
-	select '2017-07-02' RES_COL,	'55.56' per FROM DUAL
+	<!-- select '2017-07-02' RES_COL,	'55.56' per FROM DUAL
 	union
 	select '2017-07-03' RES_COL,	'1.61' per FROM DUAL
 	union
-	select '2017-07-04' RES_COL,	'1.95' per FROM DUAL
+	select '2017-07-04' RES_COL,	'1.95' per FROM DUAL -->
 	
-	<!-- SELECT RES_COL, ROUND(C/B*100, 2) as per 
+	SELECT RES_COL, ROUND(C/B*100, 2) as per 
 	FROM (
     	SELECT A.RES_COL, 
     	(SELECT COUNT(1) 
@@ -92,15 +92,15 @@
     	WHERE PLANT_CD = RPAD(#{plant_cd},4) 
     	AND DEVICE_ID = RPAD(#{device_id},10)
     	AND DEVICE_SERIAL = #{device_serial}
-    	AND TIGHTENING_DT >= &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} ) A 
+    	AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} ) A 
     	GROUP BY A.RES_COL 
     	ORDER BY A.RES_COL 
     )
- -->
+
 	</select>
 	
 	<select id="selectXbarChart" parameterType="hashmap" resultType="String">
-	select '5.98' XVAL FROM DUAL	union all 
+	<!-- select '5.98' XVAL FROM DUAL	union all 
 	select '6' XVAL FROM DUAL		union all
 	select '5.99' XVAL FROM DUAL	union all
 	select '5.99' XVAL FROM DUAL	union all
@@ -113,8 +113,8 @@
 	select '6' XVAL FROM DUAL		union all
 	select '5.98' XVAL FROM DUAL	union all
 	select '5.99' XVAL FROM DUAL	union all
-	select '5.99' XVAL FROM DUAL
-	<!-- ${x_sub}
+	select '5.99' XVAL FROM DUAL -->
+	${x_sub}
 		FROM ${table_nm}
 		WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} 
@@ -122,11 +122,11 @@
     	AND DEVICE_SERIAL = #{device_serial}
 		ORDER BY TIGHTENING_DT 
 	)
-	GROUP BY CEIL(ROWNUM/ ${group_size} )  -->
+	GROUP BY CEIL(ROWNUM/ ${group_size} ) 
 	</select>
 	
 	<select id="selectRchart" parameterType="hashmap" resultType="String">
-	select '1.03' RVAL FROM DUAL union all
+	<!-- select '1.03' RVAL FROM DUAL union all
 	select '1.03' RVAL FROM DUAL union all
 	select '1.04' RVAL FROM DUAL union all
 	select '1.02' RVAL FROM DUAL union all
@@ -139,8 +139,8 @@
 	select '1.04' RVAL FROM DUAL union all
 	select '1.04' RVAL FROM DUAL union all
 	select '1.02' RVAL FROM DUAL union all
-	select '1.04' RVAL FROM DUAL
-	<!-- ${r_sub}
+	select '1.04' RVAL FROM DUAL -->
+	${r_sub}
 		FROM ${table_nm}
 		WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		AND TIGHTENING_DT &gt;= #{from_dt} AND TIGHTENING_DT &lt;= #{to_dt} 
@@ -148,6 +148,6 @@
     	AND DEVICE_SERIAL = #{device_serial}
 		ORDER BY TIGHTENING_DT 
 	)
-	GROUP BY CEIL(ROWNUM/ ${group_size} ) --> 
+	GROUP BY CEIL(ROWNUM/ ${group_size} ) 
 	</select>
 </mapper>

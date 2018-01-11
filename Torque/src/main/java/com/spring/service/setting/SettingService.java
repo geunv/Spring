@@ -1,15 +1,24 @@
 package com.spring.service.setting;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.spring.dao.setting.ISettingMapper;
 import com.spring.model.BaseResponse;
@@ -34,6 +43,10 @@ public class SettingService implements ISettingService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	
+	@Resource(name = "transactionManager") 
+	protected DataSourceTransactionManager txManager;
 
 	//boolean isexcel;
 	//String plant_cd;
@@ -473,10 +486,11 @@ public class SettingService implements ISettingService {
 	
 	}
 	
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public BaseResponse updateJobNo(JobNoInsertParam updateParam) {
 		
 		ISettingMapper mapper = sqlSession.getMapper(ISettingMapper.class);
+		
 		BaseResponse res = new BaseResponse();
 		
 		String[] array;
@@ -498,53 +512,113 @@ public class SettingService implements ISettingService {
 		
 		updateParam.setDevice_id(device_id);
 		updateParam.setDevice_serial(device_serial);
-
+		
+			//Connection conn = sqlSession.getConnection();
+			Connection con = null;
+	        PreparedStatement pstmt = null;
+	        
+			//String[] param = {updateParam.getPlant_cd(),updateParam.getCar_type(),device_id,device_serial,updateParam.getJob_num() };
 			
-			mapper.deleteJobNo(map);
-			mapper.deleteJobNoCond(map);
-			
-			List<JobNoConditionModel> sublist = subprocess(updateParam);
-			
-			int cond_grp_num = 1;
-			if ( sublist.size() > 1)
-				cond_grp_num = maxNum(sublist);
-			
-			for ( int i= 0; i < cond_grp_num;i++){
-				updateParam.setCond_grp_num(Integer.toString(i+1));
-				//map.replace("cond_grp_num",Integer.toString(i+1) );
-				mapper.insertJobNo(updateParam);
-			}
-			
-			if ( updateParam.getCond_use_flg().equals("Y"))
-			{
-								
-				for(JobNoConditionModel ins : sublist){
-					HashMap<String, Object> submap = new HashMap<String,Object>();
-					
-					submap.put("plant_cd", updateParam.getPlant_cd());
-					submap.put("device_id", device_id);
-					submap.put("device_serial",device_serial);
-					submap.put("car_type", updateParam.getCar_type());
-					submap.put("job_num", updateParam.getJob_num());
-					
-					
-					submap.put("cond_grp_num", ins.getCond_grp_num());
-					submap.put("cond_seq", ins.getCond_seq());
-					submap.put("cond_gub", ins.getCond_gub());
-					submap.put("spec219_num", ins.getSpec219_num());
-					
-					submap.put("equal_operator_flg", ins.getEqual_operator_flg());
-					submap.put("spec219_value", ins.getSpec219_value());
-					submap.put("reg_user_id", updateParam.getReg_user_id());
-					
-					mapper.insertJobNoCondition(submap);
+			try{
+				con = sqlSession.getConnection();
+				con.setAutoCommit(false);
+				pstmt = con.prepareStatement("DELETE FROM DEVICE_JOBNO_MA WHERE PLANT_CD = RPAD(?,4) AND CAR_TYPE_GRP = RPAD(?,4) AND DEVICE_ID = RPAD(?,7) AND DEVICE_SERIAL = ? AND JOB_NUM = RPAD(?,5)");
+				pstmt.setString(1, updateParam.getPlant_cd());
+				pstmt.setString(2, updateParam.getCar_type());
+				pstmt.setString(3, device_id);
+				pstmt.setString(4, device_serial);
+				pstmt.setString(5, updateParam.getJob_num());
+		        pstmt.executeUpdate();
+		        pstmt.close();
+		        
+		        pstmt = con.prepareStatement("DELETE FROM DEVICE_JOBNO_COND_HI WHERE PLANT_CD = RPAD(?,4) AND CAR_TYPE_GRP = RPAD(?,4) AND DEVICE_ID = RPAD(?,7) AND DEVICE_SERIAL = ? AND JOB_NUM = RPAD(?,5)");
+		        pstmt.setString(1, updateParam.getPlant_cd());
+				pstmt.setString(2, updateParam.getCar_type());
+				pstmt.setString(3, device_id);
+				pstmt.setString(4, device_serial);
+				pstmt.setString(5, updateParam.getJob_num());
+				
+		        pstmt.executeUpdate();
+		        
+				
+		        List<JobNoConditionModel> sublist = subprocess(updateParam);
+				
+				int cond_grp_num = 1;
+				if ( sublist.size() > 1)
+					cond_grp_num = maxNum(sublist);
+				
+				for ( int i= 0; i < cond_grp_num;i++){
+					updateParam.setCond_grp_num(Integer.toString(i+1));
+					//map.replace("cond_grp_num",Integer.toString(i+1) );
+					mapper.insertJobNo(updateParam);
+				}
+				
+				//int sssn = 3/0;
+				
+				if ( updateParam.getCond_use_flg().equals("Y"))
+				{
+									
+					for(JobNoConditionModel ins : sublist){
+						HashMap<String, Object> submap = new HashMap<String,Object>();
+						
+						submap.put("plant_cd", updateParam.getPlant_cd());
+						submap.put("device_id", device_id);
+						submap.put("device_serial",device_serial);
+						submap.put("car_type", updateParam.getCar_type());
+						submap.put("job_num", updateParam.getJob_num());
+						
+						
+						submap.put("cond_grp_num", ins.getCond_grp_num());
+						submap.put("cond_seq", ins.getCond_seq());
+						submap.put("cond_gub", ins.getCond_gub());
+						submap.put("spec219_num", ins.getSpec219_num());
+						
+						submap.put("equal_operator_flg", ins.getEqual_operator_flg());
+						submap.put("spec219_value", ins.getSpec219_value());
+						submap.put("reg_user_id", updateParam.getReg_user_id());
+						
+						mapper.insertJobNoCondition(submap);
+						
+					}
 					
 				}
 				
+				con.commit();
+			}catch(Exception e){
+				e.printStackTrace();
+				try{ con.rollback(); }catch(Exception ex){}
+				res.setResult(400);
+			}finally{
+				try{
+					con.setAutoCommit(true);
+				}catch(Exception e){
+					
+				}
+				
+				try {
+	                pstmt.close();
+	            } catch (SQLException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	            try {
+	                con.close();
+	            } catch (SQLException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
 			}
+			
+			//mapper.deleteJobNo(map);
+			
+			
+			//mapper.deleteJobNoCond(map);
+			
+			
+			
+			
 		
-		
-		
+	
 		
 		return res;
 	}

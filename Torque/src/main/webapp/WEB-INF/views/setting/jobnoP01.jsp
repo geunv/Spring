@@ -223,6 +223,9 @@ function fn_save(){
 		}else if( result.result == 300){
 			var retVal = '<spring:message code="COMMON.RegisteredID"/>';
             $("#divMessage").text(retVal);
+		}else if( result.result == 400){
+			var retVal = '<spring:message code="COMMON.OccurredError"/>';
+            $("#divMessage").text(retVal);
 		}
 		
 	}).fail(function(data) {

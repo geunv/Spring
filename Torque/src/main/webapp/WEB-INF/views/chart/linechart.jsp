@@ -49,27 +49,6 @@
         }); */
        
        
-        
-		$("#txtFromDate").datepicker({
-	            defaultDate: "+1w",
-	            changeMonth: true,
-	            numberOfMonths: 1,
-	            dateFormat: 'yy-mm-dd',
-	            onClose: function(selectedDate) {
-					$("#txtFromDate").datepicker("option", "minDate", selectedDate);
-			}
-		});
-	        
-		$("#txtToDate").datepicker({
-			defaultDate: "+1w",
-			changeMonth: true,
-			numberOfMonths: 1,
-			dateFormat: 'yy-mm-dd',
-			onClose: function(selectedDate) {
-				$("#txtToDate").datepicker("option", "maxDate", selectedDate);
-    		}
-		});
-	    
 		$("#txtFromDate").datepicker({
             defaultDate: "+1w",
             changeMonth: true,

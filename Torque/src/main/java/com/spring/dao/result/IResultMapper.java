@@ -23,6 +23,7 @@ public interface IResultMapper {
 	public DetailListSubModel selectResultDetailSubList(HashMap<String,Object> map2);
 	
 	public List<ResultHistoryListModel> selectResultHistoryList(HashMap<String,Object> map);
+	public int selectResultHistoryListCount(HashMap<String,Object> map);
 	
 	public List<ResultByDateListModel> selectResultByDate(HashMap<String, Object> map);
 	public int selectResultByDateCount(HashMap<String, Object> map);

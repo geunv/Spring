@@ -401,7 +401,7 @@
 						<tr>
 							<th style="width:1%"><div align="center"><spring:message code="COMMON.Num"/></div></th>
 							<th style="width:2%"><div align="center"><spring:message code="COMMON.StnType"/></div></th>
-							<th style="width:3%"><div align="center"><spring:message code="SM01.Program"/></div></th>
+							<th style="width:2%"><div align="center"><spring:message code="SM01.Program"/></div></th>
 							<th style="width:4%"><div align="center"><spring:message code="SM01.PgmName"/></div></th>
 							<th style="width:3%"><div align="center"><spring:message code="SM01.Process"/></div></th>
 							<th style="width:4%"><div align="center"><spring:message code="SM01.ProcName"/></div></th>
@@ -490,5 +490,6 @@
         </div><!-- C_Result -->  
 	</div><!-- C_Body -->
 </div>
+<jsp:include page="../bottom.jsp" flush="false" />
 </body>
 </html>

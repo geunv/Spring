@@ -60,6 +60,8 @@
 		getList();
 		
 		$("#btnSearch").on('click', function(e){
+			now_page = 1;
+    		show_count  = $('#select_show_count').val();
 			getList();
 		});
 		
@@ -191,11 +193,6 @@
     				var var_tightening_result = "";
     				var var_repair_result = "";
     				var var_mes_trans_flg = "";
-    				
-    				/* if (e.Row.Cells[8].Text == "N" && e.Row.Cells[7].Text == "N")
-    			        e.Row.ForeColor = Color.Red;
-    			      else if (e.Row.Cells[9].Text != "1" && e.Row.Cells[10].Text != "1")
-    			        e.Row.ForeColor = Color.Red; */
     				
     				if(item.pass_flg == "N" && item.scan_flg == "N" ){
     					trcolor = '<tr style="color:red;">'
@@ -427,13 +424,13 @@
     	    			      else if (e.Row.Cells[9].Text != "1" && e.Row.Cells[10].Text != "1")
     	    			        e.Row.ForeColor = Color.Red; */
     	    				
-    	    				if(item.pass_flg == "N" && item.scan_flg == "N" ){
-    	    					trcolor = '<tr style="color:red;">'
-    	    				}else if (item.tightening_result != "1" && item.repair_result != "1"){
-    	    					trcolor = '<tr style="color:red;">'
-    	    				}else{
+    	    				//if(item.pass_flg == "N" && item.scan_flg == "N" ){
+    	    				//	trcolor = '<tr style="color:red;">'
+    	    				//}else if (item.tightening_result != "1" && item.repair_result != "1"){
+    	    				//	trcolor = '<tr style="color:red;">'
+    	    				//}else{
     	    					trcolor = '<tr>'
-    	    				}
+    	    				//}
     	    			    
     	    			    if (item.tightening_result == "0")
     	    			    	var_tightening_result = "NG";

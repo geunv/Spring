@@ -156,6 +156,7 @@ public class ResultService implements IResultService {
 
 		if ( list.size() > 0 ){
 			for (DetailListModel model : list) {
+				/*
 				HashMap<String, Object> map2 = new HashMap<String,Object>();
 				map2.put("plant_cd", model.getPlant_cd());
 				map2.put("device_id", model.getDevice_id());
@@ -163,6 +164,7 @@ public class ResultService implements IResultService {
 				map2.put("body_no", model.getBody_no());
 				
 				DetailListSubModel sublist = mapper.selectResultDetailSubList(map2);
+				*/
 				
 				model.setTen_value("");
 				model.setTor_value_1("");
@@ -190,13 +192,15 @@ public class ResultService implements IResultService {
 				model.setTor_value_12("");
 				model.setAng_value_12("");
 				
-				if ( sublist != null)
+				String[] array_num,array_tor,array_ang,array_ten;
+				
+				if ( model.getBatch_num() != null)
 				{
-					String[] array_num,array_tor,array_ang,array_ten;
-					array_num = sublist.getBatch_num().split(",");
-					array_tor = sublist.getTor_value().split(",");
-					array_ang = sublist.getAng_value().split(",");
-					array_ten = sublist.getTen_value().split(",");
+					
+					array_num = model.getBatch_num().split(",");
+					array_tor = model.getTor_value().split(",");
+					array_ang = model.getAng_value().split(",");
+					array_ten = model.getTen_value().split(",");
 					
 					for(int i = 0 ; i < array_num.length ; i++){
 						
@@ -266,6 +270,7 @@ public class ResultService implements IResultService {
 		System.out.println ( "4-3=====>" + ( time4 - time3 ) / 1000.0  + "<=====");
 		System.out.println ( "3-2=====>" + ( time3 - time2 ) / 1000.0  + "<=====");
 		System.out.println ( "2-1=====>" + ( time2 - time1 ) / 1000.0  + "<=====");
+		System.out.println ( "Total===>" + ( time5 - time1 ) / 1000.0  + "<=====");
 		
 		DetailListReturn res = new DetailListReturn();
 		res.setList(list);
@@ -293,8 +298,8 @@ public class ResultService implements IResultService {
 		map.put("plant_cd", plant_cd);
 		//map.put("from_dt", from_dt.replace("-", ""));
 		//map.put("to_dt", to_dt.replace("-", ""));
-		map.put("from_dt", from_dt);
-		map.put("to_dt", to_dt);
+		map.put("from_dt", from_dt+":00:00:00");
+		map.put("to_dt", to_dt+":00:00:00");
 		map.put("device_id",device_id);
 		map.put("device_serial", device_serial);
 		
@@ -345,9 +350,11 @@ public class ResultService implements IResultService {
 		}
 		
 		List<ResultHistoryListModel> list = mapper.selectResultHistoryList(map); 
-		
+		int total_count = mapper.selectResultHistoryListCount(map);
 		ResultHistoryListReturn res = new ResultHistoryListReturn();
 		res.setList(list);
+		res.setTotal_count(total_count);
+		
 		return res;
 	}
 	

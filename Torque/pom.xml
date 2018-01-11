@@ -6,16 +6,36 @@
 	<artifactId>Torque</artifactId>
 	<name>Torque</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0</version>
 	<properties>
 		<maven.compile.source>1.8</maven.compile.source>
 		<maven.compile.target>1.8</maven.compile.target>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 	</properties>
+	
+
+	<repositories>
+			
+		<repository>
+			<id>codelds</id>
+			<name>ORACLE JDBC Repository</name>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository> 
+	</repositories>
+	
 	<dependencies>
+	
+	
+		
 	 	<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-webmvc</artifactId>
+		    <version>4.3.4.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
 		    <version>4.3.4.RELEASE</version>
 		</dependency>
 		
@@ -33,6 +53,13 @@
 		    <version>4.3.4.RELEASE</version>
 		</dependency>
 		
+		<!--   AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.10</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -47,11 +74,33 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.github.noraui/ojdbc7 -->
+		
 		<dependency>
 		    <groupId>com.github.noraui</groupId>
 		    <artifactId>ojdbc7</artifactId>
 		    <version>12.1.0.2</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>com.oracle.jdbc</groupId> 
+			<artifactId>ojdbc8</artifactId> 
+			<version>12.2.0.1</version>
+		</dependency> -->
+		<!-- Oracle -->
+		<!-- 
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+		 -->
+		<!-- ORACLE -->
+		<!-- <dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc8.jar</systemPath>
+		</dependency> -->
 		
 		<!-- Common mybatis -->
 		<dependency>
