@@ -49,6 +49,41 @@ public class JobNoInsertParam {
 	String cond_operator4;
 	String cond_optval4;
 	
+	String cond_seq5;
+	String cond_type5;
+	String cond_no5;
+	String cond_operator5;
+	String cond_optval5;
+	
+	String cond_seq6;
+	String cond_type6;
+	String cond_no6;
+	String cond_operator6;
+	String cond_optval6;
+	
+	String cond_seq7;
+	String cond_type7;
+	String cond_no7;
+	String cond_operator7;
+	String cond_optval7;
+	
+	String cond_seq8;
+	String cond_type8;
+	String cond_no8;
+	String cond_operator8;
+	String cond_optval8;
+	
+	String cond_seq9;
+	String cond_type9;
+	String cond_no9;
+	String cond_operator9;
+	String cond_optval9;
+	
+	String cond_seq10;
+	String cond_type10;
+	String cond_no10;
+	String cond_operator10;
+	String cond_optval10;
 	public String getPlant_cd() {
 		return plant_cd;
 	}
@@ -282,6 +317,186 @@ public class JobNoInsertParam {
 	}
 	public void setCond_grp_num(String cond_grp_num) {
 		this.cond_grp_num = cond_grp_num;
+	}
+	public String getCond_seq5() {
+		return cond_seq5;
+	}
+	public void setCond_seq5(String cond_seq5) {
+		this.cond_seq5 = cond_seq5;
+	}
+	public String getCond_type5() {
+		return cond_type5;
+	}
+	public void setCond_type5(String cond_type5) {
+		this.cond_type5 = cond_type5;
+	}
+	public String getCond_no5() {
+		return cond_no5;
+	}
+	public void setCond_no5(String cond_no5) {
+		this.cond_no5 = cond_no5;
+	}
+	public String getCond_operator5() {
+		return cond_operator5;
+	}
+	public void setCond_operator5(String cond_operator5) {
+		this.cond_operator5 = cond_operator5;
+	}
+	public String getCond_optval5() {
+		return cond_optval5;
+	}
+	public void setCond_optval5(String cond_optval5) {
+		this.cond_optval5 = cond_optval5;
+	}
+	public String getCond_seq6() {
+		return cond_seq6;
+	}
+	public void setCond_seq6(String cond_seq6) {
+		this.cond_seq6 = cond_seq6;
+	}
+	public String getCond_type6() {
+		return cond_type6;
+	}
+	public void setCond_type6(String cond_type6) {
+		this.cond_type6 = cond_type6;
+	}
+	public String getCond_no6() {
+		return cond_no6;
+	}
+	public void setCond_no6(String cond_no6) {
+		this.cond_no6 = cond_no6;
+	}
+	public String getCond_operator6() {
+		return cond_operator6;
+	}
+	public void setCond_operator6(String cond_operator6) {
+		this.cond_operator6 = cond_operator6;
+	}
+	public String getCond_optval6() {
+		return cond_optval6;
+	}
+	public void setCond_optval6(String cond_optval6) {
+		this.cond_optval6 = cond_optval6;
+	}
+	public String getCond_seq7() {
+		return cond_seq7;
+	}
+	public void setCond_seq7(String cond_seq7) {
+		this.cond_seq7 = cond_seq7;
+	}
+	public String getCond_type7() {
+		return cond_type7;
+	}
+	public void setCond_type7(String cond_type7) {
+		this.cond_type7 = cond_type7;
+	}
+	public String getCond_no7() {
+		return cond_no7;
+	}
+	public void setCond_no7(String cond_no7) {
+		this.cond_no7 = cond_no7;
+	}
+	public String getCond_operator7() {
+		return cond_operator7;
+	}
+	public void setCond_operator7(String cond_operator7) {
+		this.cond_operator7 = cond_operator7;
+	}
+	public String getCond_optval7() {
+		return cond_optval7;
+	}
+	public void setCond_optval7(String cond_optval7) {
+		this.cond_optval7 = cond_optval7;
+	}
+	public String getCond_seq8() {
+		return cond_seq8;
+	}
+	public void setCond_seq8(String cond_seq8) {
+		this.cond_seq8 = cond_seq8;
+	}
+	public String getCond_type8() {
+		return cond_type8;
+	}
+	public void setCond_type8(String cond_type8) {
+		this.cond_type8 = cond_type8;
+	}
+	public String getCond_no8() {
+		return cond_no8;
+	}
+	public void setCond_no8(String cond_no8) {
+		this.cond_no8 = cond_no8;
+	}
+	public String getCond_operator8() {
+		return cond_operator8;
+	}
+	public void setCond_operator8(String cond_operator8) {
+		this.cond_operator8 = cond_operator8;
+	}
+	public String getCond_optval8() {
+		return cond_optval8;
+	}
+	public void setCond_optval8(String cond_optval8) {
+		this.cond_optval8 = cond_optval8;
+	}
+	public String getCond_seq9() {
+		return cond_seq9;
+	}
+	public void setCond_seq9(String cond_seq9) {
+		this.cond_seq9 = cond_seq9;
+	}
+	public String getCond_type9() {
+		return cond_type9;
+	}
+	public void setCond_type9(String cond_type9) {
+		this.cond_type9 = cond_type9;
+	}
+	public String getCond_no9() {
+		return cond_no9;
+	}
+	public void setCond_no9(String cond_no9) {
+		this.cond_no9 = cond_no9;
+	}
+	public String getCond_operator9() {
+		return cond_operator9;
+	}
+	public void setCond_operator9(String cond_operator9) {
+		this.cond_operator9 = cond_operator9;
+	}
+	public String getCond_optval9() {
+		return cond_optval9;
+	}
+	public void setCond_optval9(String cond_optval9) {
+		this.cond_optval9 = cond_optval9;
+	}
+	public String getCond_seq10() {
+		return cond_seq10;
+	}
+	public void setCond_seq10(String cond_seq10) {
+		this.cond_seq10 = cond_seq10;
+	}
+	public String getCond_type10() {
+		return cond_type10;
+	}
+	public void setCond_type10(String cond_type10) {
+		this.cond_type10 = cond_type10;
+	}
+	public String getCond_no10() {
+		return cond_no10;
+	}
+	public void setCond_no10(String cond_no10) {
+		this.cond_no10 = cond_no10;
+	}
+	public String getCond_operator10() {
+		return cond_operator10;
+	}
+	public void setCond_operator10(String cond_operator10) {
+		this.cond_operator10 = cond_operator10;
+	}
+	public String getCond_optval10() {
+		return cond_optval10;
+	}
+	public void setCond_optval10(String cond_optval10) {
+		this.cond_optval10 = cond_optval10;
 	}
 	
 	

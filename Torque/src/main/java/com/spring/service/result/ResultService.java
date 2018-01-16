@@ -89,9 +89,9 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
-		map.put("from_dt", from_dt.replace("-", ""));
-		map.put("to_dt", to_dt.replace("-", ""));
+		map.put("plant_cd", plant_cd+"   ");
+		map.put("from_dt", from_dt.replace("-", "")+"000000");
+		map.put("to_dt", to_dt.replace("-", "")+"000000");
 		map.put("shift", shift);
 		map.put("device_id",device_id);
 		map.put("device_serial", device_serial);
@@ -151,7 +151,7 @@ public class ResultService implements IResultService {
 		long time2 = System.currentTimeMillis ();
 		int total = mapper.selectResultDetailListCount(map);
 		long time3 = System.currentTimeMillis ();
-		int batch_count = mapper.selectResultDetailListBatchCount(map);
+		//int batch_count = mapper.selectResultDetailListBatchCount(map);
 		long time4 = System.currentTimeMillis ();
 
 		if ( list.size() > 0 ){
@@ -274,7 +274,7 @@ public class ResultService implements IResultService {
 		
 		DetailListReturn res = new DetailListReturn();
 		res.setList(list);
-		res.setBatch_count(batch_count);
+		//res.setBatch_count(batch_count);
 		res.setTotal_count(total);
 		
 		return res;
@@ -295,11 +295,11 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
+		map.put("plant_cd", plant_cd+"   ");
 		//map.put("from_dt", from_dt.replace("-", ""));
 		//map.put("to_dt", to_dt.replace("-", ""));
 		map.put("from_dt", from_dt+":00:00:00");
-		map.put("to_dt", to_dt+":00:00:00");
+		map.put("to_dt", to_dt+":23:59:59");
 		map.put("device_id",device_id);
 		map.put("device_serial", device_serial);
 		
@@ -348,9 +348,15 @@ public class ResultService implements IResultService {
 			map.put("pageStartNo", (page * show_count) - show_count);
 			map.put("pageEndNo", (page*show_count) +1);
 		}
-		
-		List<ResultHistoryListModel> list = mapper.selectResultHistoryList(map); 
+		long time1 = System.currentTimeMillis ();
+		List<ResultHistoryListModel> list = mapper.selectResultHistoryList(map);
+		long time2 = System.currentTimeMillis ();
 		int total_count = mapper.selectResultHistoryListCount(map);
+		long time3 = System.currentTimeMillis ();
+		
+		System.out.println ( "3-2=====>" + ( time3 - time2 ) / 1000.0  + "<=====");
+		System.out.println ( "2-1=====>" + ( time2 - time1 ) / 1000.0  + "<=====");
+		
 		ResultHistoryListReturn res = new ResultHistoryListReturn();
 		res.setList(list);
 		res.setTotal_count(total_count);

@@ -471,6 +471,66 @@ public class SettingService implements ISettingService {
 			tempList.add(model);
 		}
 		
+		if ( ins.getCond_no5().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq5());
+			model.setCond_type(ins.getCond_type5());
+			model.setCond_no(ins.getCond_no5());
+			model.setCond_operator(ins.getCond_operator5());
+			model.setCond_optval(ins.getCond_optval5());
+			tempList.add(model);
+		}
+		
+		if ( ins.getCond_no6().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq6());
+			model.setCond_type(ins.getCond_type6());
+			model.setCond_no(ins.getCond_no6());
+			model.setCond_operator(ins.getCond_operator6());
+			model.setCond_optval(ins.getCond_optval6());
+			tempList.add(model);
+		}
+		
+		if ( ins.getCond_no7().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq7());
+			model.setCond_type(ins.getCond_type7());
+			model.setCond_no(ins.getCond_no7());
+			model.setCond_operator(ins.getCond_operator7());
+			model.setCond_optval(ins.getCond_optval7());
+			tempList.add(model);
+		}
+		
+		if ( ins.getCond_no8().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq8());
+			model.setCond_type(ins.getCond_type8());
+			model.setCond_no(ins.getCond_no8());
+			model.setCond_operator(ins.getCond_operator8());
+			model.setCond_optval(ins.getCond_optval8());
+			tempList.add(model);
+		}
+		
+		if ( ins.getCond_no9().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq9());
+			model.setCond_type(ins.getCond_type9());
+			model.setCond_no(ins.getCond_no9());
+			model.setCond_operator(ins.getCond_operator9());
+			model.setCond_optval(ins.getCond_optval9());
+			tempList.add(model);
+		}
+		
+		if ( ins.getCond_no10().trim().length() > 0){
+			JobNoConditionTempModel model = new JobNoConditionTempModel();
+			model.setCond_seq(ins.getCond_seq10());
+			model.setCond_type(ins.getCond_type10());
+			model.setCond_no(ins.getCond_no10());
+			model.setCond_operator(ins.getCond_operator10());
+			model.setCond_optval(ins.getCond_optval10());
+			tempList.add(model);
+		}
+		
 		JobNoConditionTempModel mo =new JobNoConditionTempModel();
 		
 		for(JobNoConditionTempModel aa : tempList){

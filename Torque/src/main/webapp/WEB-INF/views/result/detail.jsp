@@ -78,13 +78,15 @@
 			$('#btnSearch').click()
     	});
 		
+		document.getElementById("load-image").style.display = "none";
+		
 		$('#btnExcel').on('click', function(){
-
+			
 	        var postfix = fn_Excelpostfix() //"-"+year + month + day + "_" + hour + mins;
 	        var fileName = $('#content-title').text().trim()+ postfix + ".xls";
 	        getExcelData();
 	        fn_ExcelReport('list_excel', fileName);
-			
+	        
 		});
 		
 		
@@ -155,8 +157,16 @@
     				 "&page="+now_page+
     				 "&show_count="+show_count;
     	
-    	$.get('/api/result/getresultdetail'+params,function(data){
-    		if(data.result == 200){
+    	$.ajax({
+			type : "GET",
+			url : '/api/result/getresultdetail'+params,
+			beforeSend : function(){
+				$('#load-image').show();
+			}
+		}).done(function(data) {
+			//console.log(result);
+			$('#load-image').hide();
+			if(data.result == 200){
     			
     			$('#select_page_count').empty();
     			$('#list_total').text(data.total_count); 	// 총갯수
@@ -271,7 +281,13 @@
     			});
     			
     		}
-    	});
+			
+		}).fail(function(data) {
+			$('#load-image').hide();
+			alert(data);
+		});
+    	
+    	
     }
 
     function getHead(){
@@ -552,6 +568,7 @@
                                     <!-- <asp:CheckBox ID="chkSelOldData" runat="server" Text="RS02.SearchOldData" Checked="false" /> -->
                                 </td>
                                 <td rowspan="3"  class="content-button">
+                                	<img src="/images/ajax-loader.gif" style="display:none;" id="load-image"/>
                                     <c:set var="btnSearch"><spring:message code="BUTTON.Search"/></c:set>
                                 	<input type="button" id="btnSearch" value="${btnSearch}" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                     <c:set var="btnExcel"><spring:message code="BUTTON.Excel"/></c:set>
@@ -623,8 +640,10 @@
 	        	<table class="gridview" cellspacing="0" border="0" style="width:5500px;border-collapse:collapse;" id="list_table">
 	            	<thead id="list_head">
 					</thead>
+					
 					<tbody id="list_data">
 					</tbody>
+					
 				</table>
             </div>
                 	

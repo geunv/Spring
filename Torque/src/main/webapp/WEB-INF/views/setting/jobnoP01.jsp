@@ -203,8 +203,43 @@ function fn_save(){
 			cond_type4 			: $('#ddlCondType4').val(),
 			cond_no4 			: $('#txtCondNo4').val(),
 			cond_operator4 		: $('#ddlCondOperator4').val(),
-			cond_optval4 		: $('#txtOptVal4').val()
+			cond_optval4 		: $('#txtOptVal4').val(),
 
+			cond_seq5 			: $('#txtCondSeq5').val(),
+			cond_type5 			: $('#ddlCondType5').val(),
+			cond_no5			: $('#txtCondNo5').val(),
+			cond_operator5 		: $('#ddlCondOperator5').val(),
+			cond_optval5 		: $('#txtOptVal5').val(),
+			
+			cond_seq6 			: $('#txtCondSeq6').val(),
+			cond_type6 			: $('#ddlCondType6').val(),
+			cond_no6 			: $('#txtCondNo6').val(),
+			cond_operator6 		: $('#ddlCondOperator6').val(),
+			cond_optval6 		: $('#txtOptVal6').val(),
+			
+			cond_seq7 			: $('#txtCondSeq7').val(),
+			cond_type7 			: $('#ddlCondType7').val(),
+			cond_no7 			: $('#txtCondNo7').val(),
+			cond_operator7 		: $('#ddlCondOperator7').val(),
+			cond_optval7 		: $('#txtOptVal7').val(),
+			
+			cond_seq8 			: $('#txtCondSeq8').val(),
+			cond_type8 			: $('#ddlCondType8').val(),
+			cond_no8 			: $('#txtCondNo8').val(),
+			cond_operator8 		: $('#ddlCondOperator8').val(),
+			cond_optval8 		: $('#txtOptVal8').val(),
+			
+			cond_seq9 			: $('#txtCondSeq9').val(),
+			cond_type9 			: $('#ddlCondType9').val(),
+			cond_no9 			: $('#txtCondNo9').val(),
+			cond_operator9 		: $('#ddlCondOperator9').val(),
+			cond_optval9 		: $('#txtOptVal9').val(),
+			
+			cond_seq10 			: $('#txtCondSeq10').val(),
+			cond_type10 		: $('#ddlCondType10').val(),
+			cond_no10 			: $('#txtCondNo10').val(),
+			cond_operator10 	: $('#ddlCondOperator10').val(),
+			cond_optval10 		: $('#txtOptVal10').val()
 	}
 	
 	$.ajax({
@@ -279,8 +314,43 @@ var body = {
 			cond_type4 			: $('#ddlCondType4').val(),
 			cond_no4 			: $('#txtCondNo4').val(),
 			cond_operator4 		: $('#ddlCondOperator4').val(),
-			cond_optval4 		: $('#txtOptVal4').val()
+			cond_optval4 		: $('#txtOptVal4').val(),
 
+			cond_seq5 			: $('#txtCondSeq5').val(),
+			cond_type5 			: $('#ddlCondType5').val(),
+			cond_no5			: $('#txtCondNo5').val(),
+			cond_operator5 		: $('#ddlCondOperator5').val(),
+			cond_optval5 		: $('#txtOptVal5').val(),
+			
+			cond_seq6 			: $('#txtCondSeq6').val(),
+			cond_type6 			: $('#ddlCondType6').val(),
+			cond_no6 			: $('#txtCondNo6').val(),
+			cond_operator6 		: $('#ddlCondOperator6').val(),
+			cond_optval6 		: $('#txtOptVal6').val(),
+			
+			cond_seq7 			: $('#txtCondSeq7').val(),
+			cond_type7 			: $('#ddlCondType7').val(),
+			cond_no7 			: $('#txtCondNo7').val(),
+			cond_operator7 		: $('#ddlCondOperator7').val(),
+			cond_optval7 		: $('#txtOptVal7').val(),
+			
+			cond_seq8 			: $('#txtCondSeq8').val(),
+			cond_type8 			: $('#ddlCondType8').val(),
+			cond_no8 			: $('#txtCondNo8').val(),
+			cond_operator8 		: $('#ddlCondOperator8').val(),
+			cond_optval8 		: $('#txtOptVal8').val(),
+			
+			cond_seq9 			: $('#txtCondSeq9').val(),
+			cond_type9 			: $('#ddlCondType9').val(),
+			cond_no9 			: $('#txtCondNo9').val(),
+			cond_operator9 		: $('#ddlCondOperator9').val(),
+			cond_optval9 		: $('#txtOptVal9').val(),
+			
+			cond_seq10 			: $('#txtCondSeq10').val(),
+			cond_type10 		: $('#ddlCondType10').val(),
+			cond_no10 			: $('#txtCondNo10').val(),
+			cond_operator10 	: $('#ddlCondOperator10').val(),
+			cond_optval10 		: $('#txtOptVal10').val()
 	}
 	
 	$.ajax({
@@ -388,6 +458,42 @@ function LoadInfo(cartype,toolid,toolserial,job_num){
 					$('#txtCondNo4').val(item.cond_no);
 					$('#ddlCondOperator4').val(item.cond_operator);
 					$('#txtOptVal4').val(item.cond_optval);
+				}else if ( item.cond_seq == "E"){
+					$('#txtCondSeq5').val(item.cond_seq);
+					$('#ddlCondType5').val(item.cond_type);
+					$('#txtCondNo5').val(item.cond_no);
+					$('#ddlCondOperator5').val(item.cond_operator);
+					$('#txtOptVal5').val(item.cond_optval);
+				}else if ( item.cond_seq == "F"){
+					$('#txtCondSeq6').val(item.cond_seq);
+					$('#ddlCondType6').val(item.cond_type);
+					$('#txtCondNo6').val(item.cond_no);
+					$('#ddlCondOperator6').val(item.cond_operator);
+					$('#txtOptVal6').val(item.cond_optval);
+				}else if ( item.cond_seq == "G"){
+					$('#txtCondSeq7').val(item.cond_seq);
+					$('#ddlCondType7').val(item.cond_type);
+					$('#txtCondNo7').val(item.cond_no);
+					$('#ddlCondOperator7').val(item.cond_operator);
+					$('#txtOptVal7').val(item.cond_optval);
+				}else if ( item.cond_seq == "H"){
+					$('#txtCondSeq8').val(item.cond_seq);
+					$('#ddlCondType8').val(item.cond_type);
+					$('#txtCondNo8').val(item.cond_no);
+					$('#ddlCondOperator8').val(item.cond_operator);
+					$('#txtOptVal8').val(item.cond_optval);
+				}else if ( item.cond_seq == "I"){
+					$('#txtCondSeq9').val(item.cond_seq);
+					$('#ddlCondType9').val(item.cond_type);
+					$('#txtCondNo9').val(item.cond_no);
+					$('#ddlCondOperator9').val(item.cond_operator);
+					$('#txtOptVal9').val(item.cond_optval);
+				}else if ( item.cond_seq == "J"){
+					$('#txtCondSeq10').val(item.cond_seq);
+					$('#ddlCondType10').val(item.cond_type);
+					$('#txtCondNo10').val(item.cond_no);
+					$('#ddlCondOperator10').val(item.cond_operator);
+					$('#txtOptVal10').val(item.cond_optval);
 				}
 				
 				
@@ -397,36 +503,6 @@ function LoadInfo(cartype,toolid,toolserial,job_num){
 			$("#divCondition").hide();
 		}
 		
-		/* if(data.length > 0){
-			$('#ddlPlant').val(data[0].plant_cd.trim());
-			$('#ddlStnType').val(data[0].stn_gub.trim());	
-			$('#txtToolGrp').val(data[0].device_grp_cd.trim());
-			$('#ddlLine').val(data[0].line_cd.trim());
-			
-			$('#txtToolName').val(data[0].device_nm.trim());
-			$('#txtToolAlias').val(data[0].device_alias.trim());
-			
-			$('#ddlToolType').val(data[0].device_type.trim());
-			$('#ddlSerialParallelFlag').val(data[0].serial_parallel_flg.trim());
-			
-			$('#txtToolIP').val(data[0].device_ip.trim());
-			$('#txtToolPort').val(data[0].device_port.trim());
-			
-			$('#ddlCompToolFlag').val(data[0].completed_device_flg.trim());
-			$('#ddlSendJobNo').val(data[0].jobno_send_flg.trim());
-			 
-			$('#txtTorqLowVal').val(data[0].torque_low.trim());
-			$('#txtAnglLowVal').val(data[0].angle_low.trim());
-			
-			$('#txtTorqOkVal').val(data[0].torque_ok.trim());
-			$('#txtAnglOkVal').val(data[0].angle_ok.trim());
-			$('#txtTorqHighVal').val(data[0].torque_high.trim()); 
-			$('#txtAnglHighVal').val(data[0].angle_high.trim());
-			
-			$('#ddlWebDispFlag').val(data[0].web_display_flg.trim());
-			$('#ddlResetJobNo').val(data[0].scan_jobreset_flg.trim());
-			$('#ddlShowValueType').val(data[0].show_value_type.trim());
-		} */
 	})
 	
 }
@@ -538,13 +614,48 @@ function LoadInfo(cartype,toolid,toolserial,job_num){
 	                        <td ><select id="ddlCondOperator4"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
 	                        <td ><input type="text" style="width:40%" id="txtOptVal4"></td>
 	                    </tr>
-	                    <!-- <tr>
+	                    <tr>
 	                        <td ><input type="text" style="width:40%" id="txtCondSeq5"></td>
 	                        <td ><select id="ddlCondType5"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
 	                        <td ><input type="text" style="width:40%" id="txtCondNo5"></td>
 	                        <td ><select id="ddlCondOperator5"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
 	                        <td ><input type="text" style="width:40%" id="txtOptVal5"></td>
-	                    </tr> -->
+	                    </tr>
+	                    <tr>
+	                        <td ><input type="text" style="width:40%" id="txtCondSeq6"></td>
+	                        <td ><select id="ddlCondType6"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtCondNo6"></td>
+	                        <td ><select id="ddlCondOperator6"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtOptVal6"></td>
+	                    </tr>
+	                    <tr>
+	                        <td ><input type="text" style="width:40%" id="txtCondSeq7"></td>
+	                        <td ><select id="ddlCondType7"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtCondNo7"></td>
+	                        <td ><select id="ddlCondOperator7"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtOptVal7"></td>
+	                    </tr>
+	                    <tr>
+	                        <td ><input type="text" style="width:40%" id="txtCondSeq8"></td>
+	                        <td ><select id="ddlCondType8"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtCondNo8"></td>
+	                        <td ><select id="ddlCondOperator8"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtOptVal8"></td>
+	                    </tr>
+	                    <tr>
+	                        <td ><input type="text" style="width:40%" id="txtCondSeq9"></td>
+	                        <td ><select id="ddlCondType9"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtCondNo9"></td>
+	                        <td ><select id="ddlCondOperator9"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtOptVal9"></td>
+	                    </tr>
+	                    <tr>
+	                        <td ><input type="text" style="width:40%" id="txtCondSeq10"></td>
+	                        <td ><select id="ddlCondType10"><option value="Select"></option><option value="O">O:219</option><option value="C">C:Color</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtCondNo10"></td>
+	                        <td ><select id="ddlCondOperator10"><option value="Select"></option><option value="T">=</option><option value="F">!=</option></select></td>
+	                        <td ><input type="text" style="width:40%" id="txtOptVal10"></td>
+	                    </tr>
                     </table>
                 </div>
             </div>

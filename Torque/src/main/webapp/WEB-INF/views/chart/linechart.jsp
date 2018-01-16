@@ -80,9 +80,11 @@
 		$('#txtFromTime').mask("99:99:99");
 		$('#txtToTime').mask("99:99:99");
         
-		$("#txtFromDate").val(fn_getday('2017-05-29'));
-		$("#txtToDate").val(fn_getday('2017-05-30'));
+		/* $("#txtFromDate").val(fn_getday('2017-05-29'));
+		$("#txtToDate").val(fn_getday('2017-05-30')); */
 		
+		$("#txtFromDate").val(fn_getday());
+		$("#txtToDate").val(fn_getday());
 		
 		
 		init();
@@ -90,7 +92,19 @@
 		makeChart();
 		
 		$("#btnSearch").on('click', function(e){
+			//document.getElementById('load-image').style.display = "none";
+			//var con = document.getElementById("load-image");
+		    //if(con.style.display=='none'){
+		    //    con.style.display = 'block';
+		    //}else{
+		    //    con.style.display = 'none';
+		    //}
+
+		    //setTimeout(myFunction, 3000)
+		    
 			makeChart();
+			
+			//
 		});
 		
 		$('#ddlLine').on('change', function(){
@@ -109,6 +123,10 @@
     	
     });
 	
+    //function myFunction(){
+    //	document.getElementById("load-image").style.display = 'none';
+    //}
+    
     function init(){
 		$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
 		getTime();
@@ -201,8 +219,6 @@
     			ang_low.push(data.standardlist.angle_low);
     		}
     	});
-		
-    	
 		
     	$.ajaxSetup({async:true});
     	
@@ -322,6 +338,7 @@
                                     <input id="chkSelOldData" type="checkbox" name="chkSelOldData"><spring:message code="CT01.SearchOldData"/>
                                 </td>
                                 <td rowspan="2" class="content-button">
+                                	<img src="/images/ajax-loader.gif" style="display:none;" id="load-image"/>
                                     <input type="button" name="btnSearch" value="Search" id="btnSearch" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                 </td>
                             </tr>

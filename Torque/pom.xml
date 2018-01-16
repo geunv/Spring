@@ -14,14 +14,14 @@
 	</properties>
 	
 
-	<repositories>
+	<!-- <repositories>
 			
 		<repository>
 			<id>codelds</id>
 			<name>ORACLE JDBC Repository</name>
 			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
 		</repository> 
-	</repositories>
+	</repositories> -->
 	
 	<dependencies>
 	

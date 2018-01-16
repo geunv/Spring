@@ -91,7 +91,7 @@
 		<div style="float:left;width:100%;height:400px;">
 	        <h4 class="text-left"><i class="fa fa-check-square"></i> <spring:message code="COMMON.TighteningResult"/></h4>
 	        <div class="main_panel">
-	            <div style="padding-top:20px;padding-bottom:20px;height:400px;">
+	            <div style="padding-top:20px;padding-bottom:10px;height:350px;">
 	            	<div style="float:left;width:49%;/* border:1px solid red; */">
 	            		<div id="barchart1"></div>
 					</div>
@@ -253,7 +253,7 @@ function barchart(){
 			        labels: true,
 			        order: null
 			    },
-				onrendered: function() {
+				/* onrendered: function() {
 			    	setTimeout(function() {
 			        	[0].forEach(function(e) {
 			        		barchart1.tooltip.show({
@@ -265,7 +265,7 @@ function barchart(){
 			          	})
 						$(".c3-tooltip-tmp").show()
 					}, 0);
-				},
+				}, */
 				onmouseover: function() {
 					setTimeout(function() {
 						barchart1.tooltip.hide();
@@ -312,7 +312,7 @@ function barchart(){
 			        labels: true,
 			        order: null
 			    },
-				onrendered: function() {
+				/* onrendered: function() {
 			    	setTimeout(function() {
 			        	[0].forEach(function(e) {
 			        		barchart2.tooltip.show({
@@ -324,7 +324,7 @@ function barchart(){
 			          	})
 						$(".c3-tooltip-tmp").show()
 					}, 0);
-				},
+				}, */
 			    axis: {
 			        x: {
 			            type: 'category' // this needed to load string x value

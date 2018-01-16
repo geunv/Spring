@@ -254,7 +254,7 @@
     	AND DEVICE_ID = RPAD(#{device_id},7)
     	AND DEVICE_SERIAL = #{device_serial}
     	AND JOB_NUM = RPAD(#{job_num},5)
-    	ORDER BY COND_GRP_NUM, COND_SEQ
+    	ORDER BY COND_GRP_NUM, TO_NUMBER(COND_SEQ)
 	</select>
 	
 	<delete id="deleteJobNo"  parameterType="hashmap" >

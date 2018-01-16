@@ -100,8 +100,78 @@
     var show_count = 20;
 
     function getList(){
-        
     	var params = "?plant_cd="+$('#ddlPlant').val()+
+					 "&work_dt="+$('#txtDate').val()+
+					 "&line="+$('#ddlLine').val() +
+					 "&shift="+$('#ddlShift').val() +
+					 "&tool="+$('#ddlTool').val() +
+					 "&page="+now_page+
+					 "&show_count="+show_count;
+    	
+    	$.ajax({
+			type : "GET",
+			url : '/api/result/getresultsummary'+params,
+			beforeSend : function(){
+				$('#load-image').show();
+			}
+		}).success(function(data) {
+			$('#load-image').hide();
+			
+			if(data.result == 200){
+    			
+    			$('#select_page_count').empty();
+    			$('#list_total').text(data.total_count); 	// 총갯수
+    			//this.custPager.TotalPages = num % this.gridView1.PageSize == 0 ? num / this.gridView1.PageSize : num / this.gridView1.PageSize + 1;
+    			
+    			var pageTotalCount = 0;
+    			
+    			if ( data.total_count % show_count == 0  )
+    				pageTotalCount = data.total_count / show_count;
+    			else
+    				pageTotalCount = Math.floor(data.total_count / show_count) + 1;
+    			
+    			//var total_page = data.total % $('#select_page_count').val() == 0 
+    			$('#page_total').text(pageTotalCount);
+    			
+    			for(var i = 1 ; i <= pageTotalCount; i++){			
+    				if(now_page == i){
+    					$('#select_page_count').append('<option value="' + i + '" selected>' + i + '</option>');
+    				}else{
+    					$('#select_page_count').append('<option value="' + i + '">' + i + '</option>');
+    				}
+    			}
+    			
+    			// list setting
+    			$('#list_data').empty();
+    			
+    			data.list.forEach(function(item){
+    				//console.log(item);
+    			
+    				$('#list_data').append(
+    					  '<tr>' 
+							+ ' <td>' + item.rnum +'</td>'
+							+ ' <td class="left_5">' + item.device +'</td>'
+							+ ' <td class="left_5">' + item.line_cd +'</td>'
+							+ ' <td>' + item.total +'</td>'
+							+ ' <td>' + item.ok +'</td>'
+							+ ' <td>' + item.ng +'</td>'
+							+ ' <td>' + item.noscan +'</td>'
+							+ ' <td>' + item.pass +'</td>'
+							+ ' <td>' + item.repair +'</td>'
+							+ ' <td>' + item.tot_ok +'</td>'
+							+ ' <td>' + item.tot_ng +'</td>'
+							+ ' <td class="right_5">' + item.pass_ratio +'</td>'
+    					+ '</tr>'
+    				);
+    			});
+    			
+    		}
+			
+		}).error(function(data) {
+			$('#load-image').hide();
+			alert(data);
+		});
+    	/* var params = "?plant_cd="+$('#ddlPlant').val()+
     				 "&work_dt="+$('#txtDate').val()+
     				 "&line="+$('#ddlLine').val() +
     				 "&shift="+$('#ddlShift').val() +
@@ -159,79 +229,74 @@
     			});
     			
     		}
-    	});
+    	}); */
     }
 
     function getExcelData(){
     	//$.get('/api/setting/gettoollist?'+params,function(data){
-
-    	var vplant_cd = $('#ddlPlant').val()
-    	var vwork_dt = $('#txtDate').val();
-    	var vline = $('#ddlLine').val();
-    	var vshift = $('#ddlShift').val();
-    	var vtool = $('#ddlTool').val();
     	
-    	var params = "?plant_cd="+vplant_cd.trim()+
-    				 "&work_dt="+vwork_dt.trim()+
-    				 "&line="+vline.trim() +
-    				 "&shift="+vshift.trim() +
-    				 "&tool="+vtool.trim() +
-    				 "&page="+now_page+
-    				 "&show_count="+show_count+
-    				 "&excel_down=Y";
+    	var params = "?plant_cd="+$('#ddlPlant').val()+
+					 "&work_dt="+$('#txtDate').val()+
+					 "&line="+$('#ddlLine').val() +
+					 "&shift="+$('#ddlShift').val() +
+					 "&tool="+$('#ddlTool').val() +
+					 "&page="+now_page+
+					 "&show_count="+show_count+
+					 "&excel_down=Y";
+    	
     	
     	$.ajax({
-    			url:'/api/result/getresultsummary'+params,
-    			type:'GET',
-    			async:false,
-    			success: function(data) {
-    				if(data.result == 200){
-    					$("#list_excel").empty();
-    					$("#list_excel").append("<thead>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Num'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Tool'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Line'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Total'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.OK'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.NG'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.NoScan'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Pass'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.Repair'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.TotalOK'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.TotalNG'/></th>");
-    					$("#list_excel").append("<th><spring:message code='COMMON.PassRatio'/></th>");
-    					$("#list_excel").append("</thead>");
-    					
-    					$("#list_excel").append("<tbody>");
-    					
-    					data.list.forEach(function(item){
-    						
-    						$('#list_excel').append(
-    							  '<tr>' 
-	    							+ ' <td>' + item.rnum +'</td>'
-									+ ' <td>' + item.device +'</td>'
-									+ ' <td>' + item.line_cd +'</td>'
-									+ ' <td>' + item.total +'</td>'
-									+ ' <td>' + item.ok +'</td>'
-									+ ' <td>' + item.ng +'</td>'
-									+ ' <td>' + item.noscan +'</td>'
-									+ ' <td>' + item.pass +'</td>'
-									+ ' <td>' + item.repair +'</td>'
-									+ ' <td>' + item.tot_ok +'</td>'
-									+ ' <td>' + item.tot_ng +'</td>'
-									+ ' <td>' + item.pass_ratio +'</td>'
-    							+ '</tr>'
-    						);
-    					});
-    					
-    					$("#list_excel").append("</tbody>");
-    				}	
-    			},
-    			error:function(e){  
-    				alert(e.responseText);
-    	        }  
-    			
-    		});
+			url:'/api/result/getresultsummary'+params,
+			type:'GET',
+			async:false,
+			success: function(data) {
+				if(data.result == 200){
+					$("#list_excel").empty();
+					$("#list_excel").append("<thead>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Num'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Tool'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Line'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Total'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.OK'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.NG'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.NoScan'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Pass'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.Repair'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.TotalOK'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.TotalNG'/></th>");
+					$("#list_excel").append("<th><spring:message code='COMMON.PassRatio'/></th>");
+					$("#list_excel").append("</thead>");
+					
+					$("#list_excel").append("<tbody>");
+					
+					data.list.forEach(function(item){
+						
+						$('#list_excel').append(
+							  '<tr>' 
+    							+ ' <td>' + item.rnum +'</td>'
+								+ ' <td>' + item.device +'</td>'
+								+ ' <td>' + item.line_cd +'</td>'
+								+ ' <td>' + item.total +'</td>'
+								+ ' <td>' + item.ok +'</td>'
+								+ ' <td>' + item.ng +'</td>'
+								+ ' <td>' + item.noscan +'</td>'
+								+ ' <td>' + item.pass +'</td>'
+								+ ' <td>' + item.repair +'</td>'
+								+ ' <td>' + item.tot_ok +'</td>'
+								+ ' <td>' + item.tot_ng +'</td>'
+								+ ' <td>' + item.pass_ratio +'</td>'
+							+ '</tr>'
+						);
+					});
+					
+					$("#list_excel").append("</tbody>");
+				}	
+			},
+			error:function(e){  
+				alert(e.responseText);
+	        }  
+			
+		});
     }
 </script>
 <div class="container">
@@ -275,6 +340,7 @@
                                     
                                 </td>
                                 <td rowspan="2" class="content-button">
+                                	<img src="/images/ajax-loader.gif" style="display:none;" id="load-image"/>
                                 	<c:set var="btnSearch"><spring:message code="BUTTON.Search"/></c:set>
                                 	<input type="button" id="btnSearch" value="${btnSearch}" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
                                     <c:set var="btnExcel"><spring:message code="BUTTON.Excel"/></c:set>
