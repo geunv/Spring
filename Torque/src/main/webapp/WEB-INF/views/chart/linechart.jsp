@@ -90,6 +90,10 @@
 		init();
 		
 		makeChart();
+		//setTimeout(function(){
+		//	$("#btnSearch").click();
+		//},100);
+		
 		
 		$("#btnSearch").on('click', function(e){
 			//document.getElementById('load-image').style.display = "none";
@@ -128,16 +132,11 @@
     //}
     
     function init(){
-		$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
+    	$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
 		getTime();
     	getPlant();
     	ddlTool();
-    	
-    	
-		$.ajaxSetup({async:true});	//비동기 켜기
-		
-		
-		
+    	$.ajaxSetup({async:true});	//비동기 켜기
     }
     
     function getTime(){
@@ -164,38 +163,38 @@
     
     
     function makeChart(){
-     	var plant_cd = $('#ddlPlant').val();
-    	var from_dt = $('#txtFromDate').val()+":"+ $("#txtFromTime").val();
-    	var to_dt = $('#txtToDate').val() + ":"+ $("#txtToTime").val();
-    	var tool = $('#ddlTool').val();
-    	var displayType = $('#ddldisplayType').val();
-    	
+     	
     	var oldData = "";
     	if ( $('#chkSelOldData').is(":checked") == true)
     		oldData = 'Y';
 		else
 			oldData = 'N';
     	
-    	
-    	var params = "?plant_cd="+plant_cd.trim()+
-    				 "&from_dt="+from_dt.trim()+
-    				 "&to_dt="+to_dt.trim()+
-    				 "&display_type="+displayType.trim()+
-    				 "&tool="+tool+
+    	var params = "?plant_cd="+$.trim($('#ddlPlant').val())+
+    				 "&from_dt="+$.trim($('#txtFromDate').val()+":"+ $("#txtFromTime").val())+
+    				 "&to_dt="+$.trim($('#txtToDate').val() + ":"+ $("#txtToTime").val())+
+    				 "&display_type="+$.trim($('#ddldisplayType').val())+
+    				 "&tool="+$.trim($('#ddlTool').val())+
     				 "&old_data="+oldData;
-    				 
+    	
     	
     	var body_no = ['x'];
-		var tor_value = ['TOR'];
+		var tor_value = ['TORQUE'];
 		var tor_high = [];
 		var tor_ok = [];
 		var tor_low = [];
 		
-		var ang_value = ['ANG'];
+		var ang_value = ['ANGLE'];
 		var ang_high = [];
 		var ang_ok = [];
 		var ang_low = [];
 		
+		
+		var tmp_tor_arr = [];
+		var maxTor = "";
+		var centerTor = "";
+    	var minTor = "";
+    	
 		$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
 		
 		var torCnt;
@@ -208,6 +207,7 @@
     				body_no.push(item.body_no);
     				tor_value.push(item.tor);
     				ang_value.push(item.ang)
+    				tmp_tor_arr.push(Number(item.tor));
     			});
     			
     			tor_high.push(data.standardlist.torque_high);
@@ -217,13 +217,53 @@
     			ang_high.push(data.standardlist.angle_high);
     			ang_ok.push(data.standardlist.angle_ok);
     			ang_low.push(data.standardlist.angle_low);
+    			
+    			maxTor = data.standardlist.torque_high;
+    			centerTor = data.standardlist.torque_ok;
+    			minTor = data.standardlist.torque_low;
     		}
     	});
 		
+    	
+    	//var arr = [1,2,3];
+    	var valuemax = tmp_tor_arr.reduce(function(a, b) {
+    	    return Math.max(a, b);
+    	});
+    	
+    	var valuemin = tmp_tor_arr.reduce(function(a, b) {
+    	    return Math.min(a, b);
+    	});
+    	
+    	var chart1Max = "";
+    	var chart1Min = "";
+    	
+    	if ( valuemax > maxTor )
+    		chart1Max = Number(valuemax);
+    	else
+    		chart1Max = Number(maxTor) + Number(10);
+    	
+    	if ( valuemin < minTor )
+    		chart1Min = Number(valuemin);
+    	else
+    		chart1Min = Number(minTor) - Number(10);
+    	
     	$.ajaxSetup({async:true});
     	
     	var barchart1 = c3.generate({
 			bindto: '#linechart1',
+			/*
+			oninit: function (){
+				$('#load-image').show();
+			},
+			onrendered :function(){
+				$('#load-image').hide();
+			},
+			transition: {
+				  duration: 100
+			}, */
+			padding: {
+		        right: 100
+			},
 		    data: {
 		        x : 'x',
 		        columns: [
@@ -233,19 +273,24 @@
 		        type: 'line',
 		        labels: true,
 		    },
+		    legend: {
+		        position: 'right'
+		    },
 		    axis: {
 		        x: {
 		            type: 'category' // this needed to load string x value
 		        }
 		    	,
 		    	y:{
-		    		max:100
+		    		//center : Number(centerTor)
+		    		max:chart1Max,
+		    		min:chart1Min
 		    	}
 		    },
-		    color: {
+		    /* color: {
 		        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
-		    	pattern: [ '#1f77b4']
-		    },
+		    	pattern: [ '#336699']
+		    }, */
 		    grid: {
 		    	  y: {
 		    	    lines: [{value: tor_high,class:'standHigh' , text: 'H='+tor_high}
@@ -259,6 +304,9 @@
     	
     	var barchart2 = c3.generate({
 			bindto: '#linechart2',
+			padding: {
+		        right: 100
+			},
 		    data: {
 		        x : 'x',
 		        columns: [
@@ -268,18 +316,21 @@
 		        type: 'line',
 		        labels: true,
 		    },
+		    legend: {
+		        position: 'right'
+		    },
 		    axis: {
 		        x: {
 		            type: 'category' // this needed to load string x value
 		        }
 			    ,
 		    	y:{
-		    		max:1000
+		    		max:400
 		    	}
 		    },
 		    color: {
 		        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
-		    	pattern: [ '#1f77b4']
+		    	pattern: [ '#003399']
 		    },
 		    grid: {
 		    	  y: {
@@ -289,7 +340,9 @@
 
 		    	  }
 		    }
-		}); 
+		});
+    	
+    	
     }
     
    
@@ -380,5 +433,6 @@
         </div><!-- C_Result -->  
 	</div><!-- C_Body -->
 </div>
+<jsp:include page="../bottom.jsp" flush="false" />
 </body>
 </html>

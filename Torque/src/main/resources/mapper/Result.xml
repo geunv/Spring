@@ -41,7 +41,7 @@
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
 		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
-		        WHERE T.PLANT_CD = RPAD(#{plant_cd},4)
+		        WHERE T.PLANT_CD = #{plant_cd}
 		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = RPAD(#{device_id},10)) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
@@ -89,7 +89,7 @@
 		                                  WHERE  (#{shift} = '-1' OR SHIFT = #{shift}) 
 		                                  GROUP BY PLANT_CD, DEVICE_ID, DEVICE_SERIAL, WORK_DT 
 		                                ) A ON A.PLANT_CD = T.PLANT_CD AND A.DEVICE_ID = T.DEVICE_ID AND A.DEVICE_SERIAL = T.DEVICE_SERIAL AND A.WORK_DT = #{work_dt} 
-		        WHERE T.PLANT_CD = RPAD(#{plant_cd},4)
+		        WHERE T.PLANT_CD = #{plant_cd}
 		        AND   (#{device_id} = '-1' OR T.DEVICE_ID = RPAD(#{device_id},10)) 
 		        AND   (#{device_serial} = '-1' OR T.DEVICE_SERIAL = #{device_serial}) 
 		        AND   T.STN_GUB = 'N' 
@@ -188,6 +188,8 @@
                 WHERE M.PLANT_CD = #{plant_cd}  
                 AND A.LAST_UPDATE_DT &gt;= #{from_dt}
 				AND    A.LAST_UPDATE_DT &lt;= #{to_dt}
+				AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
+				AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial})
                 AND    (#{shift} = '-1' OR A.SHIFT = #{shift}) 
 				AND    (#{seq} = '-1' OR A.MES_PBSOUT_SEQ = #{seq}) 
 				AND    (#{car_type} = '-1' OR RTRIM(SUBSTR(A.BODY_NO, 1, 4)) LIKE '%' || #{car_type} || '%') 
@@ -264,7 +266,7 @@
 	                 A.MES_TRANS_DT,A.REG_DT || A.REG_TM REGDT,A.REG_USER_ID,Z.BATCH_NUM,Z.TOR_VALUE,Z.ANG_VALUE,Z.TEN_VALUE
 	            FROM (SELECT *
 	                    FROM TIGHTENING_DEVICE_MA
-	                   WHERE     PLANT_CD = RPAD(#{plant_cd},4)
+	                   WHERE     PLANT_CD = #{plant_cd}
 	                         AND ('-1' = '-1' OR DEVICE_ID = RPAD(#{device_id},10))
 	                         AND ('-1' = '-1' OR DEVICE_SERIAL = '-1')) M
 	                 LEFT OUTER JOIN (SELECT *
@@ -300,7 +302,7 @@
 		       FROM   TIGHTENING_DEVICE_MA M 
 		              LEFT OUTER JOIN ${table_nm} A ON A.PLANT_CD = M.PLANT_CD AND A.DEVICE_ID = M.DEVICE_ID AND A.DEVICE_SERIAL = M.DEVICE_SERIAL 
 		              LEFT OUTER JOIN C_COMM_CD B ON B.PLANT_CD = M.PLANT_CD AND B.CD_GRP = 'LINE_CD' AND B.CODE = M.LINE_CD 
-		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       WHERE  M.PLANT_CD = #{plant_cd}
 		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
 		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
 		       AND    SUBSTR(A.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(A.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
@@ -334,7 +336,7 @@
 		       
 			   <!-- SELECT COUNT(1)
 			   FROM   ${table_nm} M 
-		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       WHERE  M.PLANT_CD = #{plant_cd}
 		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
 		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
 		       AND    SUBSTR(M.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(M.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
@@ -350,7 +352,7 @@
 	<select id="selectResultDetailListBatchCount" parameterType="hashmap" resultType="int">
 			   SELECT NVL(MAX(TOT_BATCH_NUM) ,0)
 			   FROM   ${table_nm} M 
-		       WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+		       WHERE  M.PLANT_CD = #{plant_cd}
 		       AND    (#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
 		       AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial}) 
 		       AND    SUBSTR(M.LAST_UPDATE_DT, 1, 8) &gt;= #{from_dt} AND SUBSTR(M.LAST_UPDATE_DT, 1, 8) &lt;= #{to_dt} 
@@ -368,7 +370,7 @@
 	FROM (
 		SELECT BATCH_NUM, TOR_VALUE, ANG_VALUE, TEN_VALUE
 	    FROM TIGHTENING_BATCH_INFO
-	    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+	    WHERE PLANT_CD = #{plant_cd}
 	    AND DEVICE_ID = RPAD(#{device_id},10)
 	    AND DEVICE_SERIAL = #{device_serial}
 	    AND BODY_NO = #{body_no}
@@ -462,7 +464,7 @@
                                                             ON C.PLANT_CD = A.PLANT_CD 
                                                             AND C.CD_GRP = 'LINE_CD' 
                                                             AND C.CODE = A.LINE_CD
-             WHERE  M.PLANT_CD = RPAD(#{plant_cd},4)
+             WHERE  M.PLANT_CD = #{plant_cd}
              AND    M.TIGHTENING_DT &gt;= #{from_dt}  AND M.TIGHTENING_DT &lt;= #{to_dt}
              AND 	(#{device_id} = '-1' OR M.DEVICE_ID = RPAD(#{device_id},10) ) 
              AND    (#{device_serial} = '-1' OR M.DEVICE_SERIAL = #{device_serial})
@@ -532,7 +534,7 @@
 		    TIGHTEN_ID, BATCH_TIGHTENING_RESULT, TOR_STATE, TOR_VALUE, ANG_STATE, ANG_VALUE, 
 		    REG_DT || REG_TM REGDT, REG_USER_ID 
 		    FROM CYCLE_TEST_HI 
-		    WHERE PLANT_CD = RPAD(#{plant_cd},4)  
+		    WHERE PLANT_CD = #{plant_cd}  
 		    AND CYCLE_TEST_DT = #{work_dt}
 		    AND ( #{hh} = '-1' OR CYCLE_TEST_HOUR = #{hh} )
 		    <if test="pgm_id != '-1'">
@@ -557,7 +559,7 @@
 	<select id="selectCycleTestResultCount" parameterType="hashmap" resultType="int">
 		SELECT count(1)
 		    FROM CYCLE_TEST_HI 
-		    WHERE PLANT_CD = RPAD(#{plant_cd},4)  
+		    WHERE PLANT_CD = #{plant_cd}  
 		    AND CYCLE_TEST_DT = #{work_dt}
 		    AND ( #{hh} = '-1' OR CYCLE_TEST_HOUR = #{hh} )
 		    <if test="pgm_id != '-1'">
@@ -585,7 +587,7 @@
 			    INTERLOCK_DT, INTERLOCK_SEQ, INTERLOCK_FLG, BODY_NO, INTERLOCK_REASON, 
 			    REG_DT || REG_TM REGDT, REG_USER_ID 
 			    FROM PLC_INTERLOCK_HI 
-			    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			    WHERE PLANT_CD = #{plant_cd}
 			    AND  INTERLOCK_DT = #{work_dt}
 			    AND    (#{interlock_type} = '-1' OR INTERLOCK_FLG = #{interlock_type}  )
 			    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 
@@ -602,7 +604,7 @@
 	<select id="selectInterlockHistoryCount" parameterType="hashmap" resultType="int">
 				SELECT COUNT(1) 
 			    FROM PLC_INTERLOCK_HI 
-			    WHERE PLANT_CD = RPAD(#{plant_cd},4)
+			    WHERE PLANT_CD = #{plant_cd}
 			    AND  INTERLOCK_DT = #{work_dt}
 			    AND    (#{interlock_type} = '-1' OR INTERLOCK_FLG = #{interlock_type}  )
 			    AND    (#{device_id} ='-1' OR DEVICE_ID = RPAD(#{device_id},7)) 

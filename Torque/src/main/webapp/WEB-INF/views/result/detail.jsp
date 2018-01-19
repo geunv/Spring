@@ -78,7 +78,6 @@
 			$('#btnSearch').click()
     	});
 		
-		document.getElementById("load-image").style.display = "none";
 		
 		$('#btnExcel').on('click', function(){
 			

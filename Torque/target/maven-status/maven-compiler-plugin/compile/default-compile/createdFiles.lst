@@ -92,6 +92,7 @@ com\spring\model\main\MainRepairConn.class
 com\spring\service\main\IMainService.class
 com\spring\model\setting\JobNoConditionTempModel.class
 com\spring\model\system\DictionaryModel.class
+com\spring\config\Utils.class
 com\spring\model\setting\JobNoInfoReturn.class
 com\spring\model\system\ProgramProcessListReturn.class
 com\spring\service\setting\ISettingService.class

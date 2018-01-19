@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.config.Utils;
 import com.spring.dao.result.IResultMapper;
 import com.spring.model.BaseResponse;
 import com.spring.model.result.CycleTestResultListModel;
@@ -29,6 +30,8 @@ public class ResultService implements IResultService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	public Utils utils = new Utils();
+	
 	public BaseResponse getResultSummary(int page,int show_count,String plant_cd,String work_dt,String line_cd,String shift,String tool,String excel_down){
 		
 		IResultMapper mapper = sqlSession.getMapper(IResultMapper.class);
@@ -44,7 +47,7 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
+		map.put("plant_cd", utils.rpad(plant_cd,4,' '));
 		map.put("work_dt", work_dt.replace("-", ""));
 		map.put("line_cd", line_cd);
 		map.put("shift", shift);
@@ -89,9 +92,9 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd+"   ");
+		map.put("plant_cd", utils.rpad(plant_cd,4,' '));
 		map.put("from_dt", from_dt.replace("-", "")+"000000");
-		map.put("to_dt", to_dt.replace("-", "")+"000000");
+		map.put("to_dt", to_dt.replace("-", "")+"235959");
 		map.put("shift", shift);
 		map.put("device_id",device_id);
 		map.put("device_serial", device_serial);
@@ -295,7 +298,7 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd+"   ");
+		map.put("plant_cd", utils.rpad(plant_cd,4,' '));
 		//map.put("from_dt", from_dt.replace("-", ""));
 		//map.put("to_dt", to_dt.replace("-", ""));
 		map.put("from_dt", from_dt+":00:00:00");
@@ -379,7 +382,7 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
+		map.put("plant_cd", utils.rpad(plant_cd,1,' '));
 		map.put("from_dt", from_dt.replace("-", ""));
 		map.put("to_dt", to_dt.replace("-", ""));
 		//map.put("from_dt", from_dt);
@@ -423,7 +426,7 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
+		map.put("plant_cd", utils.rpad(plant_cd,4,' '));
 		map.put("work_dt", work_dt.replace("-", ""));
 		
 		map.put("hh", hh);
@@ -480,7 +483,7 @@ public class ResultService implements IResultService {
 		}
 		
 		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("plant_cd", plant_cd);
+		map.put("plant_cd", utils.rpad(plant_cd,4,' '));
 		map.put("work_dt", work_dt.replace("-", ""));
 		
 		map.put("interlock_type", interlock_type);

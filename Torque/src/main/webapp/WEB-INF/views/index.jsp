@@ -213,7 +213,7 @@ function getRepairToolConnStatus(){
     		
     		if (item.pgm_STATUS == '1')
     			item.pgm_STATUS = imgok;
-    		else (item.pgm_STATUS == '0')
+    		else if (item.pgm_STATUS == '0')
     			item.pgm_STATUS = imgng;
     		
     		if (item.tool_STATUS == 'Y')
