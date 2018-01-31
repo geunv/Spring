@@ -47,3 +47,11 @@ excel 추가
 <script src="/WebCommon/scripts/jquery-ui.js" type="text/javascript"></script>      
 <script src="/WebCommon/scripts/jquery.countdown360.js" type="text/javascript"></script>
 <script src="/WebCommon/scripts/Commons.js" type="text/javascript"></script> 
+
+<style type="text/css">
+	
+	.dropdown:hover .dropdown-menu {
+	    display: block;
+	    margin-top: 0;
+	}
+	</style>

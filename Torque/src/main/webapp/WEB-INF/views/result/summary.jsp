@@ -231,8 +231,81 @@
     		}
     	}); */
     }
+    
+/* 	function getExcelData(){
+    	//$.get('/api/setting/gettoollist?'+params,function(data){
+    	
+    	var params = "?plant_cd="+$('#ddlPlant').val()+
+					 "&work_dt="+$('#txtDate').val()+
+					 "&line="+$('#ddlLine').val() +
+					 "&shift="+$('#ddlShift').val() +
+					 "&tool="+$('#ddlTool').val() +
+					 "&page="+now_page+
+					 "&show_count="+show_count+
+					 "&excel_down=Y";
+    	
+		$.ajax({
+			type : "GET",
+			url:'/api/result/getresultsummary'+params,
+			beforeSend : function(){
+				$('#load-image').show();
+			}
+		}).success(function(data) {
+			if(data.result == 200){
+				$("#list_excel").empty();
+				$("#list_excel").append("<thead>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Num'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Tool'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Line'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Total'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.OK'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.NG'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.NoScan'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Pass'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.Repair'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.TotalOK'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.TotalNG'/></th>");
+				$("#list_excel").append("<th><spring:message code='COMMON.PassRatio'/></th>");
+				$("#list_excel").append("</thead>");
+				
+				$("#list_excel").append("<tbody>");
+				
+				data.list.forEach(function(item){
+					
+					$('#list_excel').append(
+						  '<tr>' 
+							+ ' <td>' + item.rnum +'</td>'
+							+ ' <td>' + item.device +'</td>'
+							+ ' <td>' + item.line_cd +'</td>'
+							+ ' <td>' + item.total +'</td>'
+							+ ' <td>' + item.ok +'</td>'
+							+ ' <td>' + item.ng +'</td>'
+							+ ' <td>' + item.noscan +'</td>'
+							+ ' <td>' + item.pass +'</td>'
+							+ ' <td>' + item.repair +'</td>'
+							+ ' <td>' + item.tot_ok +'</td>'
+							+ ' <td>' + item.tot_ng +'</td>'
+							+ ' <td>' + item.pass_ratio +'</td>'
+						+ '</tr>'
+					);
+				});
+				
+				$("#list_excel").append("</tbody>");
+			}
+			
+		}).error(function(data) {
+			$('#load-image').hide();
+			console.log("Error-"+data);
+			//alert(data);
+		}).complete(function(data){
+			$('#load-image').hide();
+			
+		
+		
+		});	//ajax complete end;
+	} */
 
-    function getExcelData(){
+     function getExcelData(){
     	//$.get('/api/setting/gettoollist?'+params,function(data){
     	
     	var params = "?plant_cd="+$('#ddlPlant').val()+

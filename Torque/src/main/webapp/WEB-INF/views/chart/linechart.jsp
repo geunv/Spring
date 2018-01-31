@@ -89,26 +89,9 @@
 		
 		init();
 		
-		makeChart();
-		//setTimeout(function(){
-		//	$("#btnSearch").click();
-		//},100);
-		
-		
 		$("#btnSearch").on('click', function(e){
-			//document.getElementById('load-image').style.display = "none";
-			//var con = document.getElementById("load-image");
-		    //if(con.style.display=='none'){
-		    //    con.style.display = 'block';
-		    //}else{
-		    //    con.style.display = 'none';
-		    //}
+			getChart();
 
-		    //setTimeout(myFunction, 3000)
-		    
-			makeChart();
-			
-			//
 		});
 		
 		$('#ddlLine').on('change', function(){
@@ -127,6 +110,10 @@
     	
     });
 	
+    $( window ).on( "load", function() {
+    	getChart();
+    });
+    
     //function myFunction(){
     //	document.getElementById("load-image").style.display = 'none';
     //}
@@ -162,7 +149,7 @@
     }
     
     
-    function makeChart(){
+	function getChart(){
      	
     	var oldData = "";
     	if ( $('#chkSelOldData').is(":checked") == true)
@@ -195,13 +182,18 @@
 		var centerTor = "";
     	var minTor = "";
     	
-		$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
+		//$.ajaxSetup({async:false});	//비동기 끄기	- dropdownlist 가 순차적으로 불러져야 다음 ddl이 불러진다.
 		
 		var torCnt;
-		
-    	$.get('/api/chart/getchartline'+params,function(data){
-    		if(data.result == 200){
-    		
+		$.ajax({
+			type : "GET",
+			url : '/api/chart/getchartline'+params,
+			beforeSend : function(){
+				$('#load-image').show();
+			}
+		}).success(function(data) {
+			if(data.result == 200){
+	    		
     			torCnt = data.valuelist.length;
     			data.valuelist.forEach(function(item){
     				body_no.push(item.body_no);
@@ -222,132 +214,129 @@
     			centerTor = data.standardlist.torque_ok;
     			minTor = data.standardlist.torque_low;
     		}
-    	});
+			
+		}).error(function(data) {
+			$('#load-image').hide();
+			console.log("Error-"+data);
+			//alert(data);
+		}).complete(function(data){
+			$('#load-image').hide();
+			
+			if ( tmp_tor_arr.length > 0 ){
+		    	var valuemax = tmp_tor_arr.reduce(function(a, b) {
+		    	    return Math.max(a, b);
+		    	});
+		    	
+		    	var valuemin = tmp_tor_arr.reduce(function(a, b) {
+		    	    return Math.min(a, b);
+		    	});
+	    	}
+	    	
+	    	var chart1Max = "";
+	    	var chart1Min = "";
+	    	
+	    	if ( valuemax > maxTor )
+	    		chart1Max = Number(valuemax);
+	    	else
+	    		chart1Max = Number(maxTor) + Number(10);
+	    	
+	    	if ( valuemin < minTor )
+	    		chart1Min = Number(valuemin);
+	    	else
+	    		chart1Min = Number(minTor) - Number(10);
+	    	
+	    	
+	    	
+	    	var barchart1 = c3.generate({
+				bindto: '#linechart1',
+				transition: {
+					  duration: 100
+				},
+				padding: {
+			        right: 100
+				},
+			    data: {
+			        x : 'x',
+			        columns: [
+						body_no,
+						tor_value
+			        ],
+			        type: 'line',
+			        labels: true,
+			    },
+			    legend: {
+			        position: 'right'
+			    },
+			    axis: {
+			        x: {
+			            type: 'category' // this needed to load string x value
+			        }
+			    	,
+			    	y:{
+			    		//center : Number(centerTor)
+			    		max:chart1Max,
+			    		min:chart1Min
+			    	}
+			    },
+			    /* color: {
+			        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+			    	pattern: [ '#336699']
+			    }, */
+			    grid: {
+			    	  y: {
+			    	    lines: [{value: tor_high,class:'standHigh' , text: 'H='+tor_high}
+			    	    		,{value: tor_ok,class:'standOk' , text: 'OK='+tor_ok}
+			    	    		,{value: tor_low,class:'standLow' , text: 'L='+tor_low}]
+
+			    	  }
+			    }
+
+			}); // chart1
+	    	
+	    	var barchart2 = c3.generate({
+				bindto: '#linechart2',
+				padding: {
+			        right: 100
+				},
+			    data: {
+			        x : 'x',
+			        columns: [
+						body_no,
+						ang_value
+			        ],
+			        type: 'line',
+			        labels: true,
+			    },
+			    legend: {
+			        position: 'right'
+			    },
+			    axis: {
+			        x: {
+			            type: 'category' // this needed to load string x value
+			        }
+				    ,
+			    	y:{
+			    		max:400
+			    	}
+			    },
+			    color: {
+			        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+			    	pattern: [ '#003399']
+			    },
+			    grid: {
+			    	  y: {
+			    	    lines:  [{value: ang_high,class:'standHigh' , text: 'H='+ang_high}
+			    	    		,{value: ang_ok,class:'standOk' , text: 'OK='+ang_ok}
+			    	    		,{value: ang_low,class:'standLow' , text: 'L='+ang_low}]
+
+			    	  }
+			    }
+			});	//char2;
 		
-    	
-    	//var arr = [1,2,3];
-    	var valuemax = tmp_tor_arr.reduce(function(a, b) {
-    	    return Math.max(a, b);
-    	});
-    	
-    	var valuemin = tmp_tor_arr.reduce(function(a, b) {
-    	    return Math.min(a, b);
-    	});
-    	
-    	var chart1Max = "";
-    	var chart1Min = "";
-    	
-    	if ( valuemax > maxTor )
-    		chart1Max = Number(valuemax);
-    	else
-    		chart1Max = Number(maxTor) + Number(10);
-    	
-    	if ( valuemin < minTor )
-    		chart1Min = Number(valuemin);
-    	else
-    		chart1Min = Number(minTor) - Number(10);
-    	
-    	$.ajaxSetup({async:true});
-    	
-    	var barchart1 = c3.generate({
-			bindto: '#linechart1',
-			/*
-			oninit: function (){
-				$('#load-image').show();
-			},
-			onrendered :function(){
-				$('#load-image').hide();
-			},
-			transition: {
-				  duration: 100
-			}, */
-			padding: {
-		        right: 100
-			},
-		    data: {
-		        x : 'x',
-		        columns: [
-					body_no,
-					tor_value
-		        ],
-		        type: 'line',
-		        labels: true,
-		    },
-		    legend: {
-		        position: 'right'
-		    },
-		    axis: {
-		        x: {
-		            type: 'category' // this needed to load string x value
-		        }
-		    	,
-		    	y:{
-		    		//center : Number(centerTor)
-		    		max:chart1Max,
-		    		min:chart1Min
-		    	}
-		    },
-		    /* color: {
-		        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
-		    	pattern: [ '#336699']
-		    }, */
-		    grid: {
-		    	  y: {
-		    	    lines: [{value: tor_high,class:'standHigh' , text: 'H='+tor_high}
-		    	    		,{value: tor_ok,class:'standOk' , text: 'OK='+tor_ok}
-		    	    		,{value: tor_low,class:'standLow' , text: 'L='+tor_low}]
-
-		    	  }
-		    }
-
-		}); 
-    	
-    	var barchart2 = c3.generate({
-			bindto: '#linechart2',
-			padding: {
-		        right: 100
-			},
-		    data: {
-		        x : 'x',
-		        columns: [
-					body_no,
-					ang_value
-		        ],
-		        type: 'line',
-		        labels: true,
-		    },
-		    legend: {
-		        position: 'right'
-		    },
-		    axis: {
-		        x: {
-		            type: 'category' // this needed to load string x value
-		        }
-			    ,
-		    	y:{
-		    		max:400
-		    	}
-		    },
-		    color: {
-		        //pattern: [ '#d62728','#1f77b4', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
-		    	pattern: [ '#003399']
-		    },
-		    grid: {
-		    	  y: {
-		    	    lines:  [{value: ang_high,class:'standHigh' , text: 'H='+ang_high}
-		    	    		,{value: ang_ok,class:'standOk' , text: 'OK='+ang_ok}
-		    	    		,{value: ang_low,class:'standLow' , text: 'L='+ang_low}]
-
-		    	  }
-		    }
-		});
+		});	//ajax complete end;
     	
     	
-    }
-    
-   
-    function getList(){
-     
+    	
     }
    
 </script>

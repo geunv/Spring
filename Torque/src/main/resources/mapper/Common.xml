@@ -54,7 +54,7 @@
 		    FROM TIGHTENING_DEVICE_MA 
 		    WHERE PLANT_CD = RPAD(#{plant_cd},4)
 		    ) 
-		ORDER BY DEVICE_GRP_CD
+		ORDER BY TO_NUMBER(DEVICE_GRP_CD)
 	</select>
 
 	<select id="selectToolID"  parameterMap="ToolIDParam" resultMap="ToolIDModel" >

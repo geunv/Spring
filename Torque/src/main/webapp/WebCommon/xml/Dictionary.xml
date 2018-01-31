@@ -1,0 +1,1221 @@
+﻿<?xml version="1.0" encoding="utf-8"  ?>
+<NewDataSet>
+  <Table>
+    <DIC_ID>BUTTON.Close</DIC_ID>
+    <DIC_NM_EN_US>Close</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>닫기</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Close</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Delete</DIC_ID>
+    <DIC_NM_EN_US>Delete</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>삭제</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Delete</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Excel</DIC_ID>
+    <DIC_NM_EN_US>Excel</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>엑셀</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Excel</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Modify</DIC_ID>
+    <DIC_NM_EN_US>Modify</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>수정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Modify</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Registration</DIC_ID>
+    <DIC_NM_EN_US>Registration</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>등록</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Registration</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Reset</DIC_ID>
+    <DIC_NM_EN_US>Reset</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>초기화</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Reset</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Save</DIC_ID>
+    <DIC_NM_EN_US>Save</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>저장</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Save</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>BUTTON.Search</DIC_ID>
+    <DIC_NM_EN_US>Search</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>CHGPWD.ConfirmPassword</DIC_ID>
+    <DIC_NM_EN_US>Confirm Password</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>비밀번호 확인</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Confirm Password</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>CHGPWD.NewPassword</DIC_ID>
+    <DIC_NM_EN_US>New Password</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>신규 비밀번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>New Password</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.CarType</DIC_ID>
+    <DIC_NM_EN_US>Car Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차종</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Car Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Connected</DIC_ID>
+    <DIC_NM_EN_US>Connected</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>접속정상</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Connected</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Date</DIC_ID>
+    <DIC_NM_EN_US>Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>날짜</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Disconnected</DIC_ID>
+    <DIC_NM_EN_US>Disconnected</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>접속장애</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Disconnected</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.GrpSize</DIC_ID>
+    <DIC_NM_EN_US>Group Size</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>그룹 사이즈</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Group Size</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Line</DIC_ID>
+    <DIC_NM_EN_US>Line</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>라인</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.NG</DIC_ID>
+    <DIC_NM_EN_US>NG</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>NG</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NG</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.NoScan</DIC_ID>
+    <DIC_NM_EN_US>No Scan</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>No Scan</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>No Scan</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Num</DIC_ID>
+    <DIC_NM_EN_US>#</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>#</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>#</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.OK</DIC_ID>
+    <DIC_NM_EN_US>OK</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>OK</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>OK</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Pass</DIC_ID>
+    <DIC_NM_EN_US>Pass</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Pass</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Pass</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.PassRatio</DIC_ID>
+    <DIC_NM_EN_US>Pass Ratio(%)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>합격률</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Pass Ratio(%)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Password</DIC_ID>
+    <DIC_NM_EN_US>Password</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>비밀번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Password</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Plant</DIC_ID>
+    <DIC_NM_EN_US>Plant</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>공장</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Plant</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Program</DIC_ID>
+    <DIC_NM_EN_US>Program</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로그램</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Program</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Register</DIC_ID>
+    <DIC_NM_EN_US>Register</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>등록자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Register</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.RegisterDate</DIC_ID>
+    <DIC_NM_EN_US>Register Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>등록일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Register Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Repair</DIC_ID>
+    <DIC_NM_EN_US>Repair</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Repair</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Repair</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Seq</DIC_ID>
+    <DIC_NM_EN_US>Seq.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>순서</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Seq.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Shift</DIC_ID>
+    <DIC_NM_EN_US>Shift</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업조</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Shift</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.StnType</DIC_ID>
+    <DIC_NM_EN_US>Station Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>공정 구분</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Station Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.TighteningResult</DIC_ID>
+    <DIC_NM_EN_US>Tightening Result</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결결과</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tightening Result</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Today</DIC_ID>
+    <DIC_NM_EN_US>Today</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>오늘</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Today</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Tool</DIC_ID>
+    <DIC_NM_EN_US>Tool</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Total</DIC_ID>
+    <DIC_NM_EN_US>Total</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>전체</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.TotalCont</DIC_ID>
+    <DIC_NM_EN_US>Total Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>전체 건수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.TotalNG</DIC_ID>
+    <DIC_NM_EN_US>Total NG</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Total NG</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total NG</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.TotalOK</DIC_ID>
+    <DIC_NM_EN_US>Total OK</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Total OK</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total OK</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Type</DIC_ID>
+    <DIC_NM_EN_US>Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>유형</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.UserID</DIC_ID>
+    <DIC_NM_EN_US>User ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>사용자 아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>User ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>COMMON.Yesterday</DIC_ID>
+    <DIC_NM_EN_US>Yesterday</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>어제</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Yesterday</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>CT01.SearchOldData</DIC_ID>
+    <DIC_NM_EN_US>Search Old Data</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>백업 데이터 조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search Old Data</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>CT02.SearchOldData</DIC_ID>
+    <DIC_NM_EN_US>Search Old Data</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>백업 데이터 조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search Old Data</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>CT03.SearchOldData</DIC_ID>
+    <DIC_NM_EN_US>Search Old Data</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>백업 데이터 조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search Old Data</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MAIN.DisconnToolList</DIC_ID>
+    <DIC_NM_EN_US>Disconnected Tool List</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>접속장애 툴 리스트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Disconnected Tool List</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MAIN.RepairConnection</DIC_ID>
+    <DIC_NM_EN_US>Repair Connection</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>재작업 툴 접속현황</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Repair Connection</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MAIN.ToolConnection</DIC_ID>
+    <DIC_NM_EN_US>Tool  Connection</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 접속현황</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool  Connection</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.CHART</DIC_ID>
+    <DIC_NM_EN_US>CHART</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>CHART</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.LOGOUT</DIC_ID>
+    <DIC_NM_EN_US>Logout</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>로그아웃</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Logout</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.MAIN</DIC_ID>
+    <DIC_NM_EN_US>MAIN</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>메인</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MAIN</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.RESULT</DIC_ID>
+    <DIC_NM_EN_US>RESULT</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>결과</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>RESULT</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.SETTING</DIC_ID>
+    <DIC_NM_EN_US>SETTING</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>SETTING</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.SYSTEM</DIC_ID>
+    <DIC_NM_EN_US>SYSTEM</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>시스템</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>SYSTEM</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>MENU.TOOLSNET</DIC_ID>
+    <DIC_NM_EN_US>ToolsNet</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>ToolsNet</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>ToolsNet</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.BodyNo</DIC_ID>
+    <DIC_NM_EN_US>Body No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차량번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Body No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.MESProdDate</DIC_ID>
+    <DIC_NM_EN_US>MES Prod Date(PBSOUT)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>MES 생산일자(PBSOUT)</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Prod Date(PBSOUT)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.MESSeq</DIC_ID>
+    <DIC_NM_EN_US>MES Seq.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>MES 서열</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Seq.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.MESTransDate</DIC_ID>
+    <DIC_NM_EN_US>MES Transfer Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>MES 전송일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Transfer Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.MesTransFlg</DIC_ID>
+    <DIC_NM_EN_US>MES Transfer</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>MES 전송여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Transfer</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.RepairResult</DIC_ID>
+    <DIC_NM_EN_US>Repair Result</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Repair 결과</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Repair Result</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.Scan</DIC_ID>
+    <DIC_NM_EN_US>Scan</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Scan</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Scan</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.SearchOldData</DIC_ID>
+    <DIC_NM_EN_US>Search Old Data</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>백업 데이터 조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search Old Data</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.Seq</DIC_ID>
+    <DIC_NM_EN_US>Seq.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>서열</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Seq.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.ShowAllBatchInfo</DIC_ID>
+    <DIC_NM_EN_US>Show all batch value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>배치값 전체보기</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Show all batch value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS02.TenValue</DIC_ID>
+    <DIC_NM_EN_US>Tension Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>장력값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Valor de Tension</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.AngleState</DIC_ID>
+    <DIC_NM_EN_US>Angle State</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>앵글상태</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Angle State</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.AngleValue</DIC_ID>
+    <DIC_NM_EN_US>Angle Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>앵글값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Angle Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.BatchNum</DIC_ID>
+    <DIC_NM_EN_US>Batch No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>배치 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Batch No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.SearchOldData</DIC_ID>
+    <DIC_NM_EN_US>Search Old Data</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>백업 데이터 조회</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Search Old Data</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.TighteningDate</DIC_ID>
+    <DIC_NM_EN_US>Tightening Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결 일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tightening Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.TighteningID</DIC_ID>
+    <DIC_NM_EN_US>Tightening ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tightening ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.TorqueState</DIC_ID>
+    <DIC_NM_EN_US>Torque State</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>토크상태</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Torque State</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS03.TorqueValue</DIC_ID>
+    <DIC_NM_EN_US>Torque Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>토크값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Torque Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS04.CarTypeGrp</DIC_ID>
+    <DIC_NM_EN_US>Car Type Group</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차종 그룹</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Car Type Group</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS04.CycleTestItem</DIC_ID>
+    <DIC_NM_EN_US>Cycle Test Item</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>주기테스트 아이템</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Cycle Test Item</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS04.TestDate</DIC_ID>
+    <DIC_NM_EN_US>Test Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>테스트 일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Test Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS04.TestHour</DIC_ID>
+    <DIC_NM_EN_US>Test Hour</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>테스트 시간</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Test Hour</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS05.Reason</DIC_ID>
+    <DIC_NM_EN_US>Reason</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>사유</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Reason</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS06.Interlock</DIC_ID>
+    <DIC_NM_EN_US>Interlock</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Interlock</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS06.NGRatio</DIC_ID>
+    <DIC_NM_EN_US>NG (%)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>불량률</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NG (%)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS06.NoScanRatio</DIC_ID>
+    <DIC_NM_EN_US>NoScan (%)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>노스캔률</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NoScan (%)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS06.OKRatio</DIC_ID>
+    <DIC_NM_EN_US>Total OK (%)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>합격률</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total OK (%)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>RS06.WorkDate</DIC_ID>
+    <DIC_NM_EN_US>WorkDate</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>WorkDate</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.CHANGEPASSWORD</DIC_ID>
+    <DIC_NM_EN_US>Change Password</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>비밀번호 변경</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Change Password</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.CT01</DIC_ID>
+    <DIC_NM_EN_US>Line Chart</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Line 차트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line Chart</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.CT02</DIC_ID>
+    <DIC_NM_EN_US>Faulty Chart</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>Faulty 차트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Faulty Chart</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.CT03</DIC_ID>
+    <DIC_NM_EN_US>X Bar-R Chart</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>X Bar-R 차트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>X Bar-R Chart</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS01</DIC_ID>
+    <DIC_NM_EN_US>Tool Result Summary</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결결과 통계</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Result Summary</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS02</DIC_ID>
+    <DIC_NM_EN_US>Tool Result Detail</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결결과 상세보기</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Result Detail</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS03</DIC_ID>
+    <DIC_NM_EN_US>Tool Result History</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결결과 이력</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Result History</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS04</DIC_ID>
+    <DIC_NM_EN_US>Cycle Test Result</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>주기 테스트 결과</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Cycle Test Result</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS05</DIC_ID>
+    <DIC_NM_EN_US>Line Stop History</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>라인정지 이력</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line Stop History</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.RS06</DIC_ID>
+    <DIC_NM_EN_US>Tool Result By Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결결과 날짜별</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Result By Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.SM01</DIC_ID>
+    <DIC_NM_EN_US>Program &amp; Process</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로그램 &amp; 프로세스</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Program &amp; Process</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.SM02</DIC_ID>
+    <DIC_NM_EN_US>Common Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>공통코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Common Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.SM03</DIC_ID>
+    <DIC_NM_EN_US>Language</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>다국어</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Language</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST01</DIC_ID>
+    <DIC_NM_EN_US>Tool</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST02</DIC_ID>
+    <DIC_NM_EN_US>Job No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Job No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST03</DIC_ID>
+    <DIC_NM_EN_US>Car Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차종</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Car Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST04</DIC_ID>
+    <DIC_NM_EN_US>Line</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>라인</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST05</DIC_ID>
+    <DIC_NM_EN_US>Shift</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업조</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Shift</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST06</DIC_ID>
+    <DIC_NM_EN_US>Cycle Test Item</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>주기테스트 아이템</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Cycle Test Item</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SCREEN.ST07</DIC_ID>
+    <DIC_NM_EN_US>User</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>사용자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>User</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.CycleTestInterval</DIC_ID>
+    <DIC_NM_EN_US>Cycle Test Interval</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>주기테스트 간격</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Cycle Test Interval</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockFlag</DIC_ID>
+    <DIC_NM_EN_US>Use Interlock</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 사용여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Use Interlock</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockNGCount</DIC_ID>
+    <DIC_NM_EN_US>Interlock NG Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 NG 차량대수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock NG Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockNGPoint</DIC_ID>
+    <DIC_NM_EN_US>Interlock NG Point</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 NG 위치</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock NG Point</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockNoScanCount</DIC_ID>
+    <DIC_NM_EN_US>Interlock No Scan Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 No Scan 차량대수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock No Scan Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockNoScanPoint</DIC_ID>
+    <DIC_NM_EN_US>Interlock No Scan Point</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 No Sacn 위치</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock No Scan Point</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockPLCIP</DIC_ID>
+    <DIC_NM_EN_US>Interlock PLC IP</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 PLC IP</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock PLC IP</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockPLCPort</DIC_ID>
+    <DIC_NM_EN_US>Interlock PLC Port</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 PLC 포트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock PLC Port</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockPLCStartAddr</DIC_ID>
+    <DIC_NM_EN_US>Interlock PLC Start Address</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 PLC 시작주소</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock PLC Start Address</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.InterlockPLCType</DIC_ID>
+    <DIC_NM_EN_US>Interlock PLC Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 PLC 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock PLC Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.LogicalTrkFlag</DIC_ID>
+    <DIC_NM_EN_US>Use Logical Tracking</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>논리 트래킹 사용여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Use Logical Tracking</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.MESStnCD</DIC_ID>
+    <DIC_NM_EN_US>MES Station Code for Tracking</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 MES 공정코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Station Code for Tracking</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.NGMESStnCD</DIC_ID>
+    <DIC_NM_EN_US>MES Station Code for NG Tracking</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>NG트래킹 MES 공정코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>MES Station Code for NG Tracking</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.NGTrkAlarmPos</DIC_ID>
+    <DIC_NM_EN_US>NG Tracking Alarm Position</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>NG트래킹 알람위치</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NG Tracking Alarm Position</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.NGTrkDispCount</DIC_ID>
+    <DIC_NM_EN_US>NG Tracking Display Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>NG트래킹 표시건수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NG Tracking Display Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.NGTrkStartPos</DIC_ID>
+    <DIC_NM_EN_US>NG Tracking Start Position</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>NG트래킹 시작위치</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>NG Tracking Start Position</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.PgmName</DIC_ID>
+    <DIC_NM_EN_US>Program Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로그램명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Program Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.ProcChkTime</DIC_ID>
+    <DIC_NM_EN_US>Process State CheckTime</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로세스상태 체크시간</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Process State CheckTime</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.ProcName</DIC_ID>
+    <DIC_NM_EN_US>Process Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로세스명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Process Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.ProcState</DIC_ID>
+    <DIC_NM_EN_US>Process State</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로세스 상태</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Process State</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.Process</DIC_ID>
+    <DIC_NM_EN_US>Process ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로세스 아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Process ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.Program</DIC_ID>
+    <DIC_NM_EN_US>Program ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>프로그램 아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Program ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.ReconnTime</DIC_ID>
+    <DIC_NM_EN_US>Reconnect Time(s)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>재연결시간(초)</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Reconnect Time(s)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.ScannerFlag</DIC_ID>
+    <DIC_NM_EN_US>Use Scanner</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>스캐너 사용여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Use Scanner</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.SetInterlockPLC</DIC_ID>
+    <DIC_NM_EN_US>Interlock PLC Setting</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>인터록 PLC 설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Interlock PLC Setting</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.SetLogicalTracking</DIC_ID>
+    <DIC_NM_EN_US>Logical Tracking Setting</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>논리트래킹 설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Logical Tracking Setting</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.SetRepair</DIC_ID>
+    <DIC_NM_EN_US>for Repair</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>리페어 설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>for Repair</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.SetTrkPLC</DIC_ID>
+    <DIC_NM_EN_US>Tracking PLC Setting</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 PLC 설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking PLC Setting</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkDispCount</DIC_ID>
+    <DIC_NM_EN_US>Tracking Display Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 표시건수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking Display Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkPLCIP</DIC_ID>
+    <DIC_NM_EN_US>Tracking PLC IP</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 PLC IP</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking PLC IP</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkPLCPort</DIC_ID>
+    <DIC_NM_EN_US>Tracking PLC Port</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 PLC 포트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking PLC Port</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkPLCStartAddr</DIC_ID>
+    <DIC_NM_EN_US>Tracking PLC Start Address</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 PLC 시작주소</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking PLC Start Address</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkPLCType</DIC_ID>
+    <DIC_NM_EN_US>Tracking PLC Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 PLC 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking PLC Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkStartPos</DIC_ID>
+    <DIC_NM_EN_US>Tracking Start Position</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 시작위치</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking Start Position</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM01.TrkTitle</DIC_ID>
+    <DIC_NM_EN_US>Tracking Title</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>트래킹 제목</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tracking Title</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM02.ChkCreateCodeGrp</DIC_ID>
+    <DIC_NM_EN_US>Create Code Group</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드그룹 생성</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Create Code Group</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM02.Code</DIC_ID>
+    <DIC_NM_EN_US>Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM02.CodeGrp</DIC_ID>
+    <DIC_NM_EN_US>Code Group</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드그룹</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code Group</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM02.CodeName</DIC_ID>
+    <DIC_NM_EN_US>Code Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM02.CodeValue</DIC_ID>
+    <DIC_NM_EN_US>Code Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.LangEng</DIC_ID>
+    <DIC_NM_EN_US>English</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>영어</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>English</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.LangID</DIC_ID>
+    <DIC_NM_EN_US>Language ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>언어별 아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Language ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.LangKor</DIC_ID>
+    <DIC_NM_EN_US>Korean</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>한글</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Korean</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.LangLon</DIC_ID>
+    <DIC_NM_EN_US>Spanish</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>스페인어</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Español</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.LangType</DIC_ID>
+    <DIC_NM_EN_US>Language Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>언어 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Language Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.MSG_TYPE</DIC_ID>
+    <DIC_NM_EN_US>Message Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>메시지 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Message Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.MsgType</DIC_ID>
+    <DIC_NM_EN_US>Message Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>메시지 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Message Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>SM03.SysArea</DIC_ID>
+    <DIC_NM_EN_US>System Area</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>시스템 영역</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>System Area</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.AnglHighVal</DIC_ID>
+    <DIC_NM_EN_US>Angle High Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>앵글 최고값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Angle High Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.AnglLowVal</DIC_ID>
+    <DIC_NM_EN_US>Angle Low Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>앵글 최저값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Angle Low Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.AnglOkVal</DIC_ID>
+    <DIC_NM_EN_US>Angle OK Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>앵글 기준값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Angle OK Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.CheckStatusDT</DIC_ID>
+    <DIC_NM_EN_US>State CheckTime</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>상태 체크시간</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>State CheckTime</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.CompToolFlag</DIC_ID>
+    <DIC_NM_EN_US>Complete Tool</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>완료 툴</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Complete Tool</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.CondFlag</DIC_ID>
+    <DIC_NM_EN_US>Use Condition</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 사용여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Use Condition</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.CurrBodyNo</DIC_ID>
+    <DIC_NM_EN_US>Current BodyNo.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>현재 차량</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Current BodyNo.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.LastBodyNo</DIC_ID>
+    <DIC_NM_EN_US>Last Body No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>마지막 차량</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Last Body No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.LastWorkingDate</DIC_ID>
+    <DIC_NM_EN_US>Last Working Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>마지막 작업일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Last Working Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ResetJobNo</DIC_ID>
+    <DIC_NM_EN_US>Reset Job No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>JobNo. 재설정</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Reset Job No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.SendJobNoFlag</DIC_ID>
+    <DIC_NM_EN_US>Send Job No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업번호 전송여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Send Job No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.SerialParallelFlag</DIC_ID>
+    <DIC_NM_EN_US>Serial-Parallel</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>직렬/병렬 구분</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Serial-Parallel</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ShowValueType</DIC_ID>
+    <DIC_NM_EN_US>Screen Value Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>체결 값 화면타입</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Screen Value Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.Tool</DIC_ID>
+    <DIC_NM_EN_US>Tool ID</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 아이디</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool ID</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolAlias</DIC_ID>
+    <DIC_NM_EN_US>Tool Alias</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 별칭</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Alias</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolGrp</DIC_ID>
+    <DIC_NM_EN_US>Tool Group</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 그룹</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Group</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolIP</DIC_ID>
+    <DIC_NM_EN_US>IP</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>IP</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>IP</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolName</DIC_ID>
+    <DIC_NM_EN_US>Tool Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 이름</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolPort</DIC_ID>
+    <DIC_NM_EN_US>Port</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>포트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Port</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolSerial</DIC_ID>
+    <DIC_NM_EN_US>Tool Serial</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Serial</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolState</DIC_ID>
+    <DIC_NM_EN_US>Tool State</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 상태</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool State</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.ToolType</DIC_ID>
+    <DIC_NM_EN_US>Tool Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>툴 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Tool Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.TorqHighVal</DIC_ID>
+    <DIC_NM_EN_US>Torque High Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>토크 최고값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Torque High Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.TorqLowVal</DIC_ID>
+    <DIC_NM_EN_US>Torque Low Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>토크 최저값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Torque Low Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.TorqOkVal</DIC_ID>
+    <DIC_NM_EN_US>Torque OK Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>토크 기준값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Torque OK Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST01.WebDispFlag</DIC_ID>
+    <DIC_NM_EN_US>Display Web</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>웹화면표시 여부</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Display Web</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondExpression</DIC_ID>
+    <DIC_NM_EN_US>Condition Expression</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 표현식</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Expression</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondGrpNo</DIC_ID>
+    <DIC_NM_EN_US>Condition Group No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건그룹 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Group No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondGub</DIC_ID>
+    <DIC_NM_EN_US>Condition Type</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 종류</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Type</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondNo</DIC_ID>
+    <DIC_NM_EN_US>Option No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Option No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondOperator</DIC_ID>
+    <DIC_NM_EN_US>Condition Operator</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 등호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Operator</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondSeq</DIC_ID>
+    <DIC_NM_EN_US>Condition Seq.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 순서</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Seq.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.CondVal</DIC_ID>
+    <DIC_NM_EN_US>Condition Value</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 값</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition Value</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.ConditionList</DIC_ID>
+    <DIC_NM_EN_US>Condition List</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>조건 리스트</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Condition List</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.JobNo</DIC_ID>
+    <DIC_NM_EN_US>Job No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Job No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.RepBatchNo</DIC_ID>
+    <DIC_NM_EN_US>Repair Batch Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>리페어 총 배치수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Repair Batch Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.RepairJobNo</DIC_ID>
+    <DIC_NM_EN_US>Repair Job No.</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>재작업 번호</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Repair Job No.</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST02.TotBatchNo</DIC_ID>
+    <DIC_NM_EN_US>Total Batch Count</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>전체 작업 배치수</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Total Batch Count</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST03.Code</DIC_ID>
+    <DIC_NM_EN_US>Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST03.CodeName</DIC_ID>
+    <DIC_NM_EN_US>Group Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>그룹코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Group Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST03.CodeValue</DIC_ID>
+    <DIC_NM_EN_US>Code Index</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>차종코드 인덱스</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Code Index</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST04.Code</DIC_ID>
+    <DIC_NM_EN_US>Line Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>라인코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST04.CodeName</DIC_ID>
+    <DIC_NM_EN_US>Line Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>라인명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Line Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST05.Code</DIC_ID>
+    <DIC_NM_EN_US>Shift Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업조 코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Shift Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST05.CodeName</DIC_ID>
+    <DIC_NM_EN_US>Shift Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업조명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Shift Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST05.CodeValue</DIC_ID>
+    <DIC_NM_EN_US>Start Time(hhmmss)</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>작업조 시작시간(hhmmss)</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Start Time(hhmmss)</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST06.Code</DIC_ID>
+    <DIC_NM_EN_US>Item Code</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>아이템 코드</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Item Code</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST06.CodeName</DIC_ID>
+    <DIC_NM_EN_US>Item Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>아이템명</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Item Name</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST07.Authority</DIC_ID>
+    <DIC_NM_EN_US>Authority</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>권한</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Authority</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST07.LastLoginDT</DIC_ID>
+    <DIC_NM_EN_US>Last Login Date</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>최근 로그인 일자</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Last Login Date</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST07.UserGrp</DIC_ID>
+    <DIC_NM_EN_US>Group</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>그룹</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Group</DIC_NM_LO_LN>
+  </Table>
+  <Table>
+    <DIC_ID>ST07.UserName</DIC_ID>
+    <DIC_NM_EN_US>Name</DIC_NM_EN_US>
+    <DIC_NM_KO_KR>이름</DIC_NM_KO_KR>
+    <DIC_NM_LO_LN>Name</DIC_NM_LO_LN>
+  </Table>
+</NewDataSet>

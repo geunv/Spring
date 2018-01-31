@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"  ?>
+<NewDataSet>
+  <Table>
+    <MSG_ID>CHGPWD.EnterNewPassword</MSG_ID>
+    <MSG_TEXT_EN_US>Enter your new password.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>신규 비밀번호를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter your new password.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>CHGPWD.EnterNewPasswordAgain</MSG_ID>
+    <MSG_TEXT_EN_US>Enter your new password again.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>신규 비밀번호를 다시 한번 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter your new password again.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>CHGPWD.NotMatchPassword</MSG_ID>
+    <MSG_TEXT_EN_US>New passwords do not match.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>신규 비밀번호가 일치하지 않습니다. </MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>New passwords do not match.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.All</MSG_ID>
+    <MSG_TEXT_EN_US>All</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>전체</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>All</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.ConfirmDelete</MSG_ID>
+    <MSG_TEXT_EN_US>Do you want to delete?</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>삭제하시겠습니까?</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Do you want to delete?</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.ConfirmInsert</MSG_ID>
+    <MSG_TEXT_EN_US>Do you want to save?</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>저장하시겠습니까?</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Do you want to save?</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.ConfirmUpdate</MSG_ID>
+    <MSG_TEXT_EN_US>Do you want to modify?</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>수정하시겠습니까?</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Do you want to modify?</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.EnterPassword</MSG_ID>
+    <MSG_TEXT_EN_US>Enter user password.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>비밀번호를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter user password.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.EnterUserID</MSG_ID>
+    <MSG_TEXT_EN_US>Enter user id.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>아이디를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter user id.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.IncorrectPassword</MSG_ID>
+    <MSG_TEXT_EN_US>Incorrect password. Please try again.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>비밀번호가 틀렸습니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Incorrect password. Please try again.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.NoData</MSG_ID>
+    <MSG_TEXT_EN_US>No records found.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>데이터가 없습니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>No records found.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.NotRegisteredUser</MSG_ID>
+    <MSG_TEXT_EN_US>Not a registered user.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>등록된 사용자가 아닙니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Not a registered user.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.OccurredError</MSG_ID>
+    <MSG_TEXT_EN_US>An error occurred while processing.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>처리중 오류가 발생했습니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>An error occurred while processing.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.RegisteredID</MSG_ID>
+    <MSG_TEXT_EN_US>The ID already exist.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>이미 등록된 아이디입니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>The ID already exist.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.Select</MSG_ID>
+    <MSG_TEXT_EN_US>Select</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>선택하세요</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.SelectStnType</MSG_ID>
+    <MSG_TEXT_EN_US>Select station type.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>공정구분을 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select station type.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>COMMON.Success</MSG_ID>
+    <MSG_TEXT_EN_US>Successfully processed.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>성공적으로 처리되었습니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Successfully processed.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM01.EnterProcess</MSG_ID>
+    <MSG_TEXT_EN_US>Enter process id.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>프로세스 아이디를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter process id.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM01.EnterProgram</MSG_ID>
+    <MSG_TEXT_EN_US>Enter program id.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>프로그램 아이디를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter program id.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM02.EnterCode</MSG_ID>
+    <MSG_TEXT_EN_US>Enter common code.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>코드를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter common code.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM02.EnterCodeGrp</MSG_ID>
+    <MSG_TEXT_EN_US>Enter code group.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>코드그룹을 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter code group.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM02.SelectCodeGrp</MSG_ID>
+    <MSG_TEXT_EN_US>Select common code group.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>코드그룹을 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select common code group.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM03.SelectLangID</MSG_ID>
+    <MSG_TEXT_EN_US>Enter language id.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>언어 아이디를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter language id.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM03.SelectLangType</MSG_ID>
+    <MSG_TEXT_EN_US>Select language type.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>언어 종류를 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select language type.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>SM03.SelectSystemArea</MSG_ID>
+    <MSG_TEXT_EN_US>Select system area.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>시스템 영역을 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select system area.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST01.EnterToolID</MSG_ID>
+    <MSG_TEXT_EN_US>Enter Tool ID.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>툴 아이디를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter Tool ID.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST01.EnterToolSerial</MSG_ID>
+    <MSG_TEXT_EN_US>Enter Tool Serial.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>툴 번호를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter Tool Serial.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.CheckJobNoCondSeq</MSG_ID>
+    <MSG_TEXT_EN_US>Condition sequence number is already registered. Please check it again.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>조건순서번호가 이미 등록되어 있습니다. 확인 후 다시 시도하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Condition sequence number is already registered. Please check it again.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.CheckRegJobNo</MSG_ID>
+    <MSG_TEXT_EN_US>Job No. must be register first.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>작업번호를 먼저 등록해야 합니다.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Job No. must be register first.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.CheckSymbols</MSG_ID>
+    <MSG_TEXT_EN_US>() Can not be entered. Please list the conditional expression.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>( ) 는 입력할 수 없습니다. 표현식을 풀어서 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>() Can not be entered. Please list the conditional expression.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.EnterCondExpression</MSG_ID>
+    <MSG_TEXT_EN_US>Enter condition expression.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>조건식을 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter condition expression.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.EnterCondGrpNo</MSG_ID>
+    <MSG_TEXT_EN_US>Enter condition group number.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>조건 그룹 번호를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter condition group number.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.EnterJobNo</MSG_ID>
+    <MSG_TEXT_EN_US>Enter job number.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>작업번호를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter job number.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.SelectCarType</MSG_ID>
+    <MSG_TEXT_EN_US>Select car type</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>차종을 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select car type</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.SelectToolID</MSG_ID>
+    <MSG_TEXT_EN_US>Select tool.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>툴을 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select tool.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST02.SelectToolSerial</MSG_ID>
+    <MSG_TEXT_EN_US>Select tool serial.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>툴 번호를 선택하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Select tool serial.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST03.EnterCode</MSG_ID>
+    <MSG_TEXT_EN_US>Enter code.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>코드를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter code.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST04.EnterCode</MSG_ID>
+    <MSG_TEXT_EN_US>Enter line code.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>라인코드를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter line code.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST05.EnterCode</MSG_ID>
+    <MSG_TEXT_EN_US>Enter shift code.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>작업조 코드를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter shift code.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST06.EnterCode</MSG_ID>
+    <MSG_TEXT_EN_US>Enter item code.</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>아이템 코드를 입력하세요.</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Enter item code.</MSG_TEXT_LO_LN>
+  </Table>
+  <Table>
+    <MSG_ID>ST07.UserName</MSG_ID>
+    <MSG_TEXT_EN_US>Name</MSG_TEXT_EN_US>
+    <MSG_TEXT_KO_KR>이름</MSG_TEXT_KO_KR>
+    <MSG_TEXT_LO_LN>Name</MSG_TEXT_LO_LN>
+  </Table>
+</NewDataSet>

@@ -13,6 +13,12 @@
 	    border: 1.5px dashed #BDBDBD;
 	    border-radius: 10px;
 	}
+	
+	
+	.dropdown:hover .dropdown-menu {
+	    display: block;
+	    margin-top: 0;
+	}
 	</style>
 </head>
 <body>
